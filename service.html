@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Christin Morton</title>
+    <title>Chrisitn Morton</title>
 
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
@@ -38,6 +38,18 @@
         <symbol id="page-add" viewBox="0 0 20 20">
             <path fill="currentColor"
                 d="M4 4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v5.207A5.5 5.5 0 0 0 14.5 9a5.5 5.5 0 0 0-3.163 1H7.5a.5.5 0 0 0 0 1h2.757a5.48 5.48 0 0 0-1.254 3.675A5.48 5.48 0 0 0 10.257 18H6a2 2 0 0 1-2-2zm8.5 2h-5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1m2 13a4.5 4.5 0 1 0 0-9a4.5 4.5 0 0 0 0 9m0-7a.5.5 0 0 1 .5.5V14h1.5a.5.5 0 0 1 0 1H15v1.5a.5.5 0 0 1-1 0V15h-1.5a.5.5 0 0 1 0-1H14v-1.5a.5.5 0 0 1 .5-.5" />
+        </symbol>
+        <symbol id="multiple-pages" viewBox="0 0 24 24">
+            <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+                <path d="M1.992 19h3m3 0h-3m0 0v-3m0 3v3M7 2h9.5L21 6.5V19" />
+                <path
+                    d="M11 22h5.5a1.5 1.5 0 0 0 1.5-1.5V8.749a.6.6 0 0 0-.176-.425l-3.148-3.148A.6.6 0 0 0 14.25 5H4.5A1.5 1.5 0 0 0 3 6.5V13" />
+                <path d="M14 5v3.4a.6.6 0 0 0 .6.6H18" />
+            </g>
+        </symbol>
+        <symbol id="pages" viewBox="0 0 24 24">
+            <path fill="currentColor"
+                d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h14q.825 0 1.413.588T21 5v14q0 .825-.587 1.413T19 21zm4.075-4.75L12 14.475l2.925 1.775l-.775-3.325l2.6-2.25l-3.425-.275L12 7.25l-1.325 3.15l-3.425.275l2.6 2.25z" />
         </symbol>
         <symbol id="contact" viewBox="0 0 14 14">
             <path fill="currentColor" fill-rule="evenodd"
@@ -106,9 +118,9 @@
         </symbol>
     </svg>
 
-    <div class="preloader">
+    <!-- <div class="preloader">
         <div class="loader"></div>
-    </div>
+    </div> -->
 
     <nav id="header-nav" class="navbar navbar-expand-lg py-4 z-1" data-bs-theme="dark">
         <div class="container-fluid padding-side">
@@ -127,7 +139,7 @@
                 </div>
                 <div class="offcanvas-body justify-content-end">
                     <div class="d-lg-none">
-                        <img src="images/banner-img.png" alt="img" class="img-fluid">
+                        <img src="images/my_profile_pic_2025_round-out-effect_transparent_2.png" alt="img" class="img-fluid">
                         <div class="text-center">
                             <a href="contact.html" class="btn button  text-white mt-4 position-relative pe-5"
                                 data-aos="fade-up" data-aos-duration="1600">
@@ -200,165 +212,164 @@
         </div>
     </nav>
 
-    <section id="hero" class="padding-medium position-relative">
-        <div class="container-fluid padding-side text-white">
-            <div class="row justify-content-center align-items-center">
-                <div class="col-lg-8 text-center">
-                    <nav class="breadcrumb d-flex justify-content-center" data-bs-theme="dark" data-aos="fade-up"
-                        data-aos-duration="1000">
-                        <a class="breadcrumb-item " href="index.html">Home</a>
-                        <span class="breadcrumb-item active " aria-current="page">Portfolio-Masonry</span>
-                    </nav>
-                    <h3 class="banner-size fw-medium display-6 mb-3" data-aos="fade-up" data-aos-duration="1200">
-                        Portfolio <span class="text-highlight">Masonry</span>
-                    </h3>
-                    <p data-aos="fade-up" data-aos-duration="1400">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam ab maiores quis voluptate eos
-                        delectus officiis blanditiis quo amet aliquid inventore ipsam eaque voluptates consequatur,
-                        porro vitae accusantium vero vel.
-                    </p>
-                </div>
-            </div>
-
-            <div class="pt-5 mt-5" data-aos="fade-up" data-aos-duration="1400">
-                <div class="text-center my-3">
-                    <p>
-                        <button class="filter-button py-2 px-4 me-2 mb-3 active" data-filter="*">
-                            All
-                        </button>
-                        <button class="filter-button py-2 px-4 me-2 mb-3" data-filter=".logo">
-                            Logo
-                        </button>
-                        <button class="filter-button py-2 px-4 me-2 mb-3" data-filter=".web">
-                            Web Design
-                        </button>
-                        <button class="filter-button py-2 px-4 me-2 mb-3" data-filter=".mobile">
-                            Mobile App
-                        </button>
-                    </p>
+    <div class="page">
+        <section id="hero" class="padding-medium position-relative">
+            <div class="container-fluid padding-side text-white">
+                <div class="row justify-content-center align-items-center">
+                    <div class="col-lg-8 text-center">
+                        <nav class="breadcrumb d-flex justify-content-center" data-bs-theme="dark" data-aos="fade-up"
+                            data-aos-duration="1000">
+                            <a class="breadcrumb-item " href="index.html">Home</a>
+                            <span class="breadcrumb-item active " aria-current="page">Services-Details</span>
+                        </nav>
+                        <h3 class="banner-size fw-medium display-6 mb-3" data-aos="fade-up" data-aos-duration="1200">
+                            Services <span class="text-highlight"> Details</span>
+                        </h3>
+                        <p data-aos="fade-up" data-aos-duration="1400">
+                            Et est, dolorem provident vel debitis perspiciatis ducimus.
+                        </p>
+                    </div>
                 </div>
 
-                <div class="isotope-container row">
-                    <div class="item web col-md-4 p-3">
-                        <div class="blog-post">
-                            <div class="image-zoom rounded-3">
-                                <a href="portfolio-details.html" class="blog-img"><img src="images/project1.jpg"
-                                        alt="img" class="img-fluid"></a>
-                            </div>
+                <div class="pt-5 mt-5" data-aos="fade-up" data-aos-duration="1400">
+                    <div class="details">
+                        <h3 class="mb-4">Package Design</h3>
+                        <p>Velit, praesent pharetra malesuada id pulvinar amet.
+                            Consequat potenti mollis
+                            massa iaculis et,
+                            dolor, eget lectus. Aliquam pellentesque molestie felis
+                            fames sed eget non
+                            euismod eget. Et eget
+                            ullamcorper urna, elit ac diam tellus viverra lacus.</p>
+                        <p>Id pulvinar amet. Consequat potenti mollis massa iaculis
+                            et, dolor, eget lectus.
+                            Aliquam
+                            pellentesque molestie felis fames sed eget non euismod
+                            eget. Et eget ullamcorper
+                            urna, elit ac diam
+                            tellus viverra lacus.</p>
+                        <div class="hero-image mt-5">
+                            <img src="images/portfolio-large2.jpg" alt="single-post" class="img-fluid">
                         </div>
-                    </div>
-                    <div class="item logo col-md-4 p-3">
-                        <div class="blog-post">
-                            <div class="image-zoom rounded-3">
-                                <a href="portfolio-details.html" class="blog-img"><img src="images/project2.jpg"
-                                        alt="img" class="img-fluid"></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item web col-md-4 p-3">
-                        <div class="blog-post">
-                            <div class="image-zoom rounded-3">
-                                <a href="portfolio-details.html" class="blog-img"><img src="images/project3.jpg"
-                                        alt="img" class="img-fluid"></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item logo col-md-4 p-3">
-                        <div class="blog-post">
-                            <div class="image-zoom rounded-3">
-                                <a href="portfolio-details.html" class="blog-img"><img src="images/project4.jpg"
-                                        alt="img" class="img-fluid"></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item mobile col-md-4 p-3">
-                        <div class="blog-post">
-                            <div class="image-zoom rounded-3">
-                                <a href="portfolio-details.html" class="blog-img"><img src="images/project5.jpg"
-                                        alt="img" class="img-fluid"></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item mobile col-md-4 p-3">
-                        <div class="blog-post">
-                            <div class="image-zoom rounded-3">
-                                <a href="portfolio-details.html" class="blog-img"><img src="images/project6.jpg"
-                                        alt="img" class="img-fluid"></a>
+                        <div class="post-content pt-5">
+                            <div class="post-description">
+
+                                <blockquote>“Sit suscipit tortor turpis sed
+                                    fringilla lectus facilisis amet. Ipsum,
+                                    amet dolor
+                                    curabitur non aliquet orci urna volutpat. Id
+                                    aliquam neque, ut vivamus sit
+                                    imperdiet enim, lacus,
+                                    vel.</blockquote>
+                                <div class="my-5">
+                                    <h4 class="mb-3">Consectetur Facilisis Vivamus
+                                    </h4>
+                                    <ul class="inner-list list-unstyled">
+                                        <li><span class="price-tick">✓</span>
+                                            Blandit mauris libero condimentum
+                                            commodo
+                                            sociis convallis sit.</li>
+                                        <li><span class="price-tick">✓</span> Magna
+                                            diam amet justo sed vel dolor et
+                                            volutpat integer.</li>
+                                        <li><span class="price-tick">✓</span>
+                                            Laculis sit sapien hac odio elementum
+                                            egestas neque.</li>
+                                        <li><span class="price-tick">✓</span>
+                                            Blandit mauris libero condimentum
+                                            commodo
+                                            sociis convallis sit.</li>
+                                        <li><span class="price-tick">✓</span> Magna
+                                            diam amet justo sed vel dolor et
+                                            volutpat integer.</li>
+                                        <li><span class="price-tick">✓</span>
+                                            Laculis sit sapien hac odio elementum
+                                            egestas neque.</li>
+                                    </ul>
+                                </div>
+
+                                <p>Tortor diam dignissim amet, in interdum aliquet.
+                                    Magnis dictum et eros purus
+                                    fermentum, massa
+                                    ullamcorper sit sollicitudin. Nascetur libero
+                                    elementum adipiscing mauris
+                                    maecenas et magna. Etiam
+                                    nec, rutrum a diam lacus, nunc integer etiam.
+                                    Mattis pulvinar non viverra donec
+                                    pellentesque. Odio
+                                    mi consequat libero dolor. Porta ut diam
+                                    lobortis eget leo, lectus.</p>
+
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </section>
+
+
+        <nav id="side-nav" class="navbar-side p-3 p-lg-4 me-lg-5" data-bs-theme="dark">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link " aria-current="page" href="index.html">
+                        <svg width="24" height="24">
+                            <use xlink:href="#home"></use>
+                        </svg>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="about.html">
+                        <svg width="24" height="24">
+                            <use xlink:href="#person"></use>
+                        </svg>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="service.html">
+                        <svg width="24" height="24">
+                            <use xlink:href="#layout"></use>
+                        </svg>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.html">
+                        <svg width="24" height="24">
+                            <use xlink:href="#contact"></use>
+                        </svg>
+                    </a>
+                </li>
+                <!-- <li class="dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                        aria-expanded="false">
+                        <svg width="24" height="24">
+                            <use xlink:href="#page-add"></use>
+                        </svg></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="blog.html" class="dropdown-item">Blog <span class="badge bg-dark">Pro</span></a></li>
+                        <li><a href="single-post.html" class="dropdown-item">Single-Post
+                                <span class="badge bg-dark">Pro</span></a>
+                        </li>
+                        <li><a href="services.html" class="dropdown-item">Services <span
+                                    class="badge bg-dark">Pro</span></a></li>
+                        <li><a href="service.html" class="dropdown-item">Services-Details
+                                <span class="badge bg-dark">Pro</span></a></li>
+                        <li><a href="portfolio-masonry.html" class="dropdown-item">Portfolio-Masonry <span
+                                    class="badge bg-dark">Pro</span></a></li>
+                        <li><a href="portfolio-details.html" class="dropdown-item">Portfolio-Details
+                                <span class="badge bg-dark">Pro</span></a></li>
+
+                        <li><a href="faqs.html" class="dropdown-item">FAQs <span class="badge bg-dark">Pro</span></a></li>
+                        <li><a href="team.html" class="dropdown-item">Team <span class="badge bg-dark">Pro</span></a></li>
+                    </ul>
+                </li> -->
+            </ul>
+        </nav>
+
+        <div class="position-fixed bottom-0 start-0 z-n1">
+            <img src="images/pattern.png" alt="pattern" class="img-fluid">
         </div>
-    </section>
 
-
-    <nav id="side-nav" class="navbar-side p-3 p-lg-4 me-lg-5" data-bs-theme="dark">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="index.html">
-                    <svg width="24" height="24">
-                        <use xlink:href="#home"></use>
-                    </svg>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="about.html">
-                    <svg width="24" height="24">
-                        <use xlink:href="#person"></use>
-                    </svg>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="portfolio.html">
-                    <svg width="24" height="24">
-                        <use xlink:href="#layout"></use>
-                    </svg>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="reviews.html">
-                    <svg width="24" height="24">
-                        <use xlink:href="#testimonial"></use>
-                    </svg>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="contact.html">
-                    <svg width="24" height="24">
-                        <use xlink:href="#contact"></use>
-                    </svg>
-                </a>
-            </li>
-            <li class="dropdown">
-                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                    aria-expanded="false">
-                    <svg width="24" height="24">
-                        <use xlink:href="#page-add"></use>
-                    </svg></a>
-                <ul class="dropdown-menu">
-                    <li><a href="blog.html" class="dropdown-item">Blog <span class="badge bg-dark">Pro</span></a></li>
-                    <li><a href="single-post.html" class="dropdown-item">Single-Post
-                            <span class="badge bg-dark">Pro</span></a>
-                    </li>
-                    <li><a href="services.html" class="dropdown-item">Services <span
-                                class="badge bg-dark">Pro</span></a></li>
-                    <li><a href="service.html" class="dropdown-item">Services-Details
-                            <span class="badge bg-dark">Pro</span></a></li>
-                    <li><a href="portfolio-masonry.html" class="dropdown-item">Portfolio-Masonry <span
-                                class="badge bg-dark">Pro</span></a></li>
-                    <li><a href="portfolio-details.html" class="dropdown-item">Portfolio-Details
-                            <span class="badge bg-dark">Pro</span></a></li>
-
-                    <li><a href="faqs.html" class="dropdown-item">FAQs <span class="badge bg-dark">Pro</span></a></li>
-                    <li><a href="team.html" class="dropdown-item">Team <span class="badge bg-dark">Pro</span></a></li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
-
-    <div class="position-fixed bottom-0 start-0 z-n1">
-        <img src="images/pattern.png" alt="pattern" class="img-fluid">
     </div>
 
     <!-- script ================================================== -->
@@ -378,7 +389,7 @@
 
     <script src="js/plugins.js"></script>
     <script src="js/script.js"></script>
-
+    <script type="module" src="js/main.js"></script>
 </body>
 
 </html>

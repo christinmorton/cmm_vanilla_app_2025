@@ -32,10 +32,7 @@
         rel="stylesheet" />
 </head>
 
-<body style="background-image: url(images/background.jpg);
-background-repeat: no-repeat;
-background-position: center;
-background-size: cover;">
+<body>
 
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
         <symbol id="page-add" viewBox="0 0 20 20">
@@ -121,9 +118,9 @@ background-size: cover;">
         </symbol>
     </svg>
 
-    <div class="preloader">
+    <!-- <div class="preloader">
         <div class="loader"></div>
-    </div>
+    </div> -->
 
     <nav id="header-nav" class="navbar navbar-expand-lg py-4 z-1" data-bs-theme="dark">
         <div class="container-fluid padding-side">
@@ -215,25 +212,50 @@ background-size: cover;">
         </div>
     </nav>
 
-    <section id="hero" class="padding-large  position-relative">
+    <section id="hero" class="padding-small position-relative">
+        <div class="container-fluid padding-side text-white">
+            <div class="row align-items-center">
+                <!-- Text content column - left side -->
+                <div class="col-lg-6">
+                    <h2 class="banner-size fw-medium display-3 " >
+                        Need a Website <span class="text-highlight">that Works?</span>
+                    </h2>
+                    <p >
+                        I'm Christin, I specialize in WordPress and modern web apps, offering fast, affordable, and mobile-friendly solutions.
+                    </p>
+                    <a href="contact.html" class="btn button text-white mt-4 position-relative pe-5"
+                        >
+                        <span> work with me </span>
+                        <div class="position-absolute top-50 end-0 translate-middle-y me-3">
+                            <svg class="arrow-right text-white p-1" width="28" height="28">
+                                <use xlink:href="#arrow-right"></use>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+                
+                <!-- Image column - right side -->
+                <div class="col-lg-6 text-center">
+                    <img src="images/my_profile_pic_2025_round-out-effect_transparent_2.png" alt="img" class="img-fluid" width="600">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- <section id="hero" class="padding-large  position-relative">
         <div class="container-fluid padding-side text-white">
             <div class="d-none d-lg-block position-absolute bottom-0 end-0">
-                <img src="images/my_profile_pic_2025_round-out-effect_transparent_2.png" alt="img" class="img-fluid">
+                <img src="images/my_profile_pic_2025_round-out-effect_transparent_2.png" alt="img" class="img-fluid" width="600">
             </div>
             <div class="row align-items-center">
-                <div class="col-lg-6 text-center d-lg-none" data-aos="fade-up" data-aos-duration="1400">
-                    <img src="images/my_profile_pic_2025_round-out-effect_transparent_2.png" alt="img" class="img-fluid">
-                </div>
                 <div class="col-lg-6 ms-lg-5">
                     <h2 class="banner-size fw-medium display-3 my-4" data-aos="fade-up" data-aos-duration="1200">
-                        Crafting solutions with <span class="text-highlight"> Creativity & Precision </span>
+                        Need a Website that Works?<span class="text-highlight"></span>
                     </h2>
                     <p data-aos="fade-up" data-aos-duration="1400">
-                        Welcome to my portfolio! I’m Chrisitn Morton, a passionate designer dedicated to delivering
-                        innovative and impactful solutions. Explore my work, and let’s create something extraordinary
-                        together.
+                        I’m Christin, I specialize in WordPress and modern web apps, offering fast, affordable, and mobile-friendly solutions.
                     </p>
-                    <a href="portfolio.html" class="btn button text-white mt-4 position-relative pe-5"
+                    <a href="contact.html" class="btn button text-white mt-4 position-relative pe-5"
                         data-aos="fade-up" data-aos-duration="1600">
                         <span> work with me </span>
                         <div class="position-absolute top-50 end-0 translate-middle-y me-3">
@@ -243,37 +265,33 @@ background-size: cover;">
                         </div>
                     </a>
                 </div>
+                <div class="col-lg-6 text-center d-lg-none" data-aos="fade-up" data-aos-duration="1400">
+                    <img src="images/my_profile_pic_2025_round-out-effect_transparent_2.png" alt="img" class="img-fluid">
+                </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <nav id="side-nav" class="navbar-side p-3 p-lg-4 me-lg-5" data-bs-theme="dark">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="index.html">
+                <a class="nav-link " aria-current="page" href="index.html">
                     <svg width="24" height="24">
                         <use xlink:href="#home"></use>
                     </svg>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="about.html">
+                <a class="nav-link active" href="about.html">
                     <svg width="24" height="24">
                         <use xlink:href="#person"></use>
                     </svg>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="portfolio.html">
+                <a class="nav-link" href="service.html">
                     <svg width="24" height="24">
                         <use xlink:href="#layout"></use>
-                    </svg>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="reviews.html">
-                    <svg width="24" height="24">
-                        <use xlink:href="#testimonial"></use>
                     </svg>
                 </a>
             </li>
@@ -284,7 +302,7 @@ background-size: cover;">
                     </svg>
                 </a>
             </li>
-            <li class="dropdown">
+            <!-- <li class="dropdown">
                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
                     aria-expanded="false">
                     <svg width="24" height="24">
@@ -297,7 +315,7 @@ background-size: cover;">
                     </li>
                     <li><a href="services.html" class="dropdown-item">Services <span
                                 class="badge bg-dark">Pro</span></a></li>
-                    <li><a href="service-details.html" class="dropdown-item">Services-Details
+                    <li><a href="service.html" class="dropdown-item">Services-Details
                             <span class="badge bg-dark">Pro</span></a></li>
                     <li><a href="portfolio-masonry.html" class="dropdown-item">Portfolio-Masonry <span
                                 class="badge bg-dark">Pro</span></a></li>
@@ -307,7 +325,7 @@ background-size: cover;">
                     <li><a href="faqs.html" class="dropdown-item">FAQs <span class="badge bg-dark">Pro</span></a></li>
                     <li><a href="team.html" class="dropdown-item">Team <span class="badge bg-dark">Pro</span></a></li>
                 </ul>
-            </li>
+            </li> -->
         </ul>
     </nav>
 
@@ -328,7 +346,7 @@ background-size: cover;">
 
     <script src="js/plugins.js"></script>
     <script src="js/script.js"></script>
-
+    <script type="module" src="js/main.js"></script>
 </body>
 
 </html>

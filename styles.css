@@ -57,17 +57,24 @@ This is main CSS file that contains custom style rules used in this template
 
 html {
   box-sizing: border-box;
+    height: auto !important;
+  overflow-y: auto !important;
+  overflow-x: clip; /* or auto if you need horizontal */
+  position: static !important; /* ensure body isn't fixed */
 }
 
 /** Typography
     --------------------------------------------------------------*/
 
 body {
+  overflow: hidden;
+  height: 100vh;
+  
   font-family: var(--body-font);
   font-weight: 400;
   font-size: 16px;
   line-height: 1.688rem;
-  background-image: radial-gradient(#120D44, #0C0930);
+  /* background-image: radial-gradient(#120D44, #0C0930); */
   color: var(--white-color);
 }
 
@@ -522,7 +529,19 @@ button.filter-button:hover {
 
 @layer layout {}
 
-@layer components {} 
+@layer components {
+   #webgl {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    display: block;
+    pointer-events: none;
+  }
+
+} 
 
 @layer utilities {
     .no-list-style > li {
@@ -557,5 +576,15 @@ button.filter-button:hover {
     border-radius: 8px;
     object-fit: cover;
     max-height: 200px;
+    }
+
+    /* 2) Make the content layer sit above the canvas and scroll normally */
+    .page {
+      position: relative;
+  z-index: 1;
+  /* remove any accidental height constraints */
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
     }
 }
