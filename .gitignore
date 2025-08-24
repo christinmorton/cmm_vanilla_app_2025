@@ -13,7 +13,7 @@ dist-ssr
 *.local
 
 scratch_1.txt
-
+notes.txt
 
 # Editor directories and files
 .vscode/*
