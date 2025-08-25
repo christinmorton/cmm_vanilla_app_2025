@@ -112,315 +112,287 @@
         <div class="loader"></div>
     </div> -->
 
-    <nav id="header-nav" class="navbar navbar-expand-lg py-4 z-1" data-bs-theme="dark">
-        <div class="container-fluid padding-side">
-            <a class="navbar-brand" href="index.html"><img src="images/logo_2.png" alt="logo"></a>
-
-            <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="offcanvas"
-                data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-                <span class="navbar-toggler-icon"></span>
+    <header id="header-nav" class="header-nav">
+        <div class="site-container">
+            <a class="logo" href="index.html"><img src="images/logo_2.png" alt="logo"></a>
+            <button class="mobile-menu-toggle" type="button" aria-label="Toggle navigation">
+                <span class="menu-icon"></span>
             </button>
-            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
-                aria-labelledby="offcanvasNavbarLabel">
-                <div class="offcanvas-header">
-                    <!-- <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5> -->
-                    <button type="button" class="btn-close text-reset shadow-none" data-bs-dismiss="offcanvas"
-                        aria-label="Close"></button>
+            <div class="mobile-menu" id="mobile-menu">
+                <div class="mobile-menu-header">
+                    <button type="button" class="mobile-menu-close" aria-label="Close menu">
+                        <svg width="16" height="16"><use xlink:href="#close"></use></svg>
+                    </button>
                 </div>
-                <div class="offcanvas-body justify-content-end">
-                    <div class="d-lg-none">
-                        <img src="images/banner-img.png" alt="img" class="img-fluid">
-                        <div class="text-center">
-                            <a href="contact.html" class="btn button  text-white mt-4 position-relative pe-5"
-                                data-aos="fade-up" data-aos-duration="1600">
-                                <span> Hire Me </span>
-                                <div class="position-absolute top-50 end-0 translate-middle-y me-3">
-                                    <svg class="arrow-right text-white p-1" width="28" height="28">
-                                        <use xlink:href="#arrow-right"></use>
-                                    </svg>
+                <div class="mobile-menu-content">
+                    <div class="mobile-only">
+                        <img src="images/my_profile_pic_2025_round-out-effect_transparent_2.png" alt="Profile" class="profile-image">
+                        <div class="cta-section">
+                            <a href="contact.html" class="action-button">
+                                <span>Hire Me</span>
+                                <div class="button-icon">
+                                    <svg class="arrow-right" width="28" height="28"><use xlink:href="#arrow-right"></use></svg>
                                 </div>
                             </a>
                         </div>
                     </div>
-                    <ul class="d-flex list-unstyled justify-content-center mt-4">
+                    <ul class="social-links">
                         <li>
-                            <a class="nav-link" href="https://www.facebook.com/morton41Christin">
+                            <a href="https://www.facebook.com/morton41Christin">
                                 <svg class="social-icon" width="24" height="24">
                                     <use xlink:href="#facebook"></use>
                                 </svg>
                             </a>
                         </li>
                         <li>
-                            <a class="nav-link ms-4" href="https://www.instagram.com/christinmorton41">
+                            <a href="https://www.instagram.com/christinmorton41">
                                 <svg class="social-icon" width="24" height="24">
                                     <use xlink:href="#instagram"></use>
                                 </svg>
                             </a>
                         </li>
-                        <!-- <li>
-                            <a class="nav-link ms-4" href="#">
-                                <svg class="social-icon" width="24" height="24">
-                                    <use xlink:href="#twitter"></use>
-                                </svg>
-                            </a>
-                        </li> 
                         <li>
-                            <a class="nav-link ms-4" href="#">
-                                <svg class="social-icon" width="24" height="24">
-                                    <use xlink:href="#skype"></use>
-                                </svg>
-                            </a>
-                        </li>-->
-                        <li>
-                            <a class="nav-link ms-4" href="https://www.linkedin.com/in/christin-morton-b24512209">
+                            <a href="https://www.linkedin.com/in/christin-morton-b24512209">
                                 <svg class="social-icon" width="24" height="24">
                                     <use xlink:href="#linkedin"></use>
                                 </svg>
                             </a>
                         </li>
                         <li>
-                            <a class="nav-link ms-4" href="https://github.com/christinmorton">
+                            <a href="https://github.com/christinmorton">
                                 <i class="icofont-github"></i>
                             </a>
                         </li>
                         <li>
-                            <a class="nav-link ms-4" href="https://dribbble.com/ChristinMorton">
+                            <a href="https://dribbble.com/ChristinMorton">
                                 <svg class="social-icon" width="24" height="24">
                                     <use xlink:href="#dribbble"></use>
                                 </svg>
                             </a>
                         </li>
                         <li>
-                            <a class="nav-link ms-4" href="https://www.behance.net/chrismorton11">
+                            <a href="https://www.behance.net/chrismorton11">
                                 <i class="icofont-behance"></i>
                             </a>
                         </li>
-
                     </ul>
                 </div>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <section id="hero" class="padding-medium position-relative">
-        <div class="container-fluid padding-side text-white">
-            <div class="row justify-content-center align-items-center">
-                <div class="col-lg-8 text-center">
-                    <nav class="breadcrumb d-flex justify-content-center" data-bs-theme="dark" data-aos="fade-up"
-                        data-aos-duration="1000">
-                        <a class="breadcrumb-item " href="index.html">Home</a>
-                        <span class="breadcrumb-item active " aria-current="page">Blog</span>
-                    </nav>
-                    <h3 class="banner-size fw-medium display-6 mb-3" data-aos="fade-up" data-aos-duration="1200">
-                        Our <span class="text-highlight"> Blog</span>
-                    </h3>
-                    <p data-aos="fade-up" data-aos-duration="1400">
-                        Et est, dolorem provident vel debitis perspiciatis ducimus.
-                    </p>
-                </div>
-            </div>
-
-            <div class="pt-5 mt-5" data-aos="fade-up" data-aos-duration="1400">
-                <div class="row">
-                    <div class="col-lg-4 mb-4">
-                        <div class="blog-post">
-                            <div class="image-zoom rounded-3">
-                                <a href="single-post.html" class="blog-img"><img src="images/blog4.jpg" alt="img"
-                                        class="img-fluid "></a>
-                            </div>
-                            <h4 class="pt-3"><a href="single-post.html" class="blog-link">Why should we invest more
-                                    in
-                                    branding first?</a></h4>
-                            <p>Elit adipi massa diam in dignissim. Sagittis pulvinar ut dis venenatis nunc nunc
-                                vitae
-                                aliquam
-                                vestibu adipi massa diamlum Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem
-                                aspernatur dolor nulla sunt, tempore sed doloremque... <a href="single-post.html"
-                                    class="text-decoration-underline fst-italic fs-6">Read more</a>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mb-4">
-                        <div class="blog-post">
-                            <div class="image-zoom rounded-3">
-                                <a href="single-post.html" class="blog-img"><img src="images/blog5.jpg" alt="img"
-                                        class="img-fluid"></a>
-                            </div>
-                            <h4 class="pt-3"><a href="single-post.html" class="blog-link">Top 100 most beautiful
-                                    t-shirt
-                                    print design</a></h4>
-                            <p>Elit adipi massa diam in dignissim. Sagittis pulvinar ut dis venenatis nunc nunc
-                                vitae
-                                aliquam
-                                vestibu adipi massa diamlum Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem
-                                aspernatur dolor nulla sunt, tempore sed doloremque... <a href="single-post.html"
-                                    class="text-decoration-underline fst-italic fs-6">Read more</a>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mb-4">
-                        <div class="blog-post">
-                            <div class="image-zoom rounded-3">
-                                <a href="single-post.html" class="blog-img"><img src="images/blog6.jpg" alt="img"
-                                        class="img-fluid"></a>
-                            </div>
-                            <h4 class="pt-3"><a href="single-post.html" class="blog-link">Best rules to follow for
-                                    achieving
-                                    business goals</a></h4>
-                            <p>Elit adipi massa diam in dignissim. Sagittis pulvinar ut dis venenatis nunc nunc
-                                vitae
-                                aliquam
-                                vestibu adipi massa diamlum Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem
-                                aspernatur dolor nulla sunt, tempore sed doloremque... <a href="single-post.html"
-                                    class="text-decoration-underline fst-italic fs-6">Read more</a>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mb-4">
-                        <div class="blog-post">
-                            <div class="image-zoom rounded-3">
-                                <a href="single-post.html" class="blog-img"><img src="images/blog1.jpg" alt="img"
-                                        class="img-fluid "></a>
-                            </div>
-                            <h4 class="pt-3"><a href="single-post.html" class="blog-link">Why should we invest more
-                                    in
-                                    branding first?</a></h4>
-                            <p>Elit adipi massa diam in dignissim. Sagittis pulvinar ut dis venenatis nunc nunc
-                                vitae
-                                aliquam
-                                vestibu adipi massa diamlum Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem
-                                aspernatur dolor nulla sunt, tempore sed doloremque... <a href="single-post.html"
-                                    class="text-decoration-underline fst-italic fs-6">Read more</a>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mb-4">
-                        <div class="blog-post">
-                            <div class="image-zoom rounded-3">
-                                <a href="single-post.html" class="blog-img"><img src="images/blog2.jpg" alt="img"
-                                        class="img-fluid"></a>
-                            </div>
-                            <h4 class="pt-3"><a href="single-post.html" class="blog-link">Top 100 most beautiful
-                                    t-shirt
-                                    print design</a></h4>
-                            <p>Elit adipi massa diam in dignissim. Sagittis pulvinar ut dis venenatis nunc nunc
-                                vitae
-                                aliquam
-                                vestibu adipi massa diamlum Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem
-                                aspernatur dolor nulla sunt, tempore sed doloremque... <a href="single-post.html"
-                                    class="text-decoration-underline fst-italic fs-6">Read more</a>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mb-4">
-                        <div class="blog-post">
-                            <div class="image-zoom rounded-3">
-                                <a href="single-post.html" class="blog-img"><img src="images/blog3.jpg" alt="img"
-                                        class="img-fluid"></a>
-                            </div>
-                            <h4 class="pt-3"><a href="single-post.html" class="blog-link">Best rules to follow for
-                                    achieving
-                                    business goals</a></h4>
-                            <p>Elit adipi massa diam in dignissim. Sagittis pulvinar ut dis venenatis nunc nunc
-                                vitae
-                                aliquam
-                                vestibu adipi massa diamlum Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem
-                                aspernatur dolor nulla sunt, tempore sed doloremque... <a href="single-post.html"
-                                    class="text-decoration-underline fst-italic fs-6">Read more</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <nav aria-label="Page navigation" class="d-flex justify-content-center mt-5">
-                    <ul class="pagination align-items-center">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                Previous
-                            </a>
-                        </li>
-                        <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                Next</a>
-                        </li>
-                    </ul>
+    <section class="blog-hero">
+        <div class="site-container">
+            <div class="centered-content">
+                <nav class="breadcrumb-nav">
+                    <a class="breadcrumb-link" href="index.html">Home</a>
+                    <span class="breadcrumb-separator">›</span>
+                    <span class="breadcrumb-current">Blog</span>
                 </nav>
+                <h1 class="section-title">
+                    Our <span class="text-highlight">Blog</span>
+                </h1>
+                <p class="section-description">
+                    Et est, dolorem provident vel debitis perspiciatis ducimus.
+                </p>
             </div>
         </div>
     </section>
 
+    <section class="blog-listing">
+        <div class="site-container">
+            <div class="article-grid">
+                <article class="article-card">
+                    <div class="article-image">
+                        <a href="single-post.html">
+                            <img src="images/blog4.jpg" alt="Blog post image">
+                        </a>
+                    </div>
+                    <div class="article-content">
+                        <h2 class="article-title">
+                            <a href="single-post.html">Why should we invest more in branding first?</a>
+                        </h2>
+                        <p class="article-excerpt">
+                            Elit adipi massa diam in dignissim. Sagittis pulvinar ut dis venenatis nunc nunc vitae aliquam vestibu adipi massa diamlum Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem aspernatur dolor nulla sunt, tempore sed doloremque... 
+                            <a href="single-post.html" class="read-more-link">Read more</a>
+                        </p>
+                    </div>
+                </article>
+                
+                <article class="article-card">
+                    <div class="article-image">
+                        <a href="single-post.html">
+                            <img src="images/blog5.jpg" alt="Blog post image">
+                        </a>
+                    </div>
+                    <div class="article-content">
+                        <h2 class="article-title">
+                            <a href="single-post.html">Top 100 most beautiful t-shirt print design</a>
+                        </h2>
+                        <p class="article-excerpt">
+                            Elit adipi massa diam in dignissim. Sagittis pulvinar ut dis venenatis nunc nunc vitae aliquam vestibu adipi massa diamlum Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem aspernatur dolor nulla sunt, tempore sed doloremque... 
+                            <a href="single-post.html" class="read-more-link">Read more</a>
+                        </p>
+                    </div>
+                </article>
+                
+                <article class="article-card">
+                    <div class="article-image">
+                        <a href="single-post.html">
+                            <img src="images/blog6.jpg" alt="Blog post image">
+                        </a>
+                    </div>
+                    <div class="article-content">
+                        <h2 class="article-title">
+                            <a href="single-post.html">Best rules to follow for achieving business goals</a>
+                        </h2>
+                        <p class="article-excerpt">
+                            Elit adipi massa diam in dignissim. Sagittis pulvinar ut dis venenatis nunc nunc vitae aliquam vestibu adipi massa diamlum Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem aspernatur dolor nulla sunt, tempore sed doloremque... 
+                            <a href="single-post.html" class="read-more-link">Read more</a>
+                        </p>
+                    </div>
+                </article>
+                
+                <article class="article-card">
+                    <div class="article-image">
+                        <a href="single-post.html">
+                            <img src="images/blog1.jpg" alt="Blog post image">
+                        </a>
+                    </div>
+                    <div class="article-content">
+                        <h2 class="article-title">
+                            <a href="single-post.html">Why should we invest more in branding first?</a>
+                        </h2>
+                        <p class="article-excerpt">
+                            Elit adipi massa diam in dignissim. Sagittis pulvinar ut dis venenatis nunc nunc vitae aliquam vestibu adipi massa diamlum Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem aspernatur dolor nulla sunt, tempore sed doloremque... 
+                            <a href="single-post.html" class="read-more-link">Read more</a>
+                        </p>
+                    </div>
+                </article>
+                
+                <article class="article-card">
+                    <div class="article-image">
+                        <a href="single-post.html">
+                            <img src="images/blog2.jpg" alt="Blog post image">
+                        </a>
+                    </div>
+                    <div class="article-content">
+                        <h2 class="article-title">
+                            <a href="single-post.html">Top 100 most beautiful t-shirt print design</a>
+                        </h2>
+                        <p class="article-excerpt">
+                            Elit adipi massa diam in dignissim. Sagittis pulvinar ut dis venenatis nunc nunc vitae aliquam vestibu adipi massa diamlum Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem aspernatur dolor nulla sunt, tempore sed doloremque... 
+                            <a href="single-post.html" class="read-more-link">Read more</a>
+                        </p>
+                    </div>
+                </article>
+                
+                <article class="article-card">
+                    <div class="article-image">
+                        <a href="single-post.html">
+                            <img src="images/blog3.jpg" alt="Blog post image">
+                        </a>
+                    </div>
+                    <div class="article-content">
+                        <h2 class="article-title">
+                            <a href="single-post.html">Best rules to follow for achieving business goals</a>
+                        </h2>
+                        <p class="article-excerpt">
+                            Elit adipi massa diam in dignissim. Sagittis pulvinar ut dis venenatis nunc nunc vitae aliquam vestibu adipi massa diamlum Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem aspernatur dolor nulla sunt, tempore sed doloremque... 
+                            <a href="single-post.html" class="read-more-link">Read more</a>
+                        </p>
+                    </div>
+                </article>
+            </div>
+            
+            <nav class="pagination-nav">
+                <ul class="pagination-list">
+                    <li class="pagination-item">
+                        <a href="#" class="pagination-link" aria-label="Previous page">Previous</a>
+                    </li>
+                    <li class="pagination-item current">
+                        <a href="#" class="pagination-link" aria-current="page">1</a>
+                    </li>
+                    <li class="pagination-item">
+                        <a href="#" class="pagination-link">2</a>
+                    </li>
+                    <li class="pagination-item">
+                        <a href="#" class="pagination-link">3</a>
+                    </li>
+                    <li class="pagination-item">
+                        <a href="#" class="pagination-link">4</a>
+                    </li>
+                    <li class="pagination-item">
+                        <a href="#" class="pagination-link">5</a>
+                    </li>
+                    <li class="pagination-item">
+                        <a href="#" class="pagination-link" aria-label="Next page">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </section>
 
-    <nav id="side-nav" class="navbar-side p-3 p-lg-4 me-lg-5" data-bs-theme="dark">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="index.html">
+
+    <nav id="side-nav" class="side-navigation">
+        <ul class="nav-menu">
+            <li>
+                <a href="index.html" class="nav-link">
                     <svg width="24" height="24">
                         <use xlink:href="#home"></use>
                     </svg>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="about.html">
+            <li>
+                <a href="about.html" class="nav-link">
                     <svg width="24" height="24">
                         <use xlink:href="#person"></use>
                     </svg>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="portfolio.html">
+            <li>
+                <a href="portfolio.html" class="nav-link">
                     <svg width="24" height="24">
                         <use xlink:href="#layout"></use>
                     </svg>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="reviews.html">
+            <li>
+                <a href="reviews.html" class="nav-link">
                     <svg width="24" height="24">
                         <use xlink:href="#testimonial"></use>
                     </svg>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="contact.html">
+            <li>
+                <a href="contact.html" class="nav-link">
                     <svg width="24" height="24">
                         <use xlink:href="#contact"></use>
                     </svg>
                 </a>
             </li>
-            <li class="dropdown">
-                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                    aria-expanded="false">
+            <li class="nav-dropdown">
+                <a href="#" class="nav-link dropdown-trigger active">
                     <svg width="24" height="24">
                         <use xlink:href="#page-add"></use>
-                    </svg></a>
+                    </svg>
+                </a>
                 <ul class="dropdown-menu">
-                    <li><a href="blog.html" class="dropdown-item">Blog <span class="badge bg-dark">Pro</span></a></li>
-                    <li><a href="single-post.html" class="dropdown-item">Single-Post
-                            <span class="badge bg-dark">Pro</span></a>
-                    </li>
-                    <li><a href="services.html" class="dropdown-item">Services <span
-                                class="badge bg-dark">Pro</span></a></li>
-                    <li><a href="service.html" class="dropdown-item">Services-Details
-                            <span class="badge bg-dark">Pro</span></a></li>
-                    <li><a href="portfolio-masonry.html" class="dropdown-item">Portfolio-Masonry <span
-                                class="badge bg-dark">Pro</span></a></li>
-                    <li><a href="portfolio-details.html" class="dropdown-item">Portfolio-Details
-                            <span class="badge bg-dark">Pro</span></a></li>
-
-                    <li><a href="faqs.html" class="dropdown-item">FAQs <span class="badge bg-dark">Pro</span></a></li>
-                    <li><a href="team.html" class="dropdown-item">Team <span class="badge bg-dark">Pro</span></a></li>
+                    <li><a href="blog.html" class="dropdown-link active">Blog <span class="badge">Pro</span></a></li>
+                    <li><a href="single-post.html" class="dropdown-link">Single-Post <span class="badge">Pro</span></a></li>
+                    <li><a href="services.html" class="dropdown-link">Services <span class="badge">Pro</span></a></li>
+                    <li><a href="service.html" class="dropdown-link">Services-Details <span class="badge">Pro</span></a></li>
+                    <li><a href="portfolio-masonry.html" class="dropdown-link">Portfolio-Masonry <span class="badge">Pro</span></a></li>
+                    <li><a href="portfolio-details.html" class="dropdown-link">Portfolio-Details <span class="badge">Pro</span></a></li>
+                    <li><a href="faqs.html" class="dropdown-link">FAQs <span class="badge">Pro</span></a></li>
+                    <li><a href="team.html" class="dropdown-link">Team <span class="badge">Pro</span></a></li>
                 </ul>
             </li>
         </ul>
     </nav>
 
-    <div class="position-fixed bottom-0 start-0 z-n1">
-        <img src="images/pattern.png" alt="pattern" class="img-fluid">
+    <div class="decorative-pattern">
+        <img src="images/pattern.png" alt="pattern">
     </div>
 
     <!-- Custom Scripts ================================================== -->
