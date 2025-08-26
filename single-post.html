@@ -112,120 +112,102 @@
         <div class="loader"></div>
     </div> -->
 
-    <nav id="header-nav" class="navbar navbar-expand-lg py-4 z-1" data-bs-theme="dark">
-        <div class="container-fluid padding-side">
-            <a class="navbar-brand" href="index.html"><img src="images/logo_2.png" alt="logo"></a>
-
-            <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="offcanvas"
-                data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-                <span class="navbar-toggler-icon"></span>
+    <header id="header-nav" class="header-nav">
+        <div class="site-container">
+            <a class="logo" href="index.html"><img src="images/logo_2.png" alt="logo"></a>
+            <button class="mobile-menu-toggle" type="button" aria-label="Toggle navigation">
+                <span class="menu-icon"></span>
             </button>
-            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
-                aria-labelledby="offcanvasNavbarLabel">
-                <div class="offcanvas-header">
-                    <!-- <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5> -->
-                    <button type="button" class="btn-close text-reset shadow-none" data-bs-dismiss="offcanvas"
-                        aria-label="Close"></button>
+            <div class="mobile-menu" id="mobile-menu">
+                <div class="mobile-menu-header">
+                    <button type="button" class="mobile-menu-close" aria-label="Close menu">
+                        <svg width="16" height="16"><use xlink:href="#close"></use></svg>
+                    </button>
                 </div>
-                <div class="offcanvas-body justify-content-end">
-                    <div class="d-lg-none">
-                        <img src="images/banner-img.png" alt="img" class="img-fluid">
-                        <div class="text-center">
-                            <a href="contact.html" class="btn button  text-white mt-4 position-relative pe-5"
-                                data-aos="fade-up" data-aos-duration="1600">
-                                <span> Hire Me </span>
-                                <div class="position-absolute top-50 end-0 translate-middle-y me-3">
-                                    <svg class="arrow-right text-white p-1" width="28" height="28">
-                                        <use xlink:href="#arrow-right"></use>
-                                    </svg>
+                <div class="mobile-menu-content">
+                    <div class="mobile-only">
+                        <img src="images/my_profile_pic_2025_round-out-effect_transparent_2.png" alt="Profile" class="profile-image">
+                        <div class="cta-section">
+                            <a href="contact.html" class="action-button">
+                                <span>Hire Me</span>
+                                <div class="button-icon">
+                                    <svg class="arrow-right" width="28" height="28"><use xlink:href="#arrow-right"></use></svg>
                                 </div>
                             </a>
                         </div>
                     </div>
-                    <ul class="d-flex list-unstyled justify-content-center mt-4">
+                    <ul class="social-links">
                         <li>
-                            <a class="nav-link" href="https://www.facebook.com/morton41Christin">
+                            <a href="https://www.facebook.com/morton41Christin">
                                 <svg class="social-icon" width="24" height="24">
                                     <use xlink:href="#facebook"></use>
                                 </svg>
                             </a>
                         </li>
                         <li>
-                            <a class="nav-link ms-4" href="https://www.instagram.com/christinmorton41">
+                            <a href="https://www.instagram.com/christinmorton41">
                                 <svg class="social-icon" width="24" height="24">
                                     <use xlink:href="#instagram"></use>
                                 </svg>
                             </a>
                         </li>
-                        <!-- <li>
-                            <a class="nav-link ms-4" href="#">
-                                <svg class="social-icon" width="24" height="24">
-                                    <use xlink:href="#twitter"></use>
-                                </svg>
-                            </a>
-                        </li> 
                         <li>
-                            <a class="nav-link ms-4" href="#">
-                                <svg class="social-icon" width="24" height="24">
-                                    <use xlink:href="#skype"></use>
-                                </svg>
-                            </a>
-                        </li>-->
-                        <li>
-                            <a class="nav-link ms-4" href="https://www.linkedin.com/in/christin-morton-b24512209">
+                            <a href="https://www.linkedin.com/in/christin-morton-b24512209">
                                 <svg class="social-icon" width="24" height="24">
                                     <use xlink:href="#linkedin"></use>
                                 </svg>
                             </a>
                         </li>
                         <li>
-                            <a class="nav-link ms-4" href="https://github.com/christinmorton">
+                            <a href="https://github.com/christinmorton">
                                 <i class="icofont-github"></i>
                             </a>
                         </li>
                         <li>
-                            <a class="nav-link ms-4" href="https://dribbble.com/ChristinMorton">
+                            <a href="https://dribbble.com/ChristinMorton">
                                 <svg class="social-icon" width="24" height="24">
                                     <use xlink:href="#dribbble"></use>
                                 </svg>
                             </a>
                         </li>
                         <li>
-                            <a class="nav-link ms-4" href="https://www.behance.net/chrismorton11">
+                            <a href="https://www.behance.net/chrismorton11">
                                 <i class="icofont-behance"></i>
                             </a>
                         </li>
-
                     </ul>
                 </div>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <section id="hero" class="padding-medium position-relative">
-        <div class="container-fluid padding-side text-white">
-            <div class="row justify-content-center align-items-center">
-                <div class="col-lg-8 text-center">
-                    <nav class="breadcrumb d-flex justify-content-center" data-bs-theme="dark" data-aos="fade-up"
-                        data-aos-duration="1000">
-                        <a class="breadcrumb-item " href="index.html">Home</a>
-                        <span class="breadcrumb-item active " aria-current="page">Single-Post</span>
-                    </nav>
-                    <h3 class="banner-size fw-medium display-6 mb-3" data-aos="fade-up" data-aos-duration="1200">
-                        Single <span class="text-highlight"> Post</span>
-                    </h3>
-                    <p data-aos="fade-up" data-aos-duration="1400">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis error cupiditate quisquam
-                        odit in, voluptatem architecto quas nisi praesentium dolores odio mollitia non animi earum harum
-                        delectus officiis. Est, nesciunt!
-                    </p>
-                </div>
+    <section class="post-hero">
+        <div class="site-container">
+            <div class="centered-content">
+                <nav class="breadcrumb-nav">
+                    <a class="breadcrumb-link" href="index.html">Home</a>
+                    <span class="breadcrumb-separator">›</span>
+                    <span class="breadcrumb-current">Single Post</span>
+                </nav>
+                <h1 class="section-title">
+                    Single <span class="text-highlight">Post</span>
+                </h1>
+                <p class="section-description">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis error cupiditate quisquam odit in, voluptatem architecto quas nisi praesentium dolores odio mollitia non animi earum harum delectus officiis. Est, nesciunt!
+                </p>
             </div>
+        </div>
+    </section>
 
-            <div class="pt-5 mt-5" data-aos="fade-up" data-aos-duration="1400">
-                <div class="post-content ">
-                    <img src="images/blogpage-img1.jpg" alt="img" class="img-fluid">
-                    <div class="post-description pt-5">
+    <article class="post-content">
+        <div class="site-container">
+            <div class="post-article">
+                <div class="post-featured-image">
+                    <img src="images/blogpage-img1.jpg" alt="Featured image">
+                </div>
+                
+                <div class="post-body">
+                    <div class="post-text">
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Consectetur facilisis
                             vivamus massa magna. Blandit mauris libero condimentum commodo morbi consectetur
                             sociis convallis sit. Magna diam amet justo sed vel dolor et volutpat integer.
@@ -239,11 +221,11 @@
                             Tempus malesuada et pellentesque maecenas. Sociis porttitor elit tincidunt
                             tellus sit ornare. Purus ut quis sed venenatis eget ut ipsum, enim lacus.
                             Praesent imperdiet vitae eu, eu tincidunt nunc integer sit.</p>
-                        <blockquote>“Sit suscipit tortor turpis sed fringilla lectus facilisis amet. Ipsum,
-                            amet dolor curabitur non aliquet orci urna volutpat. Id aliquam neque, ut
-                            vivamus sit imperdiet enim, lacus, vel.</blockquote>
-                        <h4 class="mt-5">Consectetur Facilisis Vivamus</h4>
-                        <ul class="inner-list">
+                        <blockquote class="post-quote">
+                            "Sit suscipit tortor turpis sed fringilla lectus facilisis amet. Ipsum, amet dolor curabitur non aliquet orci urna volutpat. Id aliquam neque, ut vivamus sit imperdiet enim, lacus, vel."
+                        </blockquote>
+                        <h2 class="post-subheading">Consectetur Facililis Vivamus</h2>
+                        <ul class="post-list">
                             <li>Blandit mauris libero condimentum commodo sociis convallis sit.</li>
                             <li>Magna diam amet justo sed vel dolor et volutpat integer.</li>
                             <li>Laculis sit sapien hac odio elementum egestas neque.</li>
@@ -261,7 +243,7 @@
                             libero dolor. Porta ut diam lobortis eget leo, lectus. Nunc tempus feugiat massa
                             laoreet ultrices diam magna quam. Congue auctor auctor luctus neque. Enim lorem
                             ultrices diam donec. Sed id placerat consectetur faucibus.</p>
-                        <h4 class="mt-5">Velit, praesent pharetra malesuada</h4>
+                        <h2 class="post-subheading">Velit, praesent pharetra malesuada</h2>
                         <p>Id pulvinar amet. Consequat potenti mollis massa iaculis et, dolor, eget lectus.
                             Aliquam pellentesque molestie felis fames sed eget non euismod eget. Et eget
                             ullamcorper urna, elit ac diam tellus viverra lacus.</p>
@@ -279,121 +261,104 @@
                             adipiscing mauris maecenas et magna. Etiam nec, rutrum a diam lacus, nunc
                             integer etiam. Mattis pulvinar non viverra donec pellentesque. Odio mi consequat
                             libero dolor. Porta ut diam lobortis eget leo, lectus.</p>
-                        <div class="post-bottom-link d-lg-flex justify-content-between mt-5">
-                            <div class="block-tag d-lg-flex ">
-                                <div class="element-title text-uppercase">tags:</div>
-                                <ul class="list-unstyled d-flex gap-2">
-                                    <li>
-                                        <a href="#" class="text-decoration-underline fw-bold">Denim</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="text-decoration-underline fw-bold">Trending</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="text-decoration-underline fw-bold">Clothing</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="block-social-links d-lg-flex ">
-                                <div class="element-title text-uppercase">Share:</div>
-                                <ul class="list-unstyled d-flex gap-2">
-                                    <li>
-                                        <a href="#" class="text-decoration-underline fw-bold">Facebook</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="text-decoration-underline fw-bold">Twitter</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="text-decoration-underline fw-bold">Youtube</a>
-                                    </li>
-                                </ul>
-                            </div>
+                    </div>
+                    
+                    <div class="post-meta">
+                        <div class="post-tags">
+                            <h3 class="meta-title">Tags:</h3>
+                            <ul class="tag-list">
+                                <li><a href="#" class="tag-link">Denim</a></li>
+                                <li><a href="#" class="tag-link">Trending</a></li>
+                                <li><a href="#" class="tag-link">Clothing</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="post-share">
+                            <h3 class="meta-title">Share:</h3>
+                            <ul class="share-list">
+                                <li><a href="#" class="share-link">Facebook</a></li>
+                                <li><a href="#" class="share-link">Twitter</a></li>
+                                <li><a href="#" class="share-link">Youtube</a></li>
+                            </ul>
                         </div>
                     </div>
-                    <div id="single-post-navigation" class="mt-5">
-                        <div class="post-navigation d-flex justify-content-between">
-                            <a itemprop="url" class="post-prev" href="#">
-                                <span class="">Previous</span>
-                                <h2 class="page-nav-title">Top 10 fashion trend for summer</h2>
+                    <nav class="post-navigation">
+                        <div class="nav-links">
+                            <a href="#" class="nav-prev">
+                                <span class="nav-label">Previous</span>
+                                <h3 class="nav-title">Top 10 fashion trend for summer</h3>
                             </a>
-                            <a itemprop="url" class="post-next text-end" href="#">
-                                <span class="">Next</span>
-                                <h2 class="page-nav-title">Crazy fashion with unique moment</h2>
+                            <a href="#" class="nav-next">
+                                <span class="nav-label">Next</span>
+                                <h3 class="nav-title">Crazy fashion with unique moment</h3>
                             </a>
                         </div>
-                    </div>
+                    </nav>
                 </div>
             </div>
         </div>
-    </section>
+    </article>
 
 
-    <nav id="side-nav" class="navbar-side p-3 p-lg-4 me-lg-5" data-bs-theme="dark">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="index.html">
+    <nav id="side-nav" class="side-navigation">
+        <ul class="nav-menu">
+            <li>
+                <a href="index.html" class="nav-link">
                     <svg width="24" height="24">
                         <use xlink:href="#home"></use>
                     </svg>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="about.html">
+            <li>
+                <a href="about.html" class="nav-link">
                     <svg width="24" height="24">
                         <use xlink:href="#person"></use>
                     </svg>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="portfolio.html">
+            <li>
+                <a href="portfolio.html" class="nav-link">
                     <svg width="24" height="24">
                         <use xlink:href="#layout"></use>
                     </svg>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="reviews.html">
+            <li>
+                <a href="reviews.html" class="nav-link">
                     <svg width="24" height="24">
                         <use xlink:href="#testimonial"></use>
                     </svg>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="contact.html">
+            <li>
+                <a href="contact.html" class="nav-link">
                     <svg width="24" height="24">
                         <use xlink:href="#contact"></use>
                     </svg>
                 </a>
             </li>
-            <li class="dropdown">
-                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                    aria-expanded="false">
+            <li class="nav-dropdown">
+                <a href="#" class="nav-link dropdown-trigger active">
                     <svg width="24" height="24">
                         <use xlink:href="#page-add"></use>
-                    </svg></a>
+                    </svg>
+                </a>
                 <ul class="dropdown-menu">
-                    <li><a href="blog.html" class="dropdown-item">Blog <span class="badge bg-dark">Pro</span></a></li>
-                    <li><a href="single-post.html" class="dropdown-item">Single-Post
-                            <span class="badge bg-dark">Pro</span></a>
-                    </li>
-                    <li><a href="services.html" class="dropdown-item">Services <span
-                                class="badge bg-dark">Pro</span></a></li>
-                    <li><a href="service.html" class="dropdown-item">Services-Details
-                            <span class="badge bg-dark">Pro</span></a></li>
-                    <li><a href="portfolio-masonry.html" class="dropdown-item">Portfolio-Masonry <span
-                                class="badge bg-dark">Pro</span></a></li>
-                    <li><a href="portfolio-details.html" class="dropdown-item">Portfolio-Details
-                            <span class="badge bg-dark">Pro</span></a></li>
-
-                    <li><a href="faqs.html" class="dropdown-item">FAQs <span class="badge bg-dark">Pro</span></a></li>
-                    <li><a href="team.html" class="dropdown-item">Team <span class="badge bg-dark">Pro</span></a></li>
+                    <li><a href="blog.html" class="dropdown-link">Blog <span class="badge">Pro</span></a></li>
+                    <li><a href="single-post.html" class="dropdown-link active">Single-Post <span class="badge">Pro</span></a></li>
+                    <li><a href="services.html" class="dropdown-link">Services <span class="badge">Pro</span></a></li>
+                    <li><a href="service.html" class="dropdown-link">Services-Details <span class="badge">Pro</span></a></li>
+                    <li><a href="portfolio-masonry.html" class="dropdown-link">Portfolio-Masonry <span class="badge">Pro</span></a></li>
+                    <li><a href="portfolio-details.html" class="dropdown-link">Portfolio-Details <span class="badge">Pro</span></a></li>
+                    <li><a href="faqs.html" class="dropdown-link">FAQs <span class="badge">Pro</span></a></li>
+                    <li><a href="team.html" class="dropdown-link">Team <span class="badge">Pro</span></a></li>
                 </ul>
             </li>
         </ul>
     </nav>
 
-    <div class="position-fixed bottom-0 start-0 z-n1">
-        <img src="images/pattern.png" alt="pattern" class="img-fluid">
+    <div class="decorative-pattern">
+        <img src="images/pattern.png" alt="pattern">
     </div>
 
     <!-- Custom Scripts ================================================== -->

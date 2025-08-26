@@ -381,6 +381,311 @@ This guide documents the process of standardizing all HTML files to use a clean,
 - `.pagination-item` - Individual pagination item
 - `.pagination-link` - Pagination link element
 
+### Single Post Page (`single-post.html`) ✅ COMPLETED
+**Purpose**: Blog post detail page with article content, meta information, and navigation
+
+**Implemented Sections**:
+```html
+<section class="post-hero">
+    <div class="site-container">
+        <div class="centered-content">
+            <nav class="breadcrumb-nav">
+                <a class="breadcrumb-link" href="index.html">Home</a>
+                <span class="breadcrumb-separator">›</span>
+                <span class="breadcrumb-current">Single Post</span>
+            </nav>
+            <h1 class="section-title">
+                Single <span class="text-highlight">Post</span>
+            </h1>
+            <p class="section-description">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit...
+            </p>
+        </div>
+    </div>
+</section>
+
+<article class="post-content">
+    <div class="site-container">
+        <div class="post-article">
+            <div class="post-featured-image">
+                <img src="images/blogpage-img1.jpg" alt="Featured image">
+            </div>
+            
+            <div class="post-body">
+                <div class="post-text">
+                    <p>Article content...</p>
+                    <blockquote class="post-quote">
+                        "Quote content here..."
+                    </blockquote>
+                    <h2 class="post-subheading">Section Heading</h2>
+                    <ul class="post-list">
+                        <li>List item...</li>
+                    </ul>
+                </div>
+                
+                <div class="post-meta">
+                    <div class="post-tags">
+                        <h3 class="meta-title">Tags:</h3>
+                        <ul class="tag-list">
+                            <li><a href="#" class="tag-link">Denim</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="post-share">
+                        <h3 class="meta-title">Share:</h3>
+                        <ul class="share-list">
+                            <li><a href="#" class="share-link">Facebook</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <nav class="post-navigation">
+                    <div class="nav-links">
+                        <a href="#" class="nav-prev">
+                            <span class="nav-label">Previous</span>
+                            <h3 class="nav-title">Previous Post Title</h3>
+                        </a>
+                        <a href="#" class="nav-next">
+                            <span class="nav-label">Next</span>
+                            <h3 class="nav-title">Next Post Title</h3>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</article>
+```
+
+**Single Post Classes**:
+- `.post-hero` - Hero section with breadcrumb and title
+- `.post-content` - Main article container (uses semantic `<article>` element)
+- `.post-article` - Article content wrapper
+- `.post-featured-image` - Featured/hero image for the post
+- `.post-body` - Main content area containing text, meta, and navigation
+- `.post-text` - Article text content container
+- `.post-quote` - Blockquote styling for quotes within article
+- `.post-subheading` - Section headings within article (h2 elements)
+- `.post-list` - Lists within article content
+- `.post-meta` - Container for tags and sharing section
+- `.post-tags` - Tags section wrapper
+- `.meta-title` - Title for meta sections (Tags:, Share:)
+- `.tag-list` - List of post tags
+- `.tag-link` - Individual tag links
+- `.post-share` - Social sharing section
+- `.share-list` - List of social share links
+- `.share-link` - Individual share links
+- `.post-navigation` - Post navigation (prev/next) container
+- `.nav-links` - Container for navigation links
+- `.nav-prev` / `.nav-next` - Previous and next post links
+- `.nav-label` - Label for navigation (Previous/Next)
+- `.nav-title` - Post titles in navigation
+
+### Portfolio Details Page (`portfolio-details.html`) ✅ COMPLETED
+**Purpose**: Individual project showcase page with detailed information, images, and description
+
+**Implemented Sections**:
+```html
+<section class="portfolio-details-hero">
+    <div class="site-container">
+        <div class="centered-content">
+            <nav class="breadcrumb-nav">
+                <a class="breadcrumb-link" href="index.html">Home</a>
+                <span class="breadcrumb-separator">›</span>
+                <span class="breadcrumb-current">Portfolio Details</span>
+            </nav>
+            <h1 class="section-title">
+                Portfolio <span class="text-highlight">Details</span>
+            </h1>
+            <p class="section-description">
+                Project overview and description...
+            </p>
+        </div>
+        
+        <div class="portfolio-details-content">
+            <div class="project-details">
+                <h2 class="project-title">Project Name</h2>
+                <div class="project-meta">
+                    <ul class="project-info-list">
+                        <li class="project-info-item">
+                            <h3 class="info-label text-highlight">Client</h3>
+                            <p class="info-value">Client Name</p>
+                        </li>
+                        <li class="project-info-item">
+                            <h3 class="info-label text-highlight">Date</h3>
+                            <p class="info-value">Project Date</p>
+                        </li>
+                        <li class="project-info-item">
+                            <h3 class="info-label text-highlight">Project link</h3>
+                            <p class="info-value"><a href="#" target="_blank">Project URL</a></p>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="project-description">
+                    <p>Project description paragraphs...</p>
+                </div>
+                
+                <!-- Two-column image gallery -->
+                <div class="project-gallery two-col-layout">
+                    <div class="gallery-item">
+                        <div class="project-image">
+                            <figure>
+                                <a href="images/project1.jpg" title="Project" class="image-link">
+                                    <img src="images/project1.jpg" alt="project" class="showcase-image">
+                                </a>
+                            </figure>
+                            <figcaption class="image-caption">Image Caption</figcaption>
+                        </div>
+                    </div>
+                    <!-- Repeat for more images -->
+                </div>
+                
+                <!-- Full-width featured image -->
+                <div class="project-gallery full-width">
+                    <div class="gallery-item">
+                        <div class="project-image featured-image">
+                            <figure>
+                                <a href="images/project-large.jpg" title="Project" class="image-link">
+                                    <img src="images/project-large.jpg" alt="project" class="showcase-image">
+                                </a>
+                            </figure>
+                            <figcaption class="image-caption">Featured Image Caption</figcaption>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project quote -->
+                <div class="project-quote">
+                    <blockquote class="quote-text">"Project testimonial or important quote..."</blockquote>
+                </div>
+                
+                <!-- Project features list -->
+                <div class="project-features">
+                    <h3 class="features-title">Key Features</h3>
+                    <ul class="features-list">
+                        <li class="feature-item">Feature description</li>
+                        <li class="feature-item">Another feature</li>
+                    </ul>
+                </div>
+                
+                <!-- Additional text sections -->
+                <div class="project-text-section">
+                    <p class="project-text">Additional project details...</p>
+                    <h3 class="project-subheading">Section Heading</h3>
+                    <p class="project-text">More detailed information...</p>
+                </div>
+                
+                <!-- Project conclusion -->
+                <div class="project-conclusion">
+                    <p class="project-text">Final thoughts and project wrap-up...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+```
+
+**Portfolio Details Classes**:
+- `.portfolio-details-hero` - Hero section with breadcrumb and project overview
+- `.portfolio-details-content` - Main content section containing all project details
+- `.project-details` - Container for all project information sections
+- `.project-title` - Main project title (h2 element)
+- `.project-meta` - Project metadata section (client, date, links)
+- `.project-info-list` - List container for project metadata
+- `.project-info-item` - Individual metadata item (client, date, etc.)
+- `.info-label` - Label for metadata (Client:, Date:, etc.)
+- `.info-value` - Value for metadata items
+- `.project-description` - Project description text container
+- `.project-gallery` - Gallery container (can be combined with layout classes)
+  - `.two-col-layout` - Two-column image layout
+  - `.full-width` - Full-width image layout
+- `.gallery-item` - Individual gallery image container
+- `.project-image` - Image wrapper with optional modifiers:
+  - `.featured-image` - For hero/featured images with special styling
+- `.showcase-image` - Image element class for consistent styling
+- `.image-caption` - Image caption styling (figcaption element)
+- `.image-link` - Link wrapper for gallery images
+- `.project-quote` - Container for project testimonials/quotes
+- `.quote-text` - Blockquote styling within projects
+- `.project-features` - Container for project features/highlights
+- `.features-title` - Title for features section
+- `.features-list` - List of project features
+- `.feature-item` - Individual feature item
+- `.project-text-section` - General text content sections
+- `.project-text` - Standard text paragraphs within project
+- `.project-subheading` - Section headings within project content (h3 elements)
+- `.project-conclusion` - Final section/wrap-up content
+
+### Portfolio Masonry Page (`portfolio-masonry.html`) ✅ COMPLETED
+**Purpose**: Portfolio gallery with filterable masonry grid layout for showcasing projects by category
+
+**Implemented Sections**:
+```html
+<section class="portfolio-masonry-hero">
+    <div class="site-container">
+        <div class="centered-content">
+            <nav class="breadcrumb-nav">
+                <a class="breadcrumb-link" href="index.html">Home</a>
+                <span class="breadcrumb-separator">›</span>
+                <span class="breadcrumb-current">Portfolio Masonry</span>
+            </nav>
+            <h1 class="section-title">
+                Portfolio <span class="text-highlight">Masonry</span>
+            </h1>
+            <p class="section-description">
+                Project gallery overview...
+            </p>
+        </div>
+        
+        <div class="portfolio-masonry-content">
+            <!-- Filter Controls -->
+            <div class="portfolio-filter-section">
+                <div class="filter-controls">
+                    <button class="filter-button active" data-filter="*">All</button>
+                    <button class="filter-button" data-filter=".logo">Logo</button>
+                    <button class="filter-button" data-filter=".web">Web Design</button>
+                    <button class="filter-button" data-filter=".mobile">Mobile App</button>
+                </div>
+            </div>
+            
+            <!-- Portfolio Grid -->
+            <div class="portfolio-masonry-grid">
+                <div class="masonry-item web" data-category="web">
+                    <div class="portfolio-card">
+                        <div class="portfolio-image">
+                            <a href="portfolio-details.html" class="portfolio-link">
+                                <img src="images/project1.jpg" alt="Web Design Project" class="card-image">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Repeat for more portfolio items -->
+            </div>
+        </div>
+    </div>
+</section>
+```
+
+**Portfolio Masonry Classes**:
+- `.portfolio-masonry-hero` - Hero section with breadcrumb and page overview
+- `.portfolio-masonry-content` - Main content section containing filter and grid
+- `.portfolio-filter-section` - Container for filter controls
+- `.filter-controls` - Filter button controls wrapper
+- `.filter-button` - Individual filter buttons with optional `.active` state
+- `.portfolio-masonry-grid` - Masonry/isotope grid container for portfolio items
+- `.masonry-item` - Individual portfolio item with category classes (`.web`, `.logo`, `.mobile`)
+- `.portfolio-card` - Portfolio item card wrapper
+- `.portfolio-image` - Image container within portfolio cards
+- `.portfolio-link` - Link wrapper for portfolio items
+- `.card-image` - Image element within portfolio cards
+
+**Filter System**:
+- Uses `data-filter` attributes on filter buttons for JavaScript filtering
+- Uses `data-category` attributes on masonry items for categorization
+- Category classes (`.web`, `.logo`, `.mobile`) for CSS-based filtering
+- `.active` state on filter buttons to show current selection
+
 ### Contact Page (`contact.html`) ✅ COMPLETED
 **Purpose**: Contact form and information
 

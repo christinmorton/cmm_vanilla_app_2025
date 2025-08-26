@@ -14,9 +14,9 @@
 
 ### Medium Priority  
 - [x] **blog.html** - Article listing ✅
-- [ ] **single-post.html** - Individual blog posts
-- [ ] **portfolio-details.html** - Project detail pages
-- [ ] **portfolio-masonry.html** - Masonry portfolio layout
+- [x] **single-post.html** - Individual blog posts ✅
+- [x] **portfolio-details.html** - Project detail pages ✅
+- [x] **portfolio-masonry.html** - Masonry portfolio layout ✅
 
 ---
 
