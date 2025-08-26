@@ -3,7 +3,15 @@
 let canvas = document.createElement('canvas');
 canvas.id = "webgl";
 canvas.classList.add('z-n1')
-document.body.insertBefore(canvas, document.body.firstChild);
+// document.body.insertBefore(canvas, document.body.firstChild);
+
+
+// import WindowBackgroundGrid from './modules/WindowBackgroundGrid';
+
+// const backgroundWindow = new WindowBackgroundGrid()
+
+// backgroundWindow.display();
+
 
 import * as THREE from 'three';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
@@ -77,16 +85,16 @@ renderer.render(scene, camera)
 
 
 
-// window.addEventListener('resize', () => {
-//   // update sizes
-//   sizes.width = window.innerWidth
-//   sizes.height = window.innerHeight
+window.addEventListener('resize', () => {
+  // update sizes
+  sizes.width = window.innerWidth
+  sizes.height = window.innerHeight
 
-//   camera.aspect = sizes.width / sizes.height
-//   camera.updateProjectionMatrix()
+  camera.aspect = sizes.width / sizes.height
+  camera.updateProjectionMatrix()
 
-//   renderer.setSize(sizes.width, sizes.height)
-// })
+  renderer.setSize(sizes.width, sizes.height)
+})
 
 // window.addEventListener('dblclick', () => {
 
