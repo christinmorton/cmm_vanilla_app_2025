@@ -23,7 +23,10 @@
         rel="stylesheet" />
 </head>
 
-<body>
+<body data-template="background">
+
+    <!-- Background host (exists on pages that need background or hybrid start) -->
+    <div id="bgHost" class="bg-canvas-host"></div>
 
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
         <symbol id="page-add" viewBox="0 0 20 20">
@@ -113,6 +116,9 @@
         <div class="loader"></div>
     </div> -->
 
+    <!-- Content -->
+    <header id="hybridHost" class="hybrid-banner" hidden></header>
+
     <header id="header-nav" class="header-nav">
         <div class="site-container">
             <a class="logo" href="index.html"><img src="images/logo_2.png" alt="logo"></a>
@@ -190,32 +196,36 @@
         </div>
     </header>
 
-    <section id="hero" class="hero-section">
-        <div class="site-container">
-            <div class="hero-layout">
-                <div class="hero-content">
-                    <h1 class="hero-title">
-                        Need a Website <span class="text-highlight">that Works?</span>
-                    </h1>
-                    <p class="hero-description">
-                        I'm Christin, I specialize in WordPress and modern web apps, offering fast, affordable, and mobile-friendly solutions.
-                    </p>
-                    <a href="contact.html" class="action-button">
-                        <span>work with me</span>
-                        <div class="button-icon">
-                            <svg class="arrow-right" width="28" height="28">
-                                <use xlink:href="#arrow-right"></use>
-                            </svg>
-                        </div>
-                    </a>
-                </div>
-                
-                <div class="hero-image">
-                    <!-- <img src="images/my_profile_pic_2025_round-out-effect_transparent_2.png" alt="Christin Morton - Web Developer" width="600"> -->
+    <main>
+        <section class="canvas-host" id="inlineHost" style="--canvas-h: 60vh;"></section>
+
+        <section id="hero" class="hero-section">
+            <div class="site-container">
+                <div class="hero-layout">
+                    <div class="hero-content">
+                        <h1 class="hero-title">
+                            Need a Website <span class="text-highlight">that Works?</span>
+                        </h1>
+                        <p class="hero-description">
+                            I'm Christin, I specialize in WordPress and modern web apps, offering fast, affordable, and mobile-friendly solutions.
+                        </p>
+                        <a href="contact.html" class="action-button">
+                            <span>work with me</span>
+                            <div class="button-icon">
+                                <svg class="arrow-right" width="28" height="28">
+                                    <use xlink:href="#arrow-right"></use>
+                                </svg>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="hero-image">
+                        <!-- <img src="images/my_profile_pic_2025_round-out-effect_transparent_2.png" alt="Christin Morton - Web Developer" width="600"> -->
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <nav id="side-nav" class="side-navigation">
         <ul class="nav-menu">
@@ -250,7 +260,11 @@
         </ul>
     </nav>
 
+    <button id="expandCanvas" hidden>Expand Canvas</button>
+    <button id="collapseCanvas" hidden>Collapse Canvas</button>
+
     <!-- Custom Scripts ================================================== -->
+    <script type="module" src="js/scollSystem.js"></script>
     <script type="module" src="js/main.js"></script>
 </body>
 

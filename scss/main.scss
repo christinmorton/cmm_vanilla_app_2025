@@ -520,6 +520,40 @@ This is main CSS file that contains custom style rules used in this template
       }
     }
   }
+
+
+/* Scroll Manager Classes --------------------------------------------------------------*/
+
+/* Prevent scrolling when using background template */
+body[data-template="background"] {
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* Background (full-viewport behind content) */
+.bg-canvas-host {
+  position: fixed;
+  inset: 0;
+  z-index: -1;           /* behind the page */
+  pointer-events: none;  /* let DOM receive clicks; toggle off if you need interactions */
+}
+
+/* Inline section host (participates in normal layout) */
+.canvas-host {
+  position: sticky; /* relative; */
+  width: 100%;
+  height: var(--canvas-h, 60vh); /* adjustable band height */
+  overflow: hidden;
+}
+
+/* Hybrid collapsed host (top banner after transition) */
+.hybrid-banner {
+  position: relative;
+  width: 100%;
+  height: var(--banner-h, 40vh);
+  overflow: hidden;
+}
+
 } 
 
 @layer utilities {
