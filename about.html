@@ -22,7 +22,7 @@
         rel="stylesheet" />
 </head>
 
-<body>
+<body data-template="hybrid" class="preloader-active">
 
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
         <symbol id="page-add" viewBox="0 0 20 20">
@@ -108,200 +108,211 @@
         </symbol>
     </svg>
 
-    <!-- <div class="preloader">
-        <div class="loader"></div>
-    </div> -->
+        <!-- Background host (exists on pages that need background or hybrid start) -->
+    <div id="bgHost" class="bg-canvas-host"></div>
 
-    <header id="header-nav" class="header-nav">
-        <div class="site-container">
-            <a class="logo" href="index.html"><img src="images/logo_2.png" alt="logo"></a>
+    <!-- Content -->
+    <header id="hybridHost" class="hybrid-banner" hidden></header>
 
-            <button class="mobile-menu-toggle" type="button" aria-label="Toggle navigation" aria-controls="mobile-menu" aria-expanded="false">
-                <span class="menu-icon"></span>
-            </button>
-            <div class="mobile-menu" id="mobile-menu">
-                <div class="mobile-menu-header">
-                    <button type="button" class="mobile-menu-close" aria-label="Close menu">
-                        <svg width="16" height="16">
-                            <use xlink:href="#close"></use>
-                        </svg>
-                    </button>
-                </div>
-                <div class="mobile-menu-content">
-                    <div class="mobile-only">
-                        <!-- <img src="images/my_profile_pic_2025_round-out-effect_transparent_2.png" alt="Profile" class="profile-image"> -->
-                        <div class="cta-section">
-                            <a href="contact.html" class="action-button">
-                                <span>Hire Me</span>
-                                <div class="button-icon">
-                                    <svg class="arrow-right" width="28" height="28">
-                                        <use xlink:href="#arrow-right"></use>
-                                    </svg>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <ul class="social-links">
-                        <li>
-                            <a href="https://www.facebook.com/morton41Christin" aria-label="Facebook">
-                                <svg class="social-icon" width="24" height="24">
-                                    <use xlink:href="#facebook"></use>
-                                </svg>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.instagram.com/christinmorton41" aria-label="Instagram">
-                                <svg class="social-icon" width="24" height="24">
-                                    <use xlink:href="#instagram"></use>
-                                </svg>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.linkedin.com/in/christin-morton-b24512209" aria-label="LinkedIn">
-                                <svg class="social-icon" width="24" height="24">
-                                    <use xlink:href="#linkedin"></use>
-                                </svg>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/christinmorton" aria-label="GitHub">
-                                <i class="icofont-github"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://dribbble.com/ChristinMorton" aria-label="Dribbble">
-                                <svg class="social-icon" width="24" height="24">
-                                    <use xlink:href="#dribbble"></use>
-                                </svg>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.behance.net/chrismorton11" aria-label="Behance">
-                                <i class="icofont-behance"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </header>
 
-    <section class="about-hero">
-        <div class="site-container">
-            <div class="hero-layout">
-                <div class="hero-content">
-                    <h1 class="section-title">
-                        About <span class="text-highlight">me</span>
-                    </h1>
-                    <p class="hero-description">
-                        Your vision, my expertise – together, we create magic.
-                    </p>
-                    <p class="bio-text">
-                        Hi, I'm Christin Morton, a freelance software engineer who helps businesses launch and grow online. I create websites, custom web apps, and backend systems using modern tools. My productized services simplify the process, delivering professional results quickly. From quick fixes to full-scale builds, I focus on value, security, and long-term usability.
-                    </p>
-                    
-                    <div class="stats-section">
-                        <div class="stats-grid">
-                            <div class="stat-item">
-                                <div class="stat-number">
-                                    <span class="counter-value text-highlight" data-count="7">1</span>
-                                    <span class="text-highlight">+</span>
-                                </div>
-                                <p class="stat-label">years experience</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <main>
+        <header id="header-nav" class="header-nav">
+            <div class="site-container">
+                <a class="logo" href="index.html"><img src="images/logo_2.png" alt="logo"></a>
+
+                <button class="mobile-menu-toggle" type="button" aria-label="Toggle navigation" aria-controls="mobile-menu" aria-expanded="false">
+                    <span class="menu-icon"></span>
+                </button>
                 
-                <div class="skills-section">
-                    <div class="content-tabs">
-                        <button class="tab-trigger active" data-tab="skills">Skills</button>
-                        <button class="tab-trigger" data-tab="experience">Experience</button>
-                        <button class="tab-trigger" data-tab="education">Education</button>
-                        <button class="tab-trigger" data-tab="interests">Interests</button>
+                <div class="mobile-menu" id="mobile-menu">
+                    <div class="mobile-menu-header">
+                        <button type="button" class="mobile-menu-close" aria-label="Close menu">
+                            <svg width="16" height="16">
+                                <use xlink:href="#close"></use>
+                            </svg>
+                        </button>
                     </div>
                     
-                    <div class="tab-content active" id="skills">
-                        <div class="skills-grid">
-                            <div class="skill-card">
-                                <h3 class="skill-title">Custom Website Development</h3>
-                                <p class="skill-description">Building tailored sites for unique goals.</p>
+                    <div class="mobile-menu-content">
+                        <div class="mobile-only">
+                            <!-- <img src="images/my_profile_pic_2025_round-out-effect_transparent_2.png" alt="Profile" class="profile-image"> -->
+                            <div class="cta-section">
+                                <a href="contact.html" class="action-button">
+                                    <span>Hire Me</span>
+                                    <div class="button-icon">
+                                        <svg class="arrow-right" width="28" height="28">
+                                            <use xlink:href="#arrow-right"></use>
+                                        </svg>
+                                    </div>
+                                </a>
                             </div>
-                            <div class="skill-card">
-                                <h3 class="skill-title">Cloud & DNS Configuration</h3>
-                                <p class="skill-description">Securing domains with performance-focused setup.</p>
-                            </div>
-                            <div class="skill-card">
-                                <h3 class="skill-title">Headless CMS Solutions</h3>
-                                <p class="skill-description">Creating flexible content systems for scalability.</p>
-                            </div>
-                            <div class="skill-card">
-                                <h3 class="skill-title">API Development & Integration</h3>
-                                <p class="skill-description">Connecting services for seamless business automation.</p>
-                            </div>
-                            <div class="skill-card">
-                                <h3 class="skill-title">Performance Optimization</h3>
-                                <p class="skill-description">Improving load times and user experience.</p>
-                            </div>
-                            <div class="skill-card">
-                                <h3 class="skill-title">Security Implementation</h3>
-                                <p class="skill-description">Protecting websites from threats and downtime.</p>
+                        </div>
+                        
+                        <ul class="social-links">
+                            <li>
+                                <a href="https://www.facebook.com/morton41Christin" aria-label="Facebook">
+                                    <svg class="social-icon" width="24" height="24">
+                                        <use xlink:href="#facebook"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/christinmorton41" aria-label="Instagram">
+                                    <svg class="social-icon" width="24" height="24">
+                                        <use xlink:href="#instagram"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.linkedin.com/in/christin-morton-b24512209" aria-label="LinkedIn">
+                                    <svg class="social-icon" width="24" height="24">
+                                        <use xlink:href="#linkedin"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/christinmorton" aria-label="GitHub">
+                                    <i class="icofont-github"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://dribbble.com/ChristinMorton" aria-label="Dribbble">
+                                    <svg class="social-icon" width="24" height="24">
+                                        <use xlink:href="#dribbble"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.behance.net/chrismorton11" aria-label="Behance">
+                                    <i class="icofont-behance"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <button id="expandCanvas" hidden>Expand Canvas</button>
+      <button id="collapseCanvas" hidden>Collapse Canvas</button>
+
+        <section class="about-hero">
+            <div class="site-container">
+                <div class="hero-layout">
+                    <div class="hero-content">
+                        <h1 class="section-title">
+                            About <span class="text-highlight">me</span>
+                        </h1>
+                        <p class="hero-description">
+                            Your vision, my expertise – together, we create magic.
+                        </p>
+                        <p class="bio-text">
+                            Hi, I'm Christin Morton, a freelance software engineer who helps businesses launch and grow online. I create websites, custom web apps, and backend systems using modern tools. My productized services simplify the process, delivering professional results quickly. From quick fixes to full-scale builds, I focus on value, security, and long-term usability.
+                        </p>
+                        
+                        <div class="stats-section">
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <div class="stat-number">
+                                        <span class="counter-value text-highlight" data-count="7">1</span>
+                                        <span class="text-highlight">+</span>
+                                    </div>
+                                    <p class="stat-label">years experience</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="tab-content" id="experience">
-                        <div class="experience-grid">
-                            <div class="experience-card">
-                                <h3 class="experience-title">Yans Tiles: Independent Contractor</h3>
-                                <p class="experience-role text-highlight">Tile Setting & Residential Repairs</p>
-                                <p class="experience-description">Specializing in professional tile installation, repair, and general handyman services for residential clients. Dedicated to delivering precise craftsmanship and reliable service.</p>
-                            </div>
-                            <div class="experience-card">
-                                <h3 class="experience-title">Urban Sunset: Clothing Brand</h3>
-                                <p class="experience-role text-highlight">Founder & Creative Director</p>
-                                <p class="experience-description">A newly formed fashion label blending artistic design with modern streetwear culture. Founded by a young Black college student and IT professional, the brand embodies creativity, innovation, and cultural expression.</p>
+                    <div class="skills-section">
+                        <div class="content-tabs">
+                            <button class="tab-trigger active" data-tab="skills">Skills</button>
+                            <button class="tab-trigger" data-tab="experience">Experience</button>
+                            <button class="tab-trigger" data-tab="education">Education</button>
+                            <button class="tab-trigger" data-tab="interests">Interests</button>
+                        </div>
+                        
+                        <div class="tab-content active" id="skills">
+                            <div class="skills-grid">
+                                <div class="skill-card">
+                                    <h3 class="skill-title">Custom Website Development</h3>
+                                    <p class="skill-description">Building tailored sites for unique goals.</p>
+                                </div>
+                                <div class="skill-card">
+                                    <h3 class="skill-title">Cloud & DNS Configuration</h3>
+                                    <p class="skill-description">Securing domains with performance-focused setup.</p>
+                                </div>
+                                <div class="skill-card">
+                                    <h3 class="skill-title">Headless CMS Solutions</h3>
+                                    <p class="skill-description">Creating flexible content systems for scalability.</p>
+                                </div>
+                                <div class="skill-card">
+                                    <h3 class="skill-title">API Development & Integration</h3>
+                                    <p class="skill-description">Connecting services for seamless business automation.</p>
+                                </div>
+                                <div class="skill-card">
+                                    <h3 class="skill-title">Performance Optimization</h3>
+                                    <p class="skill-description">Improving load times and user experience.</p>
+                                </div>
+                                <div class="skill-card">
+                                    <h3 class="skill-title">Security Implementation</h3>
+                                    <p class="skill-description">Protecting websites from threats and downtime.</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="tab-content" id="education">
-                        <div class="education-grid">
-                            <div class="education-card">
-                                <h3 class="education-title">Associate of Arts in Business</h3>
-                                <p class="education-institution text-highlight">College of Southern Nevada — Graduated 2025</p>
-                                <p class="education-description">Completed coursework in business management, communication, and entrepreneurship, developing a strong foundation for both creative and technical professional work.</p>
-                            </div>
-                            <div class="education-card">
-                                <h3 class="education-title">Continuing Professional Development</h3>
-                                <p class="education-institution text-highlight">Ongoing</p>
-                                <p class="education-description">Actively expanding expertise in technology, software engineering, and business strategy through professional certifications, online courses, and independent projects.</p>
+                        
+                        <div class="tab-content" id="experience">
+                            <div class="experience-grid">
+                                <div class="experience-card">
+                                    <h3 class="experience-title">Yans Tiles: Independent Contractor</h3>
+                                    <p class="experience-role text-highlight">Tile Setting & Residential Repairs</p>
+                                    <p class="experience-description">Specializing in professional tile installation, repair, and general handyman services for residential clients. Dedicated to delivering precise craftsmanship and reliable service.</p>
+                                </div>
+                                <div class="experience-card">
+                                    <h3 class="experience-title">Urban Sunset: Clothing Brand</h3>
+                                    <p class="experience-role text-highlight">Founder & Creative Director</p>
+                                    <p class="experience-description">A newly formed fashion label blending artistic design with modern streetwear culture. Founded by a young Black college student and IT professional, the brand embodies creativity, innovation, and cultural expression.</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="tab-content" id="interests">
-                        <div class="interests-grid">
-                            <div class="interest-card">
-                                <h3 class="interest-title">Web Development</h3>
-                                <p class="interest-description">Building responsive, user-focused websites and applications using modern technologies.</p>
+                        
+                        <div class="tab-content" id="education">
+                            <div class="education-grid">
+                                <div class="education-card">
+                                    <h3 class="education-title">Associate of Arts in Business</h3>
+                                    <p class="education-institution text-highlight">College of Southern Nevada — Graduated 2025</p>
+                                    <p class="education-description">Completed coursework in business management, communication, and entrepreneurship, developing a strong foundation for both creative and technical professional work.</p>
+                                </div>
+                                <div class="education-card">
+                                    <h3 class="education-title">Continuing Professional Development</h3>
+                                    <p class="education-institution text-highlight">Ongoing</p>
+                                    <p class="education-description">Actively expanding expertise in technology, software engineering, and business strategy through professional certifications, online courses, and independent projects.</p>
+                                </div>
                             </div>
-                            <div class="interest-card">
-                                <h3 class="interest-title">Business Strategy</h3>
-                                <p class="interest-description">Applying strategic thinking to align technology solutions with business goals.</p>
-                            </div>
-                            <div class="interest-card">
-                                <h3 class="interest-title">Creative Design</h3>
-                                <p class="interest-description">Designing visually engaging layouts and user experiences that enhance brand identity.</p>
+                        </div>
+                        
+                        <div class="tab-content" id="interests">
+                            <div class="interests-grid">
+                                <div class="interest-card">
+                                    <h3 class="interest-title">Web Development</h3>
+                                    <p class="interest-description">Building responsive, user-focused websites and applications using modern technologies.</p>
+                                </div>
+                                <div class="interest-card">
+                                    <h3 class="interest-title">Business Strategy</h3>
+                                    <p class="interest-description">Applying strategic thinking to align technology solutions with business goals.</p>
+                                </div>
+                                <div class="interest-card">
+                                    <h3 class="interest-title">Creative Design</h3>
+                                    <p class="interest-description">Designing visually engaging layouts and user experiences that enhance brand identity.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <nav id="side-nav" class="side-navigation">
+    <!-- <nav id="side-nav" class="side-navigation">
         <ul class="nav-menu">
             <li>
                 <a href="index.html" class="nav-link" aria-current="page">
@@ -332,7 +343,7 @@
                 </a>
             </li>
         </ul>
-    </nav>
+    </nav> -->
 
 
     <!-- Custom Scripts ================================================== -->

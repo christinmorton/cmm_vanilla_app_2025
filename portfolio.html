@@ -22,7 +22,7 @@
         rel="stylesheet" />
 </head>
 
-<body>
+<body data-template="hybrid" class="preloader-active">
 
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
         <symbol id="page-add" viewBox="0 0 20 20">
@@ -108,11 +108,15 @@
         </symbol>
     </svg>
 
-    <!-- <div class="preloader">
-        <div class="loader"></div>
-    </div> -->
+        <!-- Background host (exists on pages that need background or hybrid start) -->
+    <div id="bgHost" class="bg-canvas-host"></div>
 
-    <header id="header-nav" class="header-nav">
+    <!-- Content -->
+    <header id="hybridHost" class="hybrid-banner" hidden></header>
+
+
+    <main>
+            <header id="header-nav" class="header-nav">
         <div class="site-container">
             <a class="logo" href="index.html"><img src="images/logo_2.png" alt="logo"></a>
             <button class="mobile-menu-toggle" type="button" aria-label="Toggle navigation">
@@ -350,8 +354,9 @@
             </div>
         </div>
     </section>
+    </main>
 
-    <nav id="side-nav" class="side-navigation">
+    <!-- <nav id="side-nav" class="side-navigation">
         <ul class="nav-menu">
             <li>
                 <a href="index.html" class="nav-link">
@@ -406,7 +411,7 @@
                 </ul>
             </li>
         </ul>
-    </nav>
+    </nav> -->
 
     <div class="decorative-pattern">
         <img src="images/pattern.png" alt="pattern">
