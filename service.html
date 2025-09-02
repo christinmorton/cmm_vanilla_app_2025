@@ -118,11 +118,33 @@
     <main>
             <header id="header-nav" class="header-nav">
         <div class="site-container">
-            <a class="logo" href="index.html"><img src="images/logo_2.png" alt="logo"></a>
+            <!-- Logo - Left -->
+            <div class="header-left">
+                <a class="logo" href="index.html">
+                    <img src="images/logo_2.png" alt="Christin Morton Logo">
+                </a>
+            </div>
 
-            <button class="mobile-menu-toggle" type="button" aria-label="Toggle navigation" aria-controls="mobile-menu" aria-expanded="false">
+            <!-- Navigation - Right (Desktop only) -->
+            <div class="header-right desktop-only">
+                <nav class="main-nav">
+                    <ul class="nav-menu">
+                        <li><a href="index.html" class="nav-link">Home</a></li>
+                        <li><a href="about.html" class="nav-link">About</a></li>
+                        <li><a href="service.html" class="nav-link active">Services</a></li>
+                        <li><a href="portfolio.html" class="nav-link">Portfolio</a></li>
+                        <li><a href="blog.html" class="nav-link">Blog</a></li>
+                        <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle mobile-only" type="button" aria-label="Toggle navigation" aria-controls="mobile-menu" aria-expanded="false">
                 <span class="menu-icon"></span>
             </button>
+            
+            <!-- Mobile Menu -->
             <div class="mobile-menu" id="mobile-menu">
                 <div class="mobile-menu-header">
                     <button type="button" class="mobile-menu-close" aria-label="Close menu">
@@ -131,9 +153,21 @@
                         </svg>
                     </button>
                 </div>
+                
                 <div class="mobile-menu-content">
+                    <!-- Mobile Navigation -->
+                    <nav class="mobile-nav">
+                        <ul class="mobile-nav-menu">
+                            <li><a href="index.html" class="nav-link">Home</a></li>
+                            <li><a href="about.html" class="nav-link">About</a></li>
+                            <li><a href="service.html" class="nav-link active">Services</a></li>
+                            <li><a href="portfolio.html" class="nav-link">Portfolio</a></li>
+                            <li><a href="blog.html" class="nav-link">Blog</a></li>
+                            <li><a href="contact.html" class="nav-link">Contact</a></li>
+                        </ul>
+                    </nav>
+
                     <div class="mobile-only">
-                        <!-- <img src="images/my_profile_pic_2025_round-out-effect_transparent_2.png" alt="Profile" class="profile-image"> -->
                         <div class="cta-section">
                             <a href="contact.html" class="action-button">
                                 <span>Hire Me</span>
@@ -145,7 +179,9 @@
                             </a>
                         </div>
                     </div>
-                    <ul class="social-links">
+                    
+                    <!-- Mobile Social Links -->
+                    <ul class="social-links mobile-social">
                         <li>
                             <a href="https://www.facebook.com/morton41Christin" aria-label="Facebook">
                                 <svg class="social-icon" width="24" height="24">

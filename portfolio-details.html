@@ -117,73 +117,114 @@
 
     <main>
             <header id="header-nav" class="header-nav">
-        <div class="site-container">
-            <a class="logo" href="index.html"><img src="images/logo_2.png" alt="logo"></a>
-            <button class="mobile-menu-toggle" type="button" aria-label="Toggle navigation">
-                <span class="menu-icon"></span>
-            </button>
-            <div class="mobile-menu" id="mobile-menu">
-                <div class="mobile-menu-header">
-                    <button type="button" class="mobile-menu-close" aria-label="Close menu">
-                        <svg width="16" height="16"><use xlink:href="#close"></use></svg>
+                <div class="site-container">
+                    <!-- Logo - Left -->
+                    <div class="header-left">
+                        <a class="logo" href="index.html">
+                            <img src="images/logo_2.png" alt="Christin Morton Logo">
+                        </a>
+                    </div>
+
+                    <!-- Navigation - Right (Desktop only) -->
+                    <div class="header-right desktop-only">
+                        <nav class="main-nav">
+                            <ul class="nav-menu">
+                                <li><a href="index.html" class="nav-link">Home</a></li>
+                                <li><a href="about.html" class="nav-link">About</a></li>
+                                <li><a href="service.html" class="nav-link">Services</a></li>
+                                <li><a href="portfolio.html" class="nav-link active">Portfolio</a></li>
+                                <li><a href="blog.html" class="nav-link">Blog</a></li>
+                                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- Mobile Menu Toggle -->
+                    <button class="mobile-menu-toggle mobile-only" type="button" aria-label="Toggle navigation" aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="menu-icon"></span>
                     </button>
-                </div>
-                <div class="mobile-menu-content">
-                    <div class="mobile-only">
-                        <!-- <img src="images/my_profile_pic_2025_round-out-effect_transparent_2.png" alt="Profile" class="profile-image"> -->
-                        <div class="cta-section">
-                            <a href="contact.html" class="action-button">
-                                <span>Hire Me</span>
-                                <div class="button-icon">
-                                    <svg class="arrow-right" width="28" height="28"><use xlink:href="#arrow-right"></use></svg>
+                    
+                    <!-- Mobile Menu -->
+                    <div class="mobile-menu" id="mobile-menu">
+                        <div class="mobile-menu-header">
+                            <button type="button" class="mobile-menu-close" aria-label="Close menu">
+                                <svg width="16" height="16">
+                                    <use xlink:href="#close"></use>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <div class="mobile-menu-content">
+                            <!-- Mobile Navigation -->
+                            <nav class="mobile-nav">
+                                <ul class="mobile-nav-menu">
+                                    <li><a href="index.html" class="nav-link">Home</a></li>
+                                    <li><a href="about.html" class="nav-link">About</a></li>
+                                    <li><a href="service.html" class="nav-link">Services</a></li>
+                                    <li><a href="portfolio.html" class="nav-link active">Portfolio</a></li>
+                                    <li><a href="blog.html" class="nav-link">Blog</a></li>
+                                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                                </ul>
+                            </nav>
+
+                            <div class="mobile-only">
+                                <div class="cta-section">
+                                    <a href="contact.html" class="action-button">
+                                        <span>Hire Me</span>
+                                        <div class="button-icon">
+                                            <svg class="arrow-right" width="28" height="28">
+                                                <use xlink:href="#arrow-right"></use>
+                                            </svg>
+                                        </div>
+                                    </a>
                                 </div>
-                            </a>
+                            </div>
+                            
+                            <!-- Mobile Social Links -->
+                            <ul class="social-links mobile-social">
+                                <li>
+                                    <a href="https://www.facebook.com/morton41Christin" aria-label="Facebook">
+                                        <svg class="social-icon" width="24" height="24">
+                                            <use xlink:href="#facebook"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.instagram.com/christinmorton41" aria-label="Instagram">
+                                        <svg class="social-icon" width="24" height="24">
+                                            <use xlink:href="#instagram"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.linkedin.com/in/christin-morton-b24512209" aria-label="LinkedIn">
+                                        <svg class="social-icon" width="24" height="24">
+                                            <use xlink:href="#linkedin"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://github.com/christinmorton" aria-label="GitHub">
+                                        <i class="icofont-github"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://dribbble.com/ChristinMorton" aria-label="Dribbble">
+                                        <svg class="social-icon" width="24" height="24">
+                                            <use xlink:href="#dribbble"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.behance.net/chrismorton11" aria-label="Behance">
+                                        <i class="icofont-behance"></i>
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                    <ul class="social-links">
-                        <li>
-                            <a href="https://www.facebook.com/morton41Christin">
-                                <svg class="social-icon" width="24" height="24">
-                                    <use xlink:href="#facebook"></use>
-                                </svg>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.instagram.com/christinmorton41">
-                                <svg class="social-icon" width="24" height="24">
-                                    <use xlink:href="#instagram"></use>
-                                </svg>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.linkedin.com/in/christin-morton-b24512209">
-                                <svg class="social-icon" width="24" height="24">
-                                    <use xlink:href="#linkedin"></use>
-                                </svg>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/christinmorton">
-                                <i class="icofont-github"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://dribbble.com/ChristinMorton">
-                                <svg class="social-icon" width="24" height="24">
-                                    <use xlink:href="#dribbble"></use>
-                                </svg>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.behance.net/chrismorton11">
-                                <i class="icofont-behance"></i>
-                            </a>
-                        </li>
-                    </ul>
                 </div>
-            </div>
-        </div>
-    </header>
+            </header>
 
     <section class="portfolio-details-hero">
         <div class="site-container">

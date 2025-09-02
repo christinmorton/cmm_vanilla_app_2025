@@ -2,11 +2,15 @@
 import PreloadManager from './modules/PreloadManager.js';
 import BackgroundGrid from './modules/BackgroundGrid.js';
 import PageTransitionManager from './modules/PageTransitionManager.js';
+import HeaderNavigation from './modules/HeaderNavigation.js';
 import { gsap } from 'gsap';
 
 // Initialize preloader immediately
 const preloader = new PreloadManager();
 preloader.show();
+
+// Initialize header navigation
+const headerNav = new HeaderNavigation();
 
 const bgHost = document.getElementById('bgHost');
 const inlineHost = document.getElementById('inlineHost');
