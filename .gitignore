@@ -25,3 +25,6 @@ notes.txt
 *.njsproj
 *.sln
 *.sw?
+
+
+design_system/

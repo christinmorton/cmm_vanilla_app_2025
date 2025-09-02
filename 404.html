@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 - Lost in Space</title>
+     <!-- Icomoon fonts -->
+    <link rel="stylesheet" type="text/css" href="css/icofont.min.css" />
+
+
+    <!--Styles css ================================================== -->
+    <link rel="stylesheet" href="/scss/main.scss" />
+
+
+    <!--Google Font css ================================================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet" />
+    <style>
+      /* Critical CSS - inline to prevent white flash */
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: #1a1a2e;
+        color: #ffffff;
+      }
+      
+      /* Template-specific backgrounds */
+      [data-template="background"] {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      }
+      
+      /* Hide content immediately */
+      body.preloader-active #app {
+        opacity: 0;
+      }
+      
+      #app {
+        background: inherit;
+        color: inherit;
+        min-height: 100vh;
+      }
+      
+      /* For background template, make #app transparent so canvas shows through */
+      [data-template="background"] #app {
+        background: transparent !important;
+      }
+    </style>
+  </head>
+  <body data-template="background" class="preloader-active">
+    <div id="app">
+
+      <!-- Background host (exists on pages that need background or hybrid start) -->
+      <div id="bgHost" class="bg-canvas-host"></div>
+
+      <!-- Content -->
+      <header id="hybridHost" class="hybrid-banner" hidden></header>
+
+      <main>
+        <!-- Fixed Site Header -->
+        <header id="header-nav" class="header-nav">
+            <div class="site-container">
+                <a class="logo" href="index.html"><img src="images/logo_2.png" alt="logo"></a>
+
+                <button class="mobile-menu-toggle" type="button" aria-label="Toggle navigation" aria-controls="mobile-menu" aria-expanded="false">
+                    <span class="menu-icon"></span>
+                </button>
+                
+                <div class="mobile-menu" id="mobile-menu">
+                    <div class="mobile-menu-header">
+                        <button type="button" class="mobile-menu-close" aria-label="Close menu">
+                            <svg width="16" height="16">
+                                <use xlink:href="#close"></use>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div class="mobile-menu-content">
+                        <div class="mobile-only">
+                            <!-- <img src="images/my_profile_pic_2025_round-out-effect_transparent_2.png" alt="Profile" class="profile-image"> -->
+                            <div class="cta-section">
+                                <a href="contact.html" class="action-button">
+                                    <span>Hire Me</span>
+                                    <div class="button-icon">
+                                        <svg class="arrow-right" width="28" height="28">
+                                            <use xlink:href="#arrow-right"></use>
+                                        </svg>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <ul class="social-links">
+                            <li>
+                                <a href="https://www.facebook.com/morton41Christin" aria-label="Facebook">
+                                    <svg class="social-icon" width="24" height="24">
+                                        <use xlink:href="#facebook"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/christinmorton41" aria-label="Instagram">
+                                    <svg class="social-icon" width="24" height="24">
+                                        <use xlink:href="#instagram"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.linkedin.com/in/christin-morton-b24512209" aria-label="LinkedIn">
+                                    <svg class="social-icon" width="24" height="24">
+                                        <use xlink:href="#linkedin"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/christinmorton" aria-label="GitHub">
+                                    <i class="icofont-github"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://dribbble.com/ChristinMorton" aria-label="Dribbble">
+                                    <svg class="social-icon" width="24" height="24">
+                                        <use xlink:href="#dribbble"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.behance.net/chrismorton11" aria-label="Behance">
+                                    <i class="icofont-behance"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- 404 Error Section -->
+        <section class="error-section">
+          <div class="error-content">
+            <div class="error-main">
+              <!-- Large 404 Display -->
+              <div class="error-number">
+                <span class="error-digit">4</span>
+                <span class="error-digit error-zero">0</span>
+                <span class="error-digit">4</span>
+              </div>
+              
+              <div class="error-message">
+                <h1 class="error-title">Lost in Space</h1>
+                <p class="error-subtitle">
+                  The page you're looking for has drifted into the digital void. 
+                  Don't worry, even astronauts get lost sometimes.
+                </p>
+              </div>
+
+              <!-- Navigation Options -->
+              <div class="error-actions">
+                <a href="/index.html" class="error-button primary">
+                  <span>🏠</span>
+                  Take Me Home
+                </a>
+                <a href="/two-column.html" class="error-button secondary">
+                  <span>🚀</span>
+                  Explore Templates
+                </a>
+              </div>
+
+              <!-- Fun Elements -->
+              <div class="error-details">
+                <p class="error-help">
+                  If you think this page should exist, please 
+                  <a href="mailto:support@example.com" class="error-link">let us know</a>
+                </p>
+                <div class="error-codes">
+                  <span class="error-code">ERROR_CODE: COSMIC_DRIFT</span>
+                  <span class="error-code">STATUS: WANDERING_IN_SPACE</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>

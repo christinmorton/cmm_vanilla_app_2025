@@ -29,8 +29,18 @@ export function createSizer({ renderer, camera, getHostEl, maxDpr = 2 }) {
   window.addEventListener('orientationchange', onResize);
 
   // Visibility pause (optional)
+  let currentAnimationLoop = null;
   document.addEventListener('visibilitychange', () => {
-    renderer.setAnimationLoop(document.hidden ? null : renderer.getAnimationLoop());
+    if (document.hidden) {
+      // Store current loop and pause
+      currentAnimationLoop = renderer.getAnimationLoop ? renderer.getAnimationLoop() : null;
+      renderer.setAnimationLoop(null);
+    } else {
+      // Resume animation loop
+      if (currentAnimationLoop) {
+        renderer.setAnimationLoop(currentAnimationLoop);
+      }
+    }
   });
 
   // Inline container observation (swap host on mode change; see CanvasManager below)
