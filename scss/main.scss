@@ -743,3 +743,26 @@ body[data-template="background"] {
     display: block;
   }
 }
+
+// Animated Counter Components
+.counter-value {
+  font-weight: bold;
+  transition: all 0.3s ease;
+  
+  &.counter-completed {
+    transform: scale(1.05);
+    animation: counterPulse 0.6s ease-out;
+  }
+}
+
+@keyframes counterPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1.05);
+  }
+}

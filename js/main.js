@@ -4,6 +4,7 @@ import DesignGridWindow from './modules/DesignGridTypes/index.js';
 import PageTransitionManager from './modules/PageTransitionManager.js';
 import HeaderNavigation from './modules/HeaderNavigation.js';
 import TabSwitcher from './modules/TabSwitcher.js';
+import AnimatedCounter from './modules/AnimatedCounter.js';
 import { gsap } from 'gsap';
 
 // Initialize preloader immediately
@@ -51,6 +52,17 @@ const cm = new DesignGridWindow({
     const pageTransitions = new PageTransitionManager(cm, preloader);
     // Disable debug logging for production (set to true for debugging)
     pageTransitions.setDebug(false);
+    
+    // Initialize animated counters after preloader is complete
+    console.log('About to initialize AnimatedCounter');
+    const animatedCounters = new AnimatedCounter('.counter-value', {
+        duration: 2500,
+        easing: 'easeOutQuart',
+        useIntersectionObserver: false, // Disable for testing
+        observerThreshold: 0.3,
+        startDelay: 1000 // Reduced delay for testing
+    });
+    console.log('AnimatedCounter initialized:', animatedCounters);
     
     // Make available globally for debugging
     window.pageTransitions = pageTransitions;
