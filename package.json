@@ -21,6 +21,7 @@
     "bootstrap": "^5.3.7",
     "bootstrap-icons": "^1.13.1",
     "gsap": "^3.13.0",
-    "three": "^0.179.1"
+    "three": "^0.179.1",
+    "tinymce": "^8.0.2"
   }
 }
