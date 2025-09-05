@@ -533,8 +533,13 @@ body[data-template="background"] {
 .bg-canvas-host {
   position: fixed;
   inset: 0;
+  width: 100vw;
+  height: 100vh;
   z-index: -1;           /* behind the page */
   pointer-events: none;  /* let DOM receive clicks; toggle off if you need interactions */
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 /* Inline section host (participates in normal layout) */

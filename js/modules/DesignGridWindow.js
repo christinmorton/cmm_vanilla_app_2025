@@ -79,9 +79,37 @@ class DesignGridWindow {
         hostEl.appendChild(this.renderer.domElement);
         this.currentHost = hostEl;
         
-        // Set initial canvas size to match host
-        const width = hostEl.clientWidth;
-        const height = hostEl.clientHeight;
+        // Ensure canvas is visible by setting explicit style for background mode
+        if (this.mode === 'background') {
+            this.renderer.domElement.style.position = 'fixed';
+            this.renderer.domElement.style.top = '0';
+            this.renderer.domElement.style.left = '0';
+            this.renderer.domElement.style.zIndex = '-1'; // Behind content as intended
+            this.renderer.domElement.style.pointerEvents = 'none';
+            console.log('DEBUG: Set canvas as background');
+        }
+        
+        console.log('DEBUG: Canvas element added to DOM:', {
+            canvasElement: this.renderer.domElement,
+            canvasParent: this.renderer.domElement.parentElement,
+            canvasStyle: this.renderer.domElement.style.cssText,
+            hostElement: hostEl,
+            hostVisible: hostEl.offsetParent !== null,
+            hostComputedStyle: window.getComputedStyle(hostEl),
+            hostBoundingRect: hostEl.getBoundingClientRect()
+        });
+        
+        // Set initial canvas size to match host, but use viewport dimensions for background mode
+        let width = hostEl.clientWidth;
+        let height = hostEl.clientHeight;
+        
+        // Force full viewport dimensions for background canvas
+        if (this.mode === 'background') {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            console.log('DEBUG: Forcing full viewport size for background canvas:', {width, height});
+        }
+        
         this.renderer.setSize(width, height);
         this.camera.aspect = width / height;
         this.camera.updateProjectionMatrix();
@@ -134,8 +162,14 @@ class DesignGridWindow {
         if (!this.currentHost) return;
         
         const hostEl = this.currentHost;
-        const width = hostEl.clientWidth;
-        const height = hostEl.clientHeight;
+        let width = hostEl.clientWidth;
+        let height = hostEl.clientHeight;
+        
+        // Force full viewport dimensions for background mode
+        if (this.mode === 'background') {
+            width = window.innerWidth;
+            height = window.innerHeight;
+        }
         
         console.log('DEBUG: Resizing canvas to:', { width, height });
         

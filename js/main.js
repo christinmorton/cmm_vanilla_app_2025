@@ -7,7 +7,9 @@ import { gsap } from 'gsap';
 
 // Initialize preloader immediately
 const preloader = new PreloadManager();
+console.log('DEBUG: PreloadManager created:', preloader);
 preloader.show();
+console.log('DEBUG: Preloader show() called');
 
 // Initialize header navigation
 const headerNav = new HeaderNavigation();
@@ -25,7 +27,21 @@ const cm = new DesignGridWindow({
   hybridHost,
   onReady: () => {
     // Hide preloader when canvas is ready
-    setTimeout(() => preloader.hide(), 500); // Small delay for smooth transition
+    console.log('Canvas ready, hiding preloader');
+    setTimeout(() => {
+      console.log('Calling preloader.hide()');
+      console.log('Preloader state before hide:', {
+        visible: preloader.visible,
+        overlay: preloader.overlay,
+        bodyClasses: document.body.className
+      });
+      preloader.hide();
+      console.log('Preloader state after hide:', {
+        visible: preloader.visible,
+        overlay: preloader.overlay,
+        bodyClasses: document.body.className
+      });
+    }, 500); // Small delay for smooth transition
     
     // Initialize page transitions after canvas is ready
     const pageTransitions = new PageTransitionManager(cm, preloader);
@@ -39,8 +55,10 @@ const cm = new DesignGridWindow({
 
 // Example: choose a template at runtime (or hardcode per page)
 const template = document.body.dataset.template; // "background" | "inline" | "hybrid"
+console.log('Template:', template, 'bgHost found:', !!bgHost);
 
 if (template === 'background') {
+  console.log('Mounting canvas to bgHost');
   cm.setMode('background');
   cm.mountTo(bgHost);
 }

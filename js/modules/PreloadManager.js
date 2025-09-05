@@ -102,21 +102,37 @@ export default class PreloadManager {
    * Hide preloader overlay with fade animation
    */
   hide() {
-    if (!this.isVisible || !this.overlay) return;
+    console.log('DEBUG: PreloadManager.hide() called, current state:', {
+      isVisible: this.isVisible,
+      overlay: this.overlay
+    });
+    
+    if (!this.isVisible || !this.overlay) {
+      console.log('DEBUG: Early return from hide - not visible or no overlay');
+      return;
+    }
 
     // Mark as ready and let CSS transition handle the fade
     this.overlay.setAttribute('data-stage', 'ready');
+    console.log('DEBUG: Set overlay data-stage to ready');
     
     // Show main content by removing preloader-active class
     document.body.classList.remove('preloader-active');
+    console.log('DEBUG: Removed preloader-active class from body');
+    
+    // Mark as not visible immediately
+    this.isVisible = false;
+    console.log('DEBUG: Set isVisible to false');
     
     // Remove from DOM after transition completes
     setTimeout(() => {
+      console.log('DEBUG: Timeout callback - removing overlay from DOM');
       if (this.overlay && this.overlay.parentNode) {
         this.overlay.parentNode.removeChild(this.overlay);
+        console.log('DEBUG: Overlay removed from DOM');
       }
       this.overlay = null;
-      this.isVisible = false;
+      console.log('DEBUG: Overlay set to null');
     }, 500); // Match CSS transition duration
   }
 
