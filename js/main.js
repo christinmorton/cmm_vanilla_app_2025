@@ -1,6 +1,6 @@
 // import './style.css'
 import PreloadManager from './modules/PreloadManager.js';
-import BackgroundGrid from './modules/BackgroundGrid.js';
+import DesignGridWindow from './modules/DesignGridWindow.js';
 import PageTransitionManager from './modules/PageTransitionManager.js';
 import HeaderNavigation from './modules/HeaderNavigation.js';
 import { gsap } from 'gsap';
@@ -19,7 +19,7 @@ const btnExpand = document.getElementById('expandCanvas');
 const btnCollapse = document.getElementById('collapseCanvas');
 
 // Initialize canvas with preloader integration
-const cm = new BackgroundGrid({ 
+const cm = new DesignGridWindow({ 
   bgHost, 
   inlineHost, 
   hybridHost,

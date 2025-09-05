@@ -53,7 +53,7 @@
     top: var(--y);
     width: var(--size);
     height: var(--size);
-    background: radial-gradient(circle closest-side, #F64737, transparent);
+    background: radial-gradient(circle closest-side, #007bff, transparent);
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     transition: width .2s ease, height .2s ease;
