@@ -17,10 +17,6 @@ Header Navigation Styles
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: relative;
-    padding: 0 2rem;
-    max-width: 1700px; /* Increased from 1400px to allow 300px wider */
-    margin: 0 auto;
   }
 }
 
@@ -302,10 +298,6 @@ Header Navigation Styles
 
 /* Responsive Design */
 @media (max-width: 1024px) {
-  .header-nav .site-container {
-    padding: 0 1.5rem;
-  }
-  
   .header-right .nav-menu {
     gap: 1.5rem;
   }
@@ -322,10 +314,6 @@ Header Navigation Styles
   
   .header-nav {
     padding: 0.5rem 0;
-    
-    .site-container {
-      padding: 0 1rem;
-    }
   }
   
   .header-left .logo img {
@@ -352,9 +340,6 @@ Header Navigation Styles
     width: 280px;
   }
   
-  .header-nav .site-container {
-    padding: 0 0.75rem; /* Reduce side padding */
-  }
 }
 
 @media (max-width: 400px) {
@@ -364,10 +349,6 @@ Header Navigation Styles
   
   .header-nav {
     padding: 0.3rem 0; /* Further reduce padding */
-  }
-  
-  .header-nav .site-container {
-    padding: 0 0.5rem; /* Minimal side padding */
   }
   
   .mobile-menu-toggle {

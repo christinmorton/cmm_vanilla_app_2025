@@ -274,6 +274,55 @@ html, body {
     overflow: visible !important;
   }
 
+  /* Global Site Container */
+  .site-container {
+    position: relative;
+    padding: 0 2rem;
+    max-width: 1700px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  /* Site Container Responsive Breakpoints */
+  @media (max-width: 1024px) {
+    .site-container {
+      padding: 0 1.5rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .site-container {
+      padding: 0 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .site-container {
+      padding: 0 0.75rem;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .site-container {
+      padding: 0 0.5rem;
+    }
+  }
+
+  /* Main content sections should respect container bounds */
+  main {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+  }
+
+  /* Hero and other content sections */
+  .hero-section,
+  .social-section {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+  }
+
   /* 3D Canvas Background Layout */
   #webgl {
     position: fixed;
@@ -523,10 +572,11 @@ html, body {
 
 /* Scroll Manager Classes --------------------------------------------------------------*/
 
-/* Prevent scrolling when using background template */
+/* Allow normal document flow for background template */
 body[data-template="background"] {
-  overflow: hidden;
-  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  min-height: 100vh;
 }
 
 /* Background (full-viewport behind content) */
