@@ -3,7 +3,7 @@ import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls'
 import gsap from 'gsap'
 import { createSizer } from './sizing';
 
-const idealBgColor = 0x155DFC // '#155DFC'
+const idealBgColor = 0x000000 // '#155DFC'
 
 class BackgroundGrid {
     constructor({ bgHost, inlineHost, hybridHost, onReady }) {
