@@ -3,6 +3,7 @@ import PreloadManager from './modules/PreloadManager.js';
 import DesignGridWindow from './modules/DesignGridTypes/index.js';
 import PageTransitionManager from './modules/PageTransitionManager.js';
 import HeaderNavigation from './modules/HeaderNavigation.js';
+import TabSwitcher from './modules/TabSwitcher.js';
 import { gsap } from 'gsap';
 
 // Initialize preloader immediately
@@ -13,6 +14,9 @@ console.log('DEBUG: Preloader show() called');
 
 // Initialize header navigation
 const headerNav = new HeaderNavigation();
+
+// Initialize tab switcher (skills section on about page)
+const tabSwitcher = new TabSwitcher('.skills-section');
 
 const bgHost = document.getElementById('bgHost');
 const inlineHost = document.getElementById('inlineHost');
