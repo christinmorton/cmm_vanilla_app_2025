@@ -1,6 +1,6 @@
 // import './style.css'
 import PreloadManager from './modules/PreloadManager.js';
-import DesignGridWindow from './modules/DesignGridWindow.js';
+import DesignGridWindow from './modules/DesignGridTypes/index.js';
 import PageTransitionManager from './modules/PageTransitionManager.js';
 import HeaderNavigation from './modules/HeaderNavigation.js';
 import { gsap } from 'gsap';
