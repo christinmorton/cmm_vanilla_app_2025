@@ -1490,6 +1490,14 @@ body[data-template="background"] {
   }
 }
 
+
+.project-image img,
+.service-image img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
 @keyframes spin {
   0% { transform: translate(-50%, -50%) rotate(0deg); }
   100% { transform: translate(-50%, -50%) rotate(360deg); }
