@@ -5,6 +5,7 @@ import PageTransitionManager from './modules/PageTransitionManager.js';
 import HeaderNavigation from './modules/HeaderNavigation.js';
 import TabSwitcher from './modules/TabSwitcher.js';
 import AnimatedCounter from './modules/AnimatedCounter.js';
+import PortfolioFilter from './modules/PortfolioFilter.js';
 import { gsap } from 'gsap';
 
 // Initialize preloader immediately
@@ -18,6 +19,9 @@ const headerNav = new HeaderNavigation();
 
 // Initialize tab switcher (skills section on about page)
 const tabSwitcher = new TabSwitcher('.skills-section');
+
+// Initialize portfolio filter (portfolio masonry page)
+const portfolioFilter = new PortfolioFilter();
 
 const bgHost = document.getElementById('bgHost');
 const inlineHost = document.getElementById('inlineHost');
