@@ -46,7 +46,7 @@ class SalesFunnelForm {
         
         Object.entries(formData).forEach(([key, value]) => {
             // Skip basic schema fields that get stored separately
-            if (key !== 'name' && key !== 'email' && key !== 'phone' && value) {
+            if (key !== 'name' && key !== 'email' && key !== 'phone' && key !== 'files' && value) {
                 if (Array.isArray(value)) {
                     csvPairs.push(`${this.formatKey(key)}: ${value.join(', ')}`);
                 } else {
@@ -111,7 +111,7 @@ class SalesFunnelForm {
         const techFields = ['technologies', 'additionalServices', 'platform'];
 
         Object.entries(formData).forEach(([key, value]) => {
-            if (key !== 'name' && key !== 'email' && key !== 'phone' && value) {
+            if (key !== 'name' && key !== 'email' && key !== 'phone' && key !== 'files' && value) {
                 if (contactFields.includes(key)) {
                     sections['Contact Information'][key] = value;
                 } else if (projectFields.includes(key)) {
