@@ -307,15 +307,28 @@ class ConsultationBooking {
             formData.selectedTime = this.selectedTime;
             formData.formattedDateTime = this.formatDateTimeForSubmission();
 
-            // Submit using sales funnel with 'appointment' type (CSV storage)
-            const result = await this.salesFunnel.handleFormSubmission('appointment', form, {
+            // Step 1: Create the message record first
+            const messageResult = await this.salesFunnel.handleFormSubmission('appointment', form, {
                 userMessage: formData.agendaTopics || ''
             });
 
-            if (result.success) {
-                this.handleSubmissionSuccess(result);
+            if (!messageResult.success) {
+                this.handleSubmissionError(messageResult.error);
+                return;
+            }
+
+            // Step 2: Create the appointment record using the message_id from the API response
+            const messageId = messageResult.data?.id || messageResult.id;
+            if (!messageId) {
+                throw new Error('Message ID not found in API response');
+            }
+            
+            const appointmentResult = await this.createAppointmentRecord(messageId, formData);
+
+            if (appointmentResult.success) {
+                this.handleSubmissionSuccess({ ...messageResult, ...appointmentResult });
             } else {
-                this.handleSubmissionError(result.error);
+                this.handleSubmissionError(appointmentResult.error);
             }
 
         } catch (error) {
@@ -323,6 +336,85 @@ class ConsultationBooking {
             this.handleSubmissionError('An unexpected error occurred. Please try again.');
         } finally {
             this.setFormLoadingState(false);
+        }
+    }
+
+    /**
+     * Create appointment record in the appointment CCT
+     */
+    async createAppointmentRecord(messageId, formData) {
+        try {
+            const appointmentData = {
+                message_id: messageId.toString(),
+                chain_id: this.salesFunnel.generateChainId('appointment'),
+                appointment_status: 'scheduled',
+                appointment_type: formData.consultationType || 'phone',
+                scheduled_date: this.selectedDate,
+                scheduled_time: this.selectedTime,
+                meeting_duration: (formData.meetingDuration || '30').toString(),
+                timezone: this.businessHours.timezone,
+                meeting_platform: formData.meetingPlatform || '',
+                meeting_link: '',
+                meeting_passcode: '',
+                location_address: '',
+                location_details: '',
+                agenda_topics: formData.agendaTopics || '',
+                project_type: '',
+                preparation_notes: '',
+                follow_up_actions: '',
+                internal_notes: '',
+                reminder_sent: 'false',
+                confirmation_sent: 'false',
+                created_date: new Date().toISOString(),
+                last_modified: new Date().toISOString(),
+                rescheduled_count: '0',
+                original_scheduled_date: this.selectedDate,
+                original_scheduled_time: this.selectedTime
+            };
+
+            // Build headers with authentication
+            const headers = {
+                'Content-Type': 'application/json'
+            };
+            
+            // Add authentication if available
+            if (this.salesFunnel.authManager) {
+                const authHeaders = await this.salesFunnel.authManager.getAuthHeaders();
+                Object.assign(headers, authHeaders);
+            }
+
+            // Determine the full endpoint URL
+            const endpointUrl = this.salesFunnel.authManager 
+                ? `${this.salesFunnel.authManager.apiBaseUrl}/jet-cct/appointment`
+                : '/wp-json/jet-cct/appointment';
+
+            const response = await fetch(endpointUrl, {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(appointmentData)
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`HTTP ${response.status}: ${errorText}`);
+            }
+
+            const result = await response.json();
+            
+            console.log('Appointment created successfully:', result);
+            
+            return {
+                success: true,
+                appointmentId: result.id,
+                appointmentData: result
+            };
+
+        } catch (error) {
+            console.error('Failed to create appointment record:', error);
+            return {
+                success: false,
+                error: `Failed to create appointment: ${error.message}`
+            };
         }
     }
 
