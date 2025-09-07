@@ -220,6 +220,98 @@ These are stored in dedicated database tables, not as WordPress posts.
 - Performance monitoring
 - Conversion tracking
 
+### 3. Appointment (`appointment`)
+
+**Endpoint:** `/wp-json/jet-cct/appointment`  
+**Database Table:** `wp_jet_cct_appointment`
+
+**Purpose:** Store consultation appointments and meeting scheduling details
+
+**Fields:**
+- `message_id` (text) - Reference to related message in message table (required)
+- `chain_id` (text) - Message chain identifier for related conversations
+- `appointment_status` (select) - Current appointment status
+  - Options: `scheduled`, `confirmed`, `rescheduled`, `cancelled`, `completed`, `no_show`
+- `appointment_type` (select) - Type of consultation meeting
+  - Options: `phone`, `video`, `in-person`
+- `scheduled_date` (date) - Date of the appointment (YYYY-MM-DD format)
+- `scheduled_time` (text) - Time of the appointment (24-hour format: HH:MM)
+- `meeting_duration` (number) - Duration in minutes (30, 45, 60, 90)
+- `timezone` (text) - Timezone for the appointment (e.g., 'EST', 'PST', 'UTC')
+- `meeting_platform` (select) - Platform for video/remote meetings
+  - Options: `zoom`, `google_meet`, `microsoft_teams`, `skype`, `phone`, `in_person`
+- `meeting_link` (text/url) - Generated meeting room URL (for video calls)
+- `meeting_passcode` (text) - Meeting room passcode/access code
+- `location_address` (textarea) - Physical address for in-person meetings
+- `location_details` (textarea) - Additional location instructions (suite number, parking, etc.)
+- `agenda_topics` (wysiwyg) - Topics and questions to discuss during consultation
+- `project_type` (text) - Related project type (if known)
+- `preparation_notes` (wysiwyg) - Pre-meeting preparation notes and requirements
+- `follow_up_actions` (wysiwyg) - Post-meeting follow-up items and next steps
+- `internal_notes` (wysiwyg) - Private notes for internal use only
+- `reminder_sent` (checkbox) - Flag indicating if reminder email was sent
+- `confirmation_sent` (checkbox) - Flag indicating if confirmation was sent
+- `created_date` (datetime) - When the appointment was originally created
+- `last_modified` (datetime) - When the appointment was last updated
+- `rescheduled_count` (number) - Number of times the appointment has been rescheduled
+- `original_scheduled_date` (date) - Original appointment date (for rescheduled appointments)
+- `original_scheduled_time` (text) - Original appointment time (for rescheduled appointments)
+
+**Relationships:**
+- **Many-to-One with Message:** Links to the `message` CCT via `message_id`
+- **Chain Relationship:** Uses `chain_id` to link related messages and appointments
+
+**Use Cases:**
+- Consultation scheduling from contact forms
+- Appointment management and tracking
+- Meeting logistics coordination
+- Calendar system integration
+- Automated reminder systems
+- Appointment history tracking
+- Follow-up workflow management
+
+**Status Workflow:**
+1. `scheduled` - Initial appointment booking
+2. `confirmed` - Client/admin confirmation received
+3. `rescheduled` - Appointment moved to new date/time
+4. `cancelled` - Appointment cancelled by either party
+5. `completed` - Meeting successfully conducted
+6. `no_show` - Client failed to attend scheduled meeting
+
+**Location Handling:**
+- **Phone:** No location needed, phone number stored in related message
+- **Video:** Meeting platform and generated link stored
+- **In-Person:** Full address and location details required
+
+**Data Migration Notes:**
+- Current appointment data stored in `message.simple_message` (CSV format) should be migrated to this dedicated table
+- Existing appointment messages will maintain their `type: "appointment"` but appointment details move to this CCT
+- `message_id` creates the relationship between the original form submission and appointment details
+
+**API Example Response:**
+```json
+{
+  "id": 123,
+  "message_id": "456",
+  "chain_id": "appointment_chain_789",
+  "appointment_status": "confirmed",
+  "appointment_type": "video",
+  "scheduled_date": "2024-03-15",
+  "scheduled_time": "14:30",
+  "meeting_duration": 60,
+  "timezone": "EST",
+  "meeting_platform": "zoom",
+  "meeting_link": "https://zoom.us/j/123456789",
+  "meeting_passcode": "consulting123",
+  "agenda_topics": "<p>Discuss website redesign project requirements</p>",
+  "project_type": "website_redesign",
+  "reminder_sent": true,
+  "confirmation_sent": true,
+  "created_date": "2024-03-10T10:30:00Z",
+  "last_modified": "2024-03-12T16:45:00Z"
+}
+```
+
 ---
 
 ## API Usage Notes
