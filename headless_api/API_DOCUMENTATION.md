@@ -313,6 +313,80 @@ These are stored in dedicated database tables, not as WordPress posts.
 }
 ```
 
+### 4. Invoice (`invoice`) ✅ **IMPLEMENTED**
+
+**Endpoint:** `/wp-json/jet-cct/invoice`  
+**Database Table:** `wp_jet_cct_invoice`  
+**Status:** 🟢 **Active** - WordPress CCT implemented and ready for payment system integration
+
+**Purpose:** Track deposit payments and project invoices with Stripe integration
+
+**Fields:**
+- `id` (auto-generated) - WordPress/JetEngine auto-generated unique identifier (serves as invoice_id)
+- `stripe_payment_intent_id` (text) - Stripe transaction reference
+- `message_id` (text) - Link to original form submission (required)
+- `chain_id` (text) - Link to related appointments/quotes
+- `customer_name` (text) - Customer name
+- `customer_email` (text) - Customer email
+- `deposit_amount` (text) - Deposit amount ($99/$250/$500)
+- `currency` (text) - Currency (USD)
+- `payment_status` (text) - Payment status
+  - Options: `paid`, `pending`, `failed`, `refunded`
+- `stripe_customer_id` (text) - Stripe customer reference
+- `project_type` (text) - Type of project deposit
+- `invoice_date` (datetime) - When invoice was created
+- `payment_date` (datetime) - When payment was completed
+- `notes` (wysiwyg) - Internal notes about the transaction
+- `receipt_url` (text) - Stripe receipt URL
+- `created_date` (datetime) - Record creation timestamp
+- `last_modified` (datetime) - Last update timestamp
+
+**Relationships:**
+- **Many-to-One with Message:** Links to the `message` CCT via `message_id`
+- **Chain Relationship:** Uses `chain_id` to link related messages, appointments, and invoices
+
+**Use Cases:**
+- Deposit payment tracking for web development projects
+- Invoice generation and management
+- Customer payment history
+- Project financial tracking
+- Stripe transaction reconciliation
+
+**Payment Flow:**
+1. `pending` - Invoice created, awaiting payment
+2. `paid` - Payment successfully processed via Stripe
+3. `failed` - Payment attempt failed
+4. `refunded` - Payment refunded (rare for non-refundable deposits)
+
+**Integration Notes:**
+- Stripe handles all payment processing and customer data
+- WordPress stores minimal invoice records for project tracking
+- Webhook integration updates payment status from Stripe events
+- Links to existing sales funnel data via message relationships
+- `id` field serves as the unique invoice identifier (no separate `invoice_id` field needed)
+
+**API Example Response:**
+```json
+{
+  "id": 789,
+  "stripe_payment_intent_id": "pi_1234567890abcdef",
+  "message_id": "456",
+  "chain_id": "payment_chain_123",
+  "customer_name": "John Doe",
+  "customer_email": "john@example.com",
+  "deposit_amount": "250",
+  "currency": "USD",
+  "payment_status": "paid",
+  "stripe_customer_id": "cus_1234567890",
+  "project_type": "website_development",
+  "invoice_date": "2024-03-15T10:00:00Z",
+  "payment_date": "2024-03-15T10:05:32Z",
+  "receipt_url": "https://pay.stripe.com/receipts/...",
+  "created_date": "2024-03-15T10:00:00Z",
+  "last_modified": "2024-03-15T10:05:35Z"
+}
+```
+
 ---
 
 ## API Usage Notes
