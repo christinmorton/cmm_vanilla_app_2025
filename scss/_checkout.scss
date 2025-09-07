@@ -1,0 +1,622 @@
+/**
+ * Checkout Page Styles
+ * Professional payment processing interface with Stripe integration
+ */
+
+.checkout-page {
+  background: var(--gradient-bg);
+  min-height: 100vh;
+  color: var(--text-color);
+
+  .main-header {
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+    .navbar-brand {
+      .logo {
+        max-height: 40px;
+        width: auto;
+      }
+    }
+
+    .nav-link {
+      color: var(--text-color);
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+    }
+  }
+
+  .checkout-main {
+    padding: 4rem 0 2rem;
+    min-height: calc(100vh - 120px);
+  }
+}
+
+// Header Section
+.checkout-header {
+  text-align: center;
+  margin-bottom: 3rem;
+
+  .checkout-header-content {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .checkout-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--primary-color), #00ff88);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    @media (max-width: 768px) {
+      font-size: 2rem;
+    }
+  }
+
+  .checkout-subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    line-height: 1.6;
+  }
+}
+
+// Main Checkout Layout
+.checkout-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  @media (max-width: 992px) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+// Left Column - Customer Info
+.checkout-left {
+  .customer-info-section {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+
+    h2 {
+      margin-bottom: 1.5rem;
+      color: var(--primary-color);
+      font-size: 1.5rem;
+    }
+  }
+
+  .customer-details {
+    margin-bottom: 2rem;
+
+    .customer-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+
+      .customer-avatar {
+        width: 50px;
+        height: 50px;
+        background: var(--primary-color);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: white;
+      }
+
+      .customer-info {
+        h3 {
+          margin: 0 0 0.25rem 0;
+          font-size: 1.1rem;
+        }
+
+        p {
+          margin: 0 0 0.25rem 0;
+          opacity: 0.8;
+          font-size: 0.9rem;
+        }
+
+        small {
+          opacity: 0.6;
+          font-size: 0.8rem;
+        }
+      }
+    }
+  }
+
+  .project-summary {
+    margin-bottom: 2rem;
+
+    h3 {
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+      font-size: 1.2rem;
+    }
+
+    .summary-content {
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 6px;
+
+      p {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+
+      .project-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        .meta-item {
+          font-size: 0.85rem;
+          opacity: 0.7;
+        }
+      }
+    }
+  }
+
+  .value-proposition {
+    h3 {
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+      font-size: 1.2rem;
+    }
+
+    .benefits-list {
+      list-style: none;
+      padding: 0;
+
+      li {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 0.75rem;
+        font-size: 0.95rem;
+        line-height: 1.4;
+
+        i {
+          color: var(--primary-color);
+          font-size: 1rem;
+          flex-shrink: 0;
+        }
+
+        strong {
+          color: var(--primary-color);
+        }
+      }
+    }
+  }
+}
+
+// Right Column - Payment
+.checkout-right {
+  .payment-section {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+
+    h2 {
+      margin-bottom: 1.5rem;
+      color: var(--primary-color);
+      font-size: 1.5rem;
+    }
+  }
+}
+
+// Deposit Options
+.deposit-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+
+  @media (max-width: 768px) {
+    gap: 0.75rem;
+  }
+}
+
+.deposit-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.03);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: var(--primary-color);
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-2px);
+  }
+
+  &.selected {
+    border-color: var(--primary-color);
+    background: rgba(2, 154, 45, 0.1);
+    box-shadow: 0 0 20px rgba(2, 154, 45, 0.2);
+  }
+
+  &.featured {
+    border-color: var(--primary-color);
+    background: rgba(2, 154, 45, 0.05);
+    
+    .deposit-badge {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--primary-color);
+      color: white;
+      padding: 0.25rem 1rem;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+  }
+
+  .deposit-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: var(--text-color);
+    }
+
+    .price {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+  }
+
+  .deposit-description {
+    margin-bottom: 1.5rem;
+
+    p {
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        padding: 0.25rem 0;
+        font-size: 0.9rem;
+        opacity: 0.8;
+        
+        &::before {
+          content: "•";
+          color: var(--primary-color);
+          margin-right: 0.5rem;
+        }
+      }
+    }
+  }
+
+  .deposit-select-btn {
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+
+// Payment Processing Section
+.payment-processing {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 2rem;
+  margin-top: 2rem;
+
+  .selected-deposit {
+    margin-bottom: 2rem;
+    text-align: center;
+
+    h3 {
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+    }
+
+    .deposit-summary {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 1.5rem;
+
+      .deposit-amount {
+        display: block;
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+      }
+
+      .deposit-type {
+        font-size: 1.1rem;
+        opacity: 0.8;
+      }
+    }
+  }
+
+  .payment-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+
+    #proceedToPayment {
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      &.btn-loading {
+        .btn-text {
+          opacity: 0.7;
+        }
+      }
+
+      .btn-loading-spinner {
+        width: 20px;
+        height: 20px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: white;
+        animation: spin 1s ease-in-out infinite;
+      }
+    }
+
+    .btn-secondary {
+      padding: 0.75rem 1.5rem;
+      background: transparent;
+      color: var(--text-color);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        border-color: var(--primary-color);
+        background: rgba(255, 255, 255, 0.05);
+      }
+    }
+  }
+
+  .payment-security {
+    text-align: center;
+
+    .security-badges {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+
+      @media (max-width: 480px) {
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .security-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        opacity: 0.8;
+
+        i {
+          color: var(--primary-color);
+        }
+      }
+    }
+
+    .security-note {
+      font-size: 0.85rem;
+      opacity: 0.7;
+      line-height: 1.4;
+      margin: 0;
+    }
+  }
+}
+
+// Terms Section
+.terms-section {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 2rem;
+
+  .terms-content {
+    h4 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    .terms-list {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 1rem;
+
+      li {
+        padding: 0.5rem 0;
+        font-size: 0.9rem;
+        opacity: 0.8;
+        line-height: 1.4;
+
+        strong {
+          color: var(--primary-color);
+        }
+      }
+    }
+
+    .terms-agreement {
+      font-size: 0.85rem;
+      opacity: 0.7;
+      font-style: italic;
+      margin: 0;
+    }
+  }
+}
+
+// Footer
+.main-footer {
+  background: rgba(0, 0, 0, 0.3);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2rem 0;
+  margin-top: 3rem;
+
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    opacity: 0.7;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+
+      a {
+        color: var(--text-color);
+        text-decoration: none;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: var(--primary-color);
+        }
+      }
+    }
+  }
+}
+
+// Notification System
+.notification-container {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  z-index: 9999;
+
+  .notification {
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+    border-left: 4px solid var(--primary-color);
+    animation: slideInRight 0.3s ease;
+
+    &.error {
+      border-left-color: #ff4757;
+    }
+
+    &.success {
+      border-left-color: var(--primary-color);
+    }
+  }
+}
+
+// Animations
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .checkout-content {
+    padding: 0 1rem;
+  }
+
+  .checkout-left .customer-info-section,
+  .checkout-right .payment-section {
+    padding: 1.5rem;
+  }
+
+  .deposit-card {
+    padding: 1.25rem;
+
+    .deposit-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+
+      .price {
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  .payment-processing .selected-deposit .deposit-summary .deposit-amount {
+    font-size: 2rem;
+  }
+}

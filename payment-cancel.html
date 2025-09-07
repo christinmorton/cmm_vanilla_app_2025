@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Cancelled - Christine Morton</title>
+    <meta name="description" content="Your payment was cancelled. You can try again or contact support for assistance.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    
+    <!-- Icomoon fonts -->
+    <link rel="stylesheet" type="text/css" href="css/icofont.min.css" />
+
+    <!--Styles css ================================================== -->
+    <link rel="stylesheet" href="/scss/main.scss" />
+
+    <!--Google Font css ================================================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet" />
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Payment Cancelled - Christine Morton">
+    <meta property="og:description" content="Your payment was cancelled. You can try again anytime.">
+    <meta property="og:type" content="website">
+
+    <style>
+      /* Critical CSS - inline to prevent white flash */
+      html, body {
+        margin: 0;
+        padding: 0;
+        /* Removed background so canvas shows through */
+        /* background: #1a1a2e; */
+        color: #ffffff;
+      }
+      
+      /* Template-specific backgrounds */
+      [data-template="background"] {
+        /* Removed background so canvas shows through */
+        /* background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); */
+      }
+      
+      [data-template="inline"] {
+        background: #f8f9fa;
+        color: #333333;
+      }
+      
+      [data-template="hybrid"] {
+        background: radial-gradient(circle at center, #1a1a2e 0%, #16213e 100%);
+      }
+      
+      /* Hide content immediately */
+      body.preloader-active #app {
+        opacity: 0;
+      }
+      
+      #app {
+        background: inherit;
+        color: inherit;
+        min-height: 100vh;
+      }
+      
+      /* For background template, make #app transparent so canvas shows through */
+      [data-template="background"] #app {
+        background: transparent !important;
+      }
+      
+      /* For hybrid template, also make #app transparent initially (fullscreen phase) */
+      [data-template="hybrid"] #app {
+        background: transparent !important;
+      }
+    </style>
+</head>
+<body data-template="background" class="preloader-active payment-cancel-page">
+
+    <!-- Background Canvas -->
+    <div id="bgHost" class="bg-canvas-host"></div>
+
+    <!-- Main Navigation -->
+    <header class="main-header">
+        <div class="site-container">
+            <nav class="navbar">
+                <div class="nav-container">
+                    <a href="/" class="navbar-brand">
+                        <img src="/images/cmm-logo.png" alt="Christine Morton" class="logo">
+                    </a>
+                    
+                    <div class="nav-items">
+                        <a href="/" class="nav-link">← Back to Home</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="cancel-main">
+        <div class="site-container">
+            
+            <!-- Cancel Header -->
+            <section class="cancel-header">
+                <div class="cancel-icon">
+                    <i class="icofont-close-circled"></i>
+                </div>
+                <h1 class="cancel-title">Payment Cancelled</h1>
+                <p class="cancel-subtitle">
+                    No payment was processed. Your project deposit was not charged.
+                </p>
+            </section>
+
+            <!-- Cancel Details -->
+            <section class="cancel-details">
+                <div class="details-card">
+                    <h2>What Happened?</h2>
+                    
+                    <div class="cancel-info">
+                        <p>You chose to cancel the payment process before completing your project deposit. This is completely normal and happens for many reasons:</p>
+                        
+                        <ul class="cancel-reasons">
+                            <li><i class="icofont-check"></i> <strong>Need more time to decide</strong> - Take your time to consider</li>
+                            <li><i class="icofont-check"></i> <strong>Want to discuss the project first</strong> - Smart approach</li>
+                            <li><i class="icofont-check"></i> <strong>Payment method issues</strong> - Happens to everyone</li>
+                            <li><i class="icofont-check"></i> <strong>Need to check budget</strong> - Always a good idea</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Next Steps -->
+            <section class="next-steps">
+                <div class="steps-container">
+                    <h2>What You Can Do Next</h2>
+                    
+                    <div class="options-grid">
+                        
+                        <div class="option-card primary">
+                            <div class="option-icon">
+                                <i class="icofont-refresh"></i>
+                            </div>
+                            <h3>Try Payment Again</h3>
+                            <p>Ready to secure your project? You can return to the checkout page and complete your deposit anytime.</p>
+                            <a href="/checkout.html" class="funnel-cta primary">
+                                <i class="icofont-credit-card"></i>
+                                Try Again
+                            </a>
+                        </div>
+
+                        <div class="option-card">
+                            <div class="option-icon">
+                                <i class="icofont-phone"></i>
+                            </div>
+                            <h3>Talk to Me First</h3>
+                            <p>Have questions? Want to discuss your project requirements before making a deposit? Let's chat!</p>
+                            <a href="/consultation-booking.html" class="funnel-cta secondary">
+                                <i class="icofont-calendar"></i>
+                                Schedule Call
+                            </a>
+                        </div>
+
+                        <div class="option-card">
+                            <div class="option-icon">
+                                <i class="icofont-email"></i>
+                            </div>
+                            <h3>Ask Questions</h3>
+                            <p>Need clarification about pricing, timeline, or project scope? Send me your questions directly.</p>
+                            <a href="mailto:hello@christinmorton.com" class="funnel-cta secondary">
+                                <i class="icofont-envelope"></i>
+                                Send Email
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reassurance -->
+            <section class="reassurance-section">
+                <div class="reassurance-card">
+                    <h2>No Pressure, No Problem</h2>
+                    
+                    <div class="reassurance-content">
+                        <div class="reassurance-item">
+                            <i class="icofont-shield-alt"></i>
+                            <div>
+                                <h4>Your Information is Safe</h4>
+                                <p>No payment details were stored or processed. Everything is completely secure.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="reassurance-item">
+                            <i class="icofont-clock-time"></i>
+                            <div>
+                                <h4>No Rush, No Expiration</h4>
+                                <p>The deposit options remain available whenever you're ready to move forward.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="reassurance-item">
+                            <i class="icofont-support-faq"></i>
+                            <div>
+                                <h4>Support Available</h4>
+                                <p>If you experienced a technical issue, I'm here to help resolve it quickly.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-info">
+                        <p><strong>Questions or technical issues?</strong></p>
+                        <p>Email: <a href="mailto:hello@christinmorton.com">hello@christinmorton.com</a> | 
+                           Phone: <a href="tel:+1234567890">(123) 456-7890</a></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Additional Actions -->
+            <section class="action-buttons">
+                <div class="buttons-container">
+                    <a href="/portfolio" class="funnel-cta secondary">
+                        <i class="icofont-folder-open"></i>
+                        View My Work
+                    </a>
+                    
+                    <a href="/service.html" class="funnel-cta secondary">
+                        <i class="icofont-list"></i>
+                        See Services
+                    </a>
+                    
+                    <a href="/" class="funnel-cta primary">
+                        <i class="icofont-home"></i>
+                        Return Home
+                    </a>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="site-container">
+            <div class="footer-content">
+                <p>&copy; 2024 Christine Morton. Professional Web Development Services.</p>
+                <div class="footer-links">
+                    <a href="/privacy">Privacy Policy</a>
+                    <a href="/terms">Terms of Service</a>
+                    <a href="mailto:hello@christinmorton.com">Support</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module" src="/js/main.js"></script>
+    <script type="module" src="/js/modules/PaymentCancel.js"></script>
+
+</body>
+</html>

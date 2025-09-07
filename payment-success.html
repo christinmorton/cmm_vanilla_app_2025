@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful - Christine Morton</title>
+    <meta name="description" content="Your project deposit has been successfully processed. Thank you for choosing professional web development services.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    
+        <!-- Icomoon fonts -->
+    <link rel="stylesheet" type="text/css" href="css/icofont.min.css" />
+
+
+    <!--Styles css ================================================== -->
+    <link rel="stylesheet" href="/scss/main.scss" />
+
+
+    <!--Google Font css ================================================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet" />
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Payment Successful - Christine Morton">
+    <meta property="og:description" content="Your project deposit has been successfully processed.">
+    <meta property="og:type" content="website">
+
+    <style>
+      /* Critical CSS - inline to prevent white flash */
+      html, body {
+        margin: 0;
+        padding: 0;
+        /* Removed background so canvas shows through */
+        /* background: #1a1a2e; */
+        color: #ffffff;
+      }
+      
+      /* Template-specific backgrounds */
+      [data-template="background"] {
+        /* Removed background so canvas shows through */
+        /* background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); */
+      }
+      
+      [data-template="inline"] {
+        background: #f8f9fa;
+        color: #333333;
+      }
+      
+      [data-template="hybrid"] {
+        background: radial-gradient(circle at center, #1a1a2e 0%, #16213e 100%);
+      }
+      
+      /* Hide content immediately */
+      body.preloader-active #app {
+        opacity: 0;
+      }
+      
+      #app {
+        background: inherit;
+        color: inherit;
+        min-height: 100vh;
+      }
+      
+      /* For background template, make #app transparent so canvas shows through */
+      [data-template="background"] #app {
+        background: transparent !important;
+      }
+      
+      /* For hybrid template, also make #app transparent initially (fullscreen phase) */
+      [data-template="hybrid"] #app {
+        background: transparent !important;
+      }
+    </style>
+</head>
+<body data-template="background" class="preloader-active payment-success-page">
+
+    <!-- Background Canvas -->
+    <div id="bgHost" class="bg-canvas-host"></div>
+
+    <!-- Main Navigation -->
+    <header class="main-header">
+        <div class="site-container">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="/" class="navbar-brand">
+                    <img src="/images/cmm-logo.png" alt="Christine Morton" class="logo">
+                </a>
+                
+                <div class="nav-items">
+                    <a href="/" class="nav-link">← Back to Home</a>
+                </div>
+            </div>
+        </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="success-main">
+        <div class="site-container">
+            
+            <!-- Success Header -->
+            <section class="success-header">
+                <div class="success-icon">
+                    <i class="icon-check-circle"></i>
+                </div>
+                <h1 class="success-title">Payment Successful!</h1>
+                <p class="success-subtitle">
+                    Thank you for securing your project deposit. Your development slot has been reserved.
+                </p>
+            </section>
+
+            <!-- Payment Details -->
+            <section class="payment-details" id="paymentDetails">
+                <div class="details-card">
+                    <h2>Payment Confirmation</h2>
+                    
+                    <div class="payment-info">
+                        <div class="info-row">
+                            <span class="label">Deposit Amount:</span>
+                            <span class="value" id="depositAmount">Loading...</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Payment ID:</span>
+                            <span class="value" id="paymentId">Loading...</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Date:</span>
+                            <span class="value" id="paymentDate">Loading...</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Status:</span>
+                            <span class="value status-paid">Paid</span>
+                        </div>
+                    </div>
+
+                    <div class="receipt-link" id="receiptLink">
+                        <a href="#" target="_blank" class="receipt-btn">
+                            <i class="icon-download"></i>
+                            View Receipt
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Next Steps -->
+            <section class="next-steps">
+                <div class="steps-container">
+                    <h2>What Happens Next</h2>
+                    
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-marker">
+                                <span class="step-number">1</span>
+                            </div>
+                            <div class="timeline-content">
+                                <h3>Confirmation Email</h3>
+                                <p>You'll receive a detailed confirmation email with your payment receipt and project details within the next 15 minutes.</p>
+                                <small class="timeline-eta">Within 15 minutes</small>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-marker">
+                                <span class="step-number">2</span>
+                            </div>
+                            <div class="timeline-content">
+                                <h3>Project Kickoff Contact</h3>
+                                <p>I'll personally reach out to schedule our project planning session and discuss your requirements in detail.</p>
+                                <small class="timeline-eta">Within 24 hours</small>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-marker">
+                                <span class="step-number">3</span>
+                            </div>
+                            <div class="timeline-content">
+                                <h3>Project Planning Session</h3>
+                                <p>We'll have a comprehensive planning session to review your project requirements, timeline, and design preferences.</p>
+                                <small class="timeline-eta">Within 2-3 business days</small>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-marker">
+                                <span class="step-number">4</span>
+                            </div>
+                            <div class="timeline-content">
+                                <h3>Development Begins</h3>
+                                <p>Your project enters the development queue and active work begins on your website or application.</p>
+                                <small class="timeline-eta">Within 7-14 business days</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Important Information -->
+            <section class="important-info">
+                <div class="info-cards">
+                    
+                    <div class="info-card">
+                        <div class="card-icon">
+                            <i class="icon-shield"></i>
+                        </div>
+                        <h3>Your Investment is Protected</h3>
+                        <p>Your deposit secures your development slot and is credited toward your total project cost. This ensures dedicated resources and priority attention to your project.</p>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="card-icon">
+                            <i class="icon-calendar"></i>
+                        </div>
+                        <h3>Project Timeline Guarantee</h3>
+                        <p>Your project will begin within 7-14 business days. During this time, I'll be preparing detailed project documentation and design mockups.</p>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="card-icon">
+                            <i class="icon-phone"></i>
+                        </div>
+                        <h3>Direct Communication Channel</h3>
+                        <p>You'll have direct access to me throughout the entire development process. No third-party communication or project managers.</p>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Contact Information -->
+            <section class="contact-section">
+                <div class="contact-card">
+                    <h2>Questions or Need to Make Changes?</h2>
+                    <p>If you have any questions about your payment or need to discuss project details, don't hesitate to reach out.</p>
+                    
+                    <div class="contact-methods">
+                        <a href="mailto:hello@christinmorton.com" class="contact-method">
+                            <i class="icon-mail"></i>
+                            <div>
+                                <strong>Email</strong>
+                                <span>hello@christinmorton.com</span>
+                            </div>
+                        </a>
+                        
+                        <a href="tel:+1234567890" class="contact-method">
+                            <i class="icon-phone"></i>
+                            <div>
+                                <strong>Phone</strong>
+                                <span>(123) 456-7890</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="emergency-note">
+                        <p><strong>Need immediate assistance?</strong> Call or email me directly. I typically respond within 2-4 hours during business days.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Additional Actions -->
+            <section class="action-buttons">
+                <div class="buttons-container">
+                    <a href="/portfolio" class="funnel-cta secondary">
+                        <i class="icon-folder"></i>
+                        View My Portfolio
+                    </a>
+                    
+                    <a href="/about" class="funnel-cta secondary">
+                        <i class="icon-user"></i>
+                        Learn More About Me
+                    </a>
+                    
+                    <a href="/" class="funnel-cta primary">
+                        <i class="icon-home"></i>
+                        Return to Homepage
+                    </a>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 Christine Morton. Professional Web Development Services.</p>
+                <div class="footer-links">
+                    <a href="/privacy">Privacy Policy</a>
+                    <a href="/terms">Terms of Service</a>
+                    <a href="mailto:hello@christinmorton.com">Support</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module" src="/js/main.js"></script>
+    <script type="module" src="/js/modules/PaymentSuccess.js"></script>
+
+</body>
+</html>
