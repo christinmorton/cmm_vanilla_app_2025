@@ -858,6 +858,436 @@
   }
 }
 
+/*--------------------------------------------------------------
+  Project Discovery Page Styles
+--------------------------------------------------------------*/
+
+/* Discovery Hero Section */
+.discovery-hero {
+  background: transparent;
+  color: var(--white-color);
+  padding: 6rem 0 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.discovery-hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.discovery-hero .hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.discovery-hero .hero-title .highlight {
+  color: #90EE90;
+}
+
+@media (max-width: 768px) {
+  .discovery-hero .hero-title {
+    font-size: 2.5rem;
+  }
+}
+
+.discovery-hero .hero-subtitle {
+  font-size: 1.25rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+  line-height: 1.6;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 768px) {
+  .discovery-hero .hero-subtitle {
+    font-size: 1.1rem;
+  }
+}
+
+.discovery-hero .discovery-benefits {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .discovery-hero .discovery-benefits {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+.discovery-hero .benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+}
+
+.discovery-hero .benefit-item .benefit-icon {
+  font-size: 1.5rem;
+}
+
+.discovery-hero .benefit-item span:last-child {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* Discovery Form Section */
+.discovery-form-section {
+  padding: 4rem 0;
+  background: transparent;
+}
+
+.discovery-form-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+@media (max-width: 1024px) {
+  .discovery-form-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.discovery-form-main {
+  background: var(--white-color);
+  border-radius: 12px;
+  padding: 2.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Force dark text for discovery form */
+.discovery-form {
+  color: var(--dark-color);
+
+  /* Force dark text for all form elements */
+  .form-input,
+  .editor-content,
+  textarea,
+  select,
+  option {
+    color: var(--dark-color) !important;
+  }
+
+  /* Form inputs specific styling */
+  .form-input {
+    color: var(--dark-color) !important;
+    background: var(--white-color) !important;
+  }
+
+  /* Editor content */
+  .editor-content {
+    color: var(--dark-color) !important;
+  }
+
+  /* Labels */
+  .form-label {
+    color: var(--dark-color) !important;
+  }
+
+  /* Placeholder text */
+  .form-input::placeholder,
+  textarea::placeholder {
+    color: #666666 !important;
+  }
+}
+
+/* Discovery Form Sidebar */
+.discovery-form-sidebar {
+  background: var(--white-color);
+  border-radius: 12px;
+  padding: 2rem;
+  height: fit-content;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 2rem;
+}
+
+.discovery-form-sidebar {
+  color: var(--dark-color);
+
+  /* Force dark text for all sidebar elements */
+  * {
+    color: var(--dark-color) !important;
+  }
+  
+  .sidebar-title {
+    color: var(--dark-color) !important;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+
+  .benefit-item-sidebar {
+    margin-bottom: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    
+    .benefit-icon-sidebar {
+      font-size: 1.5rem;
+    }
+    
+    h4 {
+      color: var(--dark-color) !important;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    p {
+      color: var(--dark-color) !important;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+  }
+
+  .process-step {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    
+    .step-number {
+      background: var(--primary-color);
+      color: var(--white-color);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    
+    h4 {
+      color: var(--dark-color) !important;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    
+    p {
+      color: var(--dark-color) !important;
+      font-size: 0.9rem;
+      margin: 0;
+      
+      strong {
+        color: var(--dark-color) !important;
+      }
+    }
+  }
+
+  .testimonial-text {
+    font-style: italic;
+    color: var(--dark-color) !important;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+  }
+
+  .testimonial-author {
+    color: var(--dark-color) !important;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+}
+
+@media (max-width: 768px) {
+  .discovery-form-main {
+    padding: 1.5rem;
+  }
+  
+  .discovery-form-sidebar {
+    padding: 1.5rem;
+    position: static;
+  }
+}
+
+/* Discovery Form Loading States */
+.discovery-form.form-loading {
+  .form-input,
+  .form-section,
+  .file-upload-area {
+    pointer-events: none;
+    opacity: 0.7;
+  }
+}
+
+/* Discovery Thank You Page Styles */
+.discovery-thank-you-hero {
+  background: transparent;
+  color: var(--white-color);
+  padding: 6rem 0 4rem;
+  position: relative;
+}
+
+.discovery-process-section,
+.discovery-benefits-section,
+.discovery-contact-section,
+.discovery-portfolio-cta {
+  background: var(--white-color);
+  color: var(--dark-color);
+  padding: 4rem 0;
+  
+  * {
+    color: var(--dark-color) !important;
+  }
+}
+
+.discovery-timeline {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  align-items: flex-start;
+  
+  .timeline-number {
+    background: var(--primary-color);
+    color: var(--white-color);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  
+  .timeline-icon {
+    background: rgba(2, 154, 45, 0.1);
+    padding: 0.75rem;
+    border-radius: 8px;
+    flex-shrink: 0;
+    
+    svg {
+      color: var(--primary-color);
+    }
+  }
+  
+  h3 {
+    color: var(--dark-color) !important;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  
+  p {
+    color: var(--dark-color) !important;
+    margin-bottom: 0.5rem;
+    
+    strong {
+      color: var(--primary-color) !important;
+    }
+  }
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin: 3rem 0;
+}
+
+.benefit-card {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: rgba(2, 154, 45, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(2, 154, 45, 0.1);
+  
+  .benefit-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  h3 {
+    color: var(--dark-color) !important;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  
+  p {
+    color: var(--dark-color) !important;
+    opacity: 0.8;
+  }
+}
+
+.contact-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.contact-methods {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+  .contact-methods {
+    flex-direction: column;
+  }
+}
+
+.guarantee-box {
+  background: rgba(2, 154, 45, 0.05);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  
+  h3 {
+    color: var(--dark-color) !important;
+    margin-bottom: 1rem;
+  }
+  
+  li {
+    color: var(--dark-color) !important;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.testimonial-snippet {
+  blockquote {
+    font-style: italic;
+    color: var(--dark-color) !important;
+    margin-bottom: 1rem;
+  }
+  
+  cite {
+    color: var(--dark-color) !important;
+    font-size: 0.9rem;
+  }
+}
+
 /* Consultation Type Selection */
 .consultation-type-grid {
   display: grid;
