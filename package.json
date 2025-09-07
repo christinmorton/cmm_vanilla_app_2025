@@ -12,6 +12,7 @@
     "scss:build": "sass scss/main.scss styles.css --style compressed"
   },
   "devDependencies": {
+    "dotenv": "^17.2.2",
     "sass": "^1.89.2",
     "vite": "^7.0.4"
   },
