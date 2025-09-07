@@ -3,15 +3,19 @@
  * 
  * Handles contact form submission to WordPress backend API
  * Integrates with AnalyticsTracker for automatic event tracking
+ * Uses WordPress Application Password authentication for consistency
  */
 
 import analytics from './AnalyticsTracker.js';
+import AppPasswordManager from './AppPasswordManager.js';
 
 class ContactForm {
     constructor(formSelector = '#contactForm') {
         this.form = document.querySelector(formSelector);
-        this.apiBaseUrl = this.getApiBaseUrl();
         this.isSubmitting = false;
+        
+        // Initialize authentication manager
+        this.authManager = new AppPasswordManager();
         
         if (this.form) {
             this.init();
@@ -21,20 +25,6 @@ class ContactForm {
         }
     }
 
-    /**
-     * Environment-aware API base URL detection
-     */
-    getApiBaseUrl() {
-        const hostname = window.location.hostname;
-        
-        if (hostname === 'christinmorton.local' || hostname.includes('localhost')) {
-            // Development environment - use HTTP to avoid SSL certificate issues
-            return 'http://christinmorton.local/wp-json';
-        } else {
-            // Production environment
-            return 'https://cms.christinmorton.com/wp-json';
-        }
-    }
 
     /**
      * Initialize form handlers
@@ -220,23 +210,10 @@ class ContactForm {
     }
 
     /**
-     * Submit form data to WordPress API
+     * Submit form data to WordPress API with authentication
      */
     async submitToApi(formData) {
-        const response = await fetch(`${this.apiBaseUrl}/cmm/v1/submit-message`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData)
-        });
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.errors?.join(', ') || `HTTP ${response.status}: ${response.statusText}`);
-        }
-
-        return response.json();
+        return await this.authManager.submitMessage(formData);
     }
 
     /**

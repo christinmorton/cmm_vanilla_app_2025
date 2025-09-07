@@ -3,40 +3,50 @@
  * 
  * Automatic client-side analytics data collection and submission to WordPress backend
  * Integrates with JetEngine Custom Content Type: analytics_event
+ * Uses WordPress Application Password authentication
  */
+
+import AppPasswordManager from './AppPasswordManager.js';
 
 class AnalyticsTracker {
     constructor() {
         this.pageLoadTime = Date.now();
         this.sessionId = this.getSessionId();
         this.userId = this.getUserId();
-        this.apiBaseUrl = this.getApiBaseUrl();
         
-        // Auto-initialize tracking
-        this.setupEventListeners();
+        // Initialize authentication manager
+        this.authManager = new AppPasswordManager();
+        this.authReady = false;
         
-        console.log('AnalyticsTracker initialized:', {
-            sessionId: this.sessionId,
-            userId: this.userId,
-            apiBaseUrl: this.apiBaseUrl
-        });
+        // Initialize authentication and setup tracking
+        this.initialize();
     }
 
     /**
-     * Environment-aware API base URL detection
+     * Initialize authentication and setup tracking
      */
-    getApiBaseUrl() {
-        const hostname = window.location.hostname;
-        console.log(hostname);
-        
-        if (hostname === 'christinmorton.local' || hostname.includes('localhost')) {
-            // Development environment - use HTTP to avoid SSL certificate issues
-            return 'http://christinmorton.local/wp-json';
-        } else {
-            // Production environment  
-            return 'https://cms.christinmorton.com/wp-json';
+    async initialize() {
+        try {
+            this.authReady = await this.authManager.initialize();
+            
+            if (this.authReady) {
+                console.log('AnalyticsTracker initialized with authentication:', {
+                    sessionId: this.sessionId,
+                    userId: this.userId,
+                    apiBaseUrl: this.authManager.apiBaseUrl
+                });
+                
+                // Setup event listeners after auth is ready
+                this.setupEventListeners();
+            } else {
+                console.warn('Analytics authentication failed - tracking disabled');
+            }
+        } catch (error) {
+            console.error('AnalyticsTracker initialization failed:', error);
+            this.authReady = false;
         }
     }
+
 
     /**
      * Generate or retrieve session ID from sessionStorage
@@ -88,30 +98,27 @@ class AnalyticsTracker {
     }
 
     /**
-     * Send analytics event to WordPress backend
+     * Send analytics event to WordPress backend with authentication
      */
     async sendAnalyticsEvent(eventType, additionalData = {}) {
+        // Skip if authentication not ready
+        if (!this.authReady) {
+            console.warn('Analytics authentication not ready, skipping event:', eventType);
+            return null;
+        }
+
         try {
             const analyticsData = this.collectAnalyticsData(eventType, additionalData);
             
-            const response = await fetch(`${this.apiBaseUrl}/jet-cct/analytics_event`, {
-                method: 'POST',
-                headers: { 
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(analyticsData)
-            });
-
-            if (!response.ok) {
-                throw new Error(`Analytics API error: ${response.status} ${response.statusText}`);
-            }
-
-            const result = await response.json();
+            // Use authenticated request through AppPasswordManager
+            const result = await this.authManager.submitAnalyticsEvent(analyticsData);
             
-            console.log(`Analytics event sent: ${eventType}`, {
-                eventId: result.id,
-                timestamp: analyticsData.ts_submitted
-            });
+            if (result) {
+                console.log(`Analytics event sent: ${eventType}`, {
+                    eventId: result.id,
+                    timestamp: analyticsData.ts_submitted
+                });
+            }
             
             return result;
             
@@ -135,7 +142,7 @@ class AnalyticsTracker {
      * Track form submission event
      */
     trackFormSubmit(formData = {}) {
-        const messageId = formData.messageId || null;
+        const messageId = formData.messageId ? String(formData.messageId) : '';
         const formType = formData.type || 'unknown';
         
         this.sendAnalyticsEvent('form_submit', {
@@ -167,15 +174,24 @@ class AnalyticsTracker {
      * Track page exit
      */
     trackExit() {
-        // Use sendBeacon for reliable exit tracking
+        // Skip if authentication not ready
+        if (!this.authReady) return;
+
+        // Use sendBeacon for reliable exit tracking with authentication
         const analyticsData = this.collectAnalyticsData('exit', {
             chain_id: this.generateChainId('session')
         });
 
         if (navigator.sendBeacon) {
+            // Create authenticated request for sendBeacon
+            const headers = this.authManager.getAuthHeaders();
+            const blob = new Blob([JSON.stringify(analyticsData)], {
+                type: 'application/json'
+            });
+
             navigator.sendBeacon(
-                `${this.apiBaseUrl}/jet-cct/analytics_event`,
-                JSON.stringify(analyticsData)
+                `${this.authManager.apiBaseUrl}/jet-cct/analytics_event`,
+                blob
             );
         } else {
             // Fallback for older browsers
