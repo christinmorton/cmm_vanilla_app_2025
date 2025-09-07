@@ -6,6 +6,8 @@ import HeaderNavigation from './modules/HeaderNavigation.js';
 import TabSwitcher from './modules/TabSwitcher.js';
 import AnimatedCounter from './modules/AnimatedCounter.js';
 import PortfolioFilter from './modules/PortfolioFilter.js';
+import ContactForm from './modules/ContactForm.js';
+import analytics from './modules/AnalyticsTracker.js';
 import { gsap } from 'gsap';
 
 // Initialize preloader immediately
@@ -22,6 +24,9 @@ const tabSwitcher = new TabSwitcher('.skills-section');
 
 // Initialize portfolio filter (portfolio masonry page)
 const portfolioFilter = new PortfolioFilter();
+
+// Initialize contact form (contact page)
+const contactForm = new ContactForm('#contactForm');
 
 const bgHost = document.getElementById('bgHost');
 const inlineHost = document.getElementById('inlineHost');
