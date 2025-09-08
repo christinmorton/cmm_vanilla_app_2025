@@ -14,39 +14,70 @@ class CheckoutPage {
         this.selectedDeposit = null;
         this.customerData = null;
         
-        // Deposit configuration with real Stripe Price IDs
+        // Initialize deposit configuration - price IDs will be set after environment detection
+        this.depositOptions = {};
+        this.initializeDepositOptions();
+        
+        this.init();
+    }
+
+    /**
+     * Initialize deposit options with environment-appropriate price IDs
+     */
+    initializeDepositOptions() {
+        // Determine environment
+        const isDevelopment = window.location.hostname.includes('localhost') || 
+                             window.location.hostname.includes('.local') ||
+                             window.location.hostname.includes('127.0.0.1');
+        
+        // Get environment-specific price IDs
+        const starterPriceId = isDevelopment 
+            ? import.meta.env.VITE_STRIPE_PRICE_ID_WEB_DEV_STARTER_DEV 
+            : import.meta.env.VITE_STRIPE_PRICE_ID_WEB_DEV_STARTER_PROD;
+            
+        const standardPriceId = isDevelopment 
+            ? import.meta.env.VITE_STRIPE_PRICE_ID_WEB_DEV_STANDARD_DEV 
+            : import.meta.env.VITE_STRIPE_PRICE_ID_WEB_DEV_STANDARD_PROD;
+            
+        const premiumPriceId = isDevelopment 
+            ? import.meta.env.VITE_STRIPE_PRICE_ID_WEB_DEV_PREMIUM_DEV 
+            : import.meta.env.VITE_STRIPE_PRICE_ID_WEB_DEV_PREMIUM_PROD;
+            
+        const consultationPriceId = isDevelopment 
+            ? import.meta.env.VITE_STRIPE_PRICE_ID_CONSULTATION_DEV 
+            : import.meta.env.VITE_STRIPE_PRICE_ID_CONSULTATION_PROD;
+
+        // Configure deposit options with environment-specific price IDs
         this.depositOptions = {
             99: {
                 amount: 99,
                 type: 'starter',
                 name: 'Web Development Starter Deposit',
-                priceId: 'price_1S4qezFjZiO5qeK7P73W02LE',
+                priceId: starterPriceId,
                 description: 'Perfect for small projects and consultations'
             },
             250: {
                 amount: 250,
                 type: 'standard', 
                 name: 'Web Development Standard Deposit',
-                priceId: 'price_1S4qisFjZiO5qeK7gvWyMudI',
+                priceId: standardPriceId,
                 description: 'Ideal for medium-sized web development projects'
             },
             500: {
                 amount: 500,
                 type: 'premium',
                 name: 'Web Development Premium Deposit', 
-                priceId: 'price_1S4qkCFjZiO5qeK7ESubIszr',
+                priceId: premiumPriceId,
                 description: 'Best for complex projects and full-scale development'
             },
             50: {
                 amount: 50,
                 type: 'consultation',
                 name: 'Professional Consultation Deposit',
-                priceId: 'price_1S4qksFjZiO5qeK7pvBQ5L10',
+                priceId: consultationPriceId,
                 description: 'Refundable consultation service deposit'
             }
         };
-        
-        this.init();
     }
 
     async init() {
@@ -80,10 +111,12 @@ class CheckoutPage {
     async initializeStripe() {
         try {
             // Determine environment and get appropriate key
-            const isDevelopment = window.location.hostname.includes('localhost') || window.location.hostname.includes('.local');
+            const isDevelopment = window.location.hostname.includes('localhost') || 
+                                 window.location.hostname.includes('.local') ||
+                                 window.location.hostname.includes('127.0.0.1');
             const stripePublishableKey = isDevelopment 
-                ? __STRIPE_PUBLISHABLE_KEY_DEV__ 
-                : __STRIPE_PUBLISHABLE_KEY_PROD__;
+                ? import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY_DEV 
+                : import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY_PROD;
             
             if (!stripePublishableKey || stripePublishableKey.includes('YOUR_')) {
                 throw new Error('Stripe publishable key not configured');

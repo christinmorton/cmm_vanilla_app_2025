@@ -9,6 +9,10 @@ export default defineConfig(({ command, mode }) => {
       rollupOptions: {
         input: {
           main: resolve(__dirname, 'index.html'),
+          about: resolve(__dirname, 'about.html'),
+          service: resolve(__dirname, 'service.html'),
+          contact: resolve(__dirname, 'contact.html'),
+          consultation: resolve(__dirname, 'free-consultation.html'),
           checkout: resolve(__dirname, 'checkout.html'),
         }
       }
