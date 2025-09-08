@@ -387,6 +387,45 @@ These are stored in dedicated database tables, not as WordPress posts.
 }
 ```
 
+### 🐛 **Known Issues - Invoice CCT**
+
+**Issue:** **Unsaved Fields in WordPress Admin**  
+**Status:** 🔴 **Bug** - Needs attention for future development  
+**Priority:** Medium
+
+**Description:**  
+The invoice CCT has several fields that are not saving properly when created through the WordPress admin interface. This affects manual invoice creation and testing but does not impact the frontend payment system which works correctly via API calls.
+
+**Affected Operations:**
+- Manual invoice creation through WordPress admin
+- Invoice editing through WordPress admin dashboard
+- Field validation and error handling in admin interface
+
+**Current Workaround:**
+- Frontend payment system bypasses this issue by creating invoices directly via API
+- PaymentSuccess.js successfully creates invoice records through programmatic API calls
+- All payment processing functionality remains fully operational
+
+**Impact:**
+- **No impact on production payment flow** - API-based invoice creation works correctly
+- **Admin workflow affected** - Manual invoice management requires API-based solutions
+- **Future development** - May need alternative admin interface for invoice management
+
+**Technical Details:**
+- Issue appears to be related to WordPress admin form handling of CCT fields
+- API endpoints (`/wp-json/jet-cct/invoice`) function correctly for programmatic access
+- Field definitions in JetEngine may need review and reconfiguration
+
+**Next Steps:**
+- Review JetEngine field configurations for invoice CCT
+- Test field types and validation rules in WordPress admin
+- Consider custom admin interface for invoice management if needed
+- Document alternative API-based admin workflows
+
+**Related Files:**
+- `js/modules/PaymentSuccess.js` - Contains working invoice creation implementation
+- `headless_api/updated-stripe-endpoint.php` - Stripe integration working correctly
+
 ---
 
 ## API Usage Notes
