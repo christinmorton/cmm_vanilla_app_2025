@@ -30,3 +30,6 @@ notes.txt
 
 design_system/
 wordpress_form_submission_info.txt
+
+# Ignore headless API files (contains sensitive keys)
+headless_api/
