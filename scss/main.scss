@@ -15,9 +15,15 @@ This is main CSS file that contains custom style rules used in this template
     Table of contents
 \*------------------------------------*/
 
+/* Import vendor styles */
+@import 'swiper/css';
+@import 'swiper/css/navigation';
+@import 'swiper/css/pagination';
+
 /* Import component styles */
 @import 'preloader';
 @import 'header-navigation';
+@import 'hero-carousel';
 @import 'social-section';
 @import 'diagonal-stats';
 @import 'stats-components';

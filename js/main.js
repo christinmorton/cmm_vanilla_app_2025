@@ -9,6 +9,8 @@ import PortfolioFilter from './modules/PortfolioFilter.js';
 import ContactForm from './modules/ContactForm.js';
 import analytics from './modules/AnalyticsTracker.js';
 import { gsap } from 'gsap';
+import Swiper from 'swiper';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 
 // Initialize preloader immediately
 const preloader = new PreloadManager();
@@ -27,6 +29,40 @@ const portfolioFilter = new PortfolioFilter();
 
 // Initialize contact form (contact page)
 const contactForm = new ContactForm('#contactForm');
+
+// Initialize hero carousel
+const initHeroCarousel = () => {
+  const heroCarouselElement = document.querySelector('.hero-carousel');
+  if (heroCarouselElement) {
+    new Swiper('.hero-carousel', {
+      modules: [Navigation, Pagination, Autoplay],
+      slidesPerView: 1,
+      spaceBetween: 0,
+      loop: true,
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      },
+      navigation: {
+        nextEl: '.hero-next',
+        prevEl: '.hero-prev',
+      },
+      pagination: {
+        el: '.hero-pagination',
+        clickable: true,
+      },
+      effect: 'slide',
+      speed: 800,
+    });
+  }
+};
+
+// Initialize carousel after DOM is loaded
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initHeroCarousel);
+} else {
+  initHeroCarousel();
+}
 
 const bgHost = document.getElementById('bgHost');
 const inlineHost = document.getElementById('inlineHost');

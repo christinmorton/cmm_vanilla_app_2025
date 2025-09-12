@@ -1,0 +1,153 @@
+/* Hero Carousel Styles */
+.hero-carousel-container {
+  width: 100%;
+  position: relative;
+}
+
+.hero-carousel {
+  width: 100%;
+  height: auto;
+  
+  .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    text-align: center;
+    
+    .slide-content {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+      
+      .hero-title {
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+      
+      .hero-description {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+      
+      .action-button {
+        margin: 0 auto;
+        display: inline-flex;
+      }
+      
+      &.service-slide {
+        .slide-icon {
+          font-size: 3rem;
+          margin-bottom: 1rem;
+          display: block;
+          text-align: center;
+        }
+      }
+    }
+  }
+  
+  /* Navigation arrows */
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: var(--primary-color);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    margin-top: -22.5px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    
+    &:after {
+      font-size: 18px;
+      font-weight: bold;
+    }
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.1);
+    }
+  }
+  
+  .swiper-button-next {
+    right: 20px;
+  }
+  
+  .swiper-button-prev {
+    left: 20px;
+  }
+  
+  /* Pagination dots */
+  .swiper-pagination {
+    position: relative;
+    margin-top: 2rem;
+    text-align: center;
+    
+    .swiper-pagination-bullet {
+      width: 12px;
+      height: 12px;
+      background: rgba(255, 255, 255, 0.3);
+      opacity: 1;
+      margin: 0 4px;
+      transition: all 0.3s ease;
+      
+      &.swiper-pagination-bullet-active {
+        background: var(--primary-color);
+        transform: scale(1.2);
+      }
+    }
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .hero-carousel {
+    .swiper-button-next,
+    .swiper-button-prev {
+      width: 40px;
+      height: 40px;
+      margin-top: -20px;
+      
+      &:after {
+        font-size: 16px;
+      }
+    }
+    
+    .swiper-button-next {
+      right: 10px;
+    }
+    
+    .swiper-button-prev {
+      left: 10px;
+    }
+    
+    .swiper-slide {
+      min-height: 350px;
+      padding: 1rem;
+      
+      .slide-content {
+        max-width: 100%;
+        padding: 0 1rem;
+        
+        .hero-title {
+          font-size: 1.8rem;
+          line-height: 1.3;
+        }
+        
+        .hero-description {
+          font-size: 1rem;
+          margin-bottom: 1.5rem;
+        }
+        
+        &.service-slide {
+          .slide-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+          }
+        }
+      }
+    }
+  }
+}
