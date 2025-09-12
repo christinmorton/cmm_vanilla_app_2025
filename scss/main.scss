@@ -19,11 +19,14 @@ This is main CSS file that contains custom style rules used in this template
 @import 'swiper/css';
 @import 'swiper/css/navigation';
 @import 'swiper/css/pagination';
+@import 'swiper/css/autoplay';
 
 /* Import component styles */
 @import 'preloader';
 @import 'header-navigation';
-@import 'hero-carousel';
+@import 'carousel-base';
+@import 'carousel-hero';
+@import 'carousel-cta';
 @import 'social-section';
 @import 'diagonal-stats';
 @import 'stats-components';

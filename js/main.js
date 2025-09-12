@@ -8,9 +8,8 @@ import AnimatedCounter from './modules/AnimatedCounter.js';
 import PortfolioFilter from './modules/PortfolioFilter.js';
 import ContactForm from './modules/ContactForm.js';
 import analytics from './modules/AnalyticsTracker.js';
+import CarouselManager from './modules/CarouselManager.js';
 import { gsap } from 'gsap';
-import Swiper from 'swiper';
-import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 
 // Initialize preloader immediately
 const preloader = new PreloadManager();
@@ -30,39 +29,31 @@ const portfolioFilter = new PortfolioFilter();
 // Initialize contact form (contact page)
 const contactForm = new ContactForm('#contactForm');
 
-// Initialize hero carousel
-const initHeroCarousel = () => {
-  const heroCarouselElement = document.querySelector('.hero-carousel');
-  if (heroCarouselElement) {
-    new Swiper('.hero-carousel', {
-      modules: [Navigation, Pagination, Autoplay],
-      slidesPerView: 1,
-      spaceBetween: 0,
-      loop: true,
-      autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
-      },
-      navigation: {
-        nextEl: '.hero-next',
-        prevEl: '.hero-prev',
-      },
-      pagination: {
-        el: '.hero-pagination',
-        clickable: true,
-      },
-      effect: 'slide',
-      speed: 800,
-    });
-  }
-};
+// Initialize carousel manager
+const carouselManager = new CarouselManager();
 
-// Initialize carousel after DOM is loaded
+// Make carousel manager globally available for page transitions
+window.carouselManager = carouselManager;
+
+// Initialize carousels after DOM is loaded
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initHeroCarousel);
+  document.addEventListener('DOMContentLoaded', () => {
+    carouselManager.initAllCarousels();
+  });
 } else {
-  initHeroCarousel();
+  carouselManager.initAllCarousels();
 }
+
+// Handle window resize for carousels
+window.addEventListener('resize', () => {
+  carouselManager.handleResize();
+});
+
+// Listen for custom page transition events
+document.addEventListener('page-transition-complete', () => {
+  console.log('Page transition complete, reinitializing carousels');
+  carouselManager.reinitializeAfterTransition();
+});
 
 const bgHost = document.getElementById('bgHost');
 const inlineHost = document.getElementById('inlineHost');

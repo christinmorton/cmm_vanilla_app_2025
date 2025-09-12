@@ -440,6 +440,19 @@ export default class PageTransitionManager {
     if (currentStyles.opacity) mainElement.style.opacity = currentStyles.opacity;
     if (currentStyles.transform) mainElement.style.transform = currentStyles.transform;
     
+    // Reinitialize carousels after content swap
+    setTimeout(() => {
+      if (window.carouselManager) {
+        console.log('PageTransitionManager: Reinitializing carousels after content swap');
+        window.carouselManager.reinitializeAfterTransition();
+      }
+      
+      // Dispatch custom event for other components
+      document.dispatchEvent(new CustomEvent('page-transition-complete', {
+        detail: { url: window.location.href }
+      }));
+    }, 50);
+    
     if (this.debug) {
       console.log('✅ Content swapped, styles restored:', {
         position: mainElement.style.position,

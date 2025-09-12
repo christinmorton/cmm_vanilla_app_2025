@@ -1,25 +1,22 @@
-/* Hero Carousel Styles */
+/* Hero Carousel Specific Styles */
+
 .hero-carousel-container {
-  width: 100%;
-  position: relative;
+  @include base-carousel-container;
+  padding: 0 60px; /* Space for navigation buttons */
+  margin: 0 -60px; /* Negative margin to maintain width */
 }
 
 .hero-carousel {
-  width: 100%;
-  height: auto;
+  @include base-carousel-wrapper;
+  @include base-carousel-navigation;
+  @include base-carousel-pagination;
   
   .swiper-slide {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     min-height: 400px;
-    text-align: center;
     
     .slide-content {
-      width: 100%;
       max-width: 600px;
       margin: 0 auto;
-      text-align: center;
       
       .hero-title {
         text-align: center;
@@ -47,26 +44,18 @@
     }
   }
   
-  /* Navigation arrows */
+  /* Hero-specific navigation sizing */
   .swiper-button-next,
   .swiper-button-prev {
-    color: var(--primary-color);
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
     width: 45px;
     height: 45px;
     margin-top: -22.5px;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: all 0.3s ease;
     
     &:after {
       font-size: 18px;
-      font-weight: bold;
     }
     
     &:hover {
-      background: rgba(255, 255, 255, 0.2);
       transform: scale(1.1);
     }
   }
@@ -79,50 +68,30 @@
     left: 20px;
   }
   
-  /* Pagination dots */
+  /* Hero-specific pagination */
   .swiper-pagination {
-    position: relative;
     margin-top: 2rem;
-    text-align: center;
     
     .swiper-pagination-bullet {
       width: 12px;
       height: 12px;
-      background: rgba(255, 255, 255, 0.3);
-      opacity: 1;
       margin: 0 4px;
-      transition: all 0.3s ease;
       
       &.swiper-pagination-bullet-active {
-        background: var(--primary-color);
         transform: scale(1.2);
       }
     }
   }
 }
 
-/* Mobile responsiveness */
+/* Hero carousel mobile responsiveness */
 @media (max-width: 768px) {
+  .hero-carousel-container {
+    padding: 0 50px;
+    margin: 0 -50px;
+  }
+  
   .hero-carousel {
-    .swiper-button-next,
-    .swiper-button-prev {
-      width: 40px;
-      height: 40px;
-      margin-top: -20px;
-      
-      &:after {
-        font-size: 16px;
-      }
-    }
-    
-    .swiper-button-next {
-      right: 10px;
-    }
-    
-    .swiper-button-prev {
-      left: 10px;
-    }
-    
     .swiper-slide {
       min-height: 350px;
       padding: 1rem;
@@ -148,6 +117,25 @@
           }
         }
       }
+    }
+    
+    .swiper-button-next,
+    .swiper-button-prev {
+      width: 40px;
+      height: 40px;
+      margin-top: -20px;
+      
+      &:after {
+        font-size: 16px;
+      }
+    }
+    
+    .swiper-button-next {
+      right: 10px;
+    }
+    
+    .swiper-button-prev {
+      left: 10px;
     }
   }
 }
