@@ -440,11 +440,21 @@ export default class PageTransitionManager {
     if (currentStyles.opacity) mainElement.style.opacity = currentStyles.opacity;
     if (currentStyles.transform) mainElement.style.transform = currentStyles.transform;
     
-    // Reinitialize carousels after content swap
+    // Reinitialize components after content swap
     setTimeout(() => {
       if (window.carouselManager) {
         console.log('PageTransitionManager: Reinitializing carousels after content swap');
         window.carouselManager.reinitializeAfterTransition();
+      }
+      
+      if (window.tabSwitcher) {
+        console.log('PageTransitionManager: Reinitializing tab switcher after content swap');
+        window.tabSwitcher.reinitialize();
+      }
+      
+      if (window.initAnimatedCounters) {
+        console.log('PageTransitionManager: Reinitializing animated counters after content swap');
+        window.initAnimatedCounters();
       }
       
       // Dispatch custom event for other components

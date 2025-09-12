@@ -23,6 +23,9 @@ const headerNav = new HeaderNavigation();
 // Initialize tab switcher (skills section on about page)
 const tabSwitcher = new TabSwitcher('.skills-section');
 
+// Make tab switcher globally available for page transitions
+window.tabSwitcher = tabSwitcher;
+
 // Initialize portfolio filter (portfolio masonry page)
 const portfolioFilter = new PortfolioFilter();
 
@@ -32,16 +35,44 @@ const contactForm = new ContactForm('#contactForm');
 // Initialize carousel manager
 const carouselManager = new CarouselManager();
 
-// Make carousel manager globally available for page transitions
-window.carouselManager = carouselManager;
+// Initialize animated counter
+let animatedCounters = null;
 
-// Initialize carousels after DOM is loaded
+// Function to initialize or reinitialize animated counters
+const initAnimatedCounters = () => {
+  console.log('Initializing AnimatedCounters...');
+  
+  // Create new instance or reinitialize existing one
+  if (animatedCounters) {
+    animatedCounters.resetAndAnimate();
+  } else {
+    animatedCounters = new AnimatedCounter('.counter-value', {
+      duration: 2500,
+      easing: 'easeOutQuart',
+      useIntersectionObserver: true, // Re-enable intersection observer
+      observerThreshold: 0.3,
+      startDelay: 500 // Shorter delay
+    });
+  }
+  console.log('AnimatedCounters initialized/reinitialized');
+};
+
+// Make components globally available for page transitions
+window.carouselManager = carouselManager;
+window.animatedCounters = animatedCounters;
+window.initAnimatedCounters = initAnimatedCounters;
+
+// Initialize components after DOM is loaded
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
     carouselManager.initAllCarousels();
+    // Initialize counters after a delay to ensure preloader sequence
+    setTimeout(initAnimatedCounters, 1000);
   });
 } else {
   carouselManager.initAllCarousels();
+  // Initialize counters after a delay to ensure preloader sequence  
+  setTimeout(initAnimatedCounters, 1000);
 }
 
 // Handle window resize for carousels
@@ -51,8 +82,20 @@ window.addEventListener('resize', () => {
 
 // Listen for custom page transition events
 document.addEventListener('page-transition-complete', () => {
-  console.log('Page transition complete, reinitializing carousels');
+  console.log('Page transition complete, reinitializing components');
   carouselManager.reinitializeAfterTransition();
+  
+  // Reinitialize tab switcher
+  if (window.tabSwitcher) {
+    window.tabSwitcher.reinitialize();
+  }
+  
+  // Reinitialize animated counters
+  setTimeout(() => {
+    if (window.initAnimatedCounters) {
+      window.initAnimatedCounters();
+    }
+  }, 300);
 });
 
 const bgHost = document.getElementById('bgHost');
@@ -89,16 +132,13 @@ const cm = new DesignGridWindow({
     // Disable debug logging for production (set to true for debugging)
     pageTransitions.setDebug(false);
     
-    // Initialize animated counters after preloader is complete
-    console.log('About to initialize AnimatedCounter');
-    const animatedCounters = new AnimatedCounter('.counter-value', {
-        duration: 2500,
-        easing: 'easeOutQuart',
-        useIntersectionObserver: false, // Disable for testing
-        observerThreshold: 0.3,
-        startDelay: 1000 // Reduced delay for testing
-    });
-    console.log('AnimatedCounter initialized:', animatedCounters);
+    // Reinitialize animated counters after canvas is ready
+    console.log('Canvas ready, reinitializing counters if needed');
+    setTimeout(() => {
+      if (window.initAnimatedCounters) {
+        window.initAnimatedCounters();
+      }
+    }, 500);
     
     // Make available globally for debugging
     window.pageTransitions = pageTransitions;

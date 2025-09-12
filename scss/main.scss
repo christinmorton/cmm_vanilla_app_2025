@@ -728,23 +728,56 @@ body[data-template="background"] {
 }
 
 .tab-trigger {
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--white-color);
-  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 0.75rem 1.5rem;
   text-transform: uppercase;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  border-radius: 4px;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  letter-spacing: 0.5px;
   
   &:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.15);
+    color: var(--white-color);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
   }
   
   &.active {
     background: var(--primary-color);
     color: var(--white-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(2, 154, 45, 0.4);
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--primary-color);
+      border-radius: 2px;
+    }
+    
+    &:hover {
+      background: var(--primary-color);
+      transform: translateY(-2px);
+    }
+  }
+  
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(2, 154, 45, 0.5);
+  }
+  
+  &:focus.active {
+    box-shadow: 0 4px 12px rgba(2, 154, 45, 0.4), 0 0 0 2px rgba(2, 154, 45, 0.5);
   }
 }
 

@@ -12,6 +12,7 @@ class AnimatedCounter {
         };
         
         this.animatedCounters = new Set();
+        this.observer = null;
         this.init();
     }
     
@@ -42,7 +43,10 @@ class AnimatedCounter {
     }
     
     setupIntersectionObserver() {
-        const observer = new IntersectionObserver((entries) => {
+        // Clean up existing observer
+        this.cleanup();
+        
+        this.observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 console.log('AnimatedCounter: Intersection event', {
                     target: entry.target,
@@ -61,7 +65,7 @@ class AnimatedCounter {
         });
         
         this.counters.forEach(counter => {
-            observer.observe(counter);
+            this.observer.observe(counter);
         });
     }
     
@@ -170,8 +174,26 @@ class AnimatedCounter {
     
     // Public method to reset and re-animate all counters
     resetAndAnimate() {
+        console.log('AnimatedCounter: Resetting and re-animating all counters');
+        
+        // Clear animated set
         this.animatedCounters.clear();
-        this.startAllCounters();
+        
+        // Re-query DOM elements in case page content changed
+        this.counters = document.querySelectorAll('.counter-value');
+        console.log('AnimatedCounter: Found', this.counters.length, 'counter elements after reset');
+        
+        if (this.counters.length === 0) {
+            console.warn('AnimatedCounter: No counter elements found during reset');
+            return;
+        }
+        
+        // Restart animation
+        if (this.options.useIntersectionObserver) {
+            this.setupIntersectionObserver();
+        } else {
+            this.startAllCounters();
+        }
     }
     
     // Public method to reset specific counter
@@ -183,6 +205,21 @@ class AnimatedCounter {
             const startValue = this.options.startValue;
             counterElement.textContent = startValue.toString();
         }
+    }
+    
+    // Cleanup method to dispose of intersection observers
+    cleanup() {
+        if (this.observer) {
+            this.observer.disconnect();
+            this.observer = null;
+        }
+    }
+    
+    // Public method to fully destroy the counter
+    destroy() {
+        this.cleanup();
+        this.animatedCounters.clear();
+        console.log('AnimatedCounter: Destroyed');
     }
 }
 
