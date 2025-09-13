@@ -20,6 +20,9 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet" />
+
+    <!-- Modern Services Styles -->
+    <link rel="stylesheet" href="modern-services-styles.css" />
 </head>
 
 <body data-template="hybrid" class="preloader-active">
@@ -222,534 +225,548 @@
         </div>
     </header>
 
-        <!-- Services Hero Section -->
-        <section class="services-hero-section" id="hero">
-            <div class="site-container">
-                <div class="services-hero-content">
-                    <div class="services-hero-column">
-                        <!-- Main Hero Content -->
-                        <div class="services-slide-content">
-                            <h1 class="services-hero-title">
-                                Las Vegas Web Development — <span class="text-highlight">Simple, Fast, Secure</span>
-                            </h1>
-                            <p class="services-hero-description">
-                                <strong>Hi, I'm Christin.</strong> I help local businesses, creators, and organizations launch professional websites without agency headaches or pricing. Clear packages. Predictable timelines. Secure, scalable builds that grow with you.
-                            </p>
+        <!-- Full-Width Hero Section -->
+        <section class="viewport-hero">
+            <div class="hero-split">
+                <!-- Left Side - Content -->
+                <div class="hero-left">
+                    <div class="hero-content-wrapper">
+                        <div class="hero-badge">
+                            <span>🎯</span>
+                            <span>Las Vegas Web Developer</span>
+                        </div>
+                        
+                        <h1 class="hero-title">
+                            Professional Websites
+                            <span class="text-highlight">Without the Headaches</span>
+                        </h1>
+                        
+                        <p class="hero-description">
+                            I help local businesses launch <strong>fast, secure websites</strong> with clear packages, 
+                            predictable timelines, and no agency bloat. From $500 to custom builds.
+                        </p>
+                        
+                        <div class="hero-stats">
+                            <div class="stat">
+                                <span class="stat-number">2-4</span>
+                                <span class="stat-label">Week Delivery</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">50+</span>
+                                <span class="stat-label">Happy Clients</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">100%</span>
+                                <span class="stat-label">Mobile Ready</span>
+                            </div>
+                        </div>
+                        
+                        <div class="hero-actions">
+                            <a href="#consultation" class="btn-primary">
+                                Get Free Consultation
+                                <svg width="20" height="20">
+                                    <use xlink:href="#arrow-right"></use>
+                                </svg>
+                            </a>
+                            <a href="#packages" class="btn-secondary">View Packages</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Side - Visual -->
+                <div class="hero-right">
+                    <div class="floating-elements">
+                        <div class="floating-card card-1">
+                            <div class="card-header">
+                                <span class="card-icon">🟡</span>
+                                <span>Tech Touch-Ups</span>
+                            </div>
+                            <div class="card-price">$50-150</div>
+                        </div>
+                        
+                        <div class="floating-card card-2 featured">
+                            <div class="card-header">
+                                <span class="card-icon">🟠</span>
+                                <span>Business Builder</span>
+                            </div>
+                            <div class="card-price">$500-1,500</div>
+                            <div class="card-tag">Most Popular</div>
+                        </div>
+                        
+                        <div class="floating-card card-3">
+                            <div class="card-header">
+                                <span class="card-icon">🔴</span>
+                                <span>Custom Systems</span>
+                            </div>
+                            <div class="card-price">$1,500+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Edge-to-Edge Services Section -->
+        <section class="edge-services">
+            <div class="services-bg-pattern"></div>
+            
+            <div class="services-layout">
+                <!-- Header Area -->
+                <div class="services-header">
+                    <div class="services-intro">
+                        <h2 class="section-title">Choose Your <span class="text-highlight">Perfect Package</span></h2>
+                        <p class="section-subtitle">Transparent pricing, clear deliverables, fast turnaround</p>
+                    </div>
+                    
+                    <div class="trust-badges">
+                        <div class="trust-badge">⚡ Fast Delivery</div>
+                        <div class="trust-badge">🔒 Secure Build</div>
+                        <div class="trust-badge">💬 Direct Access</div>
+                        <div class="trust-badge">📍 Local Support</div>
+                    </div>
+                </div>
+                
+                <!-- Services Grid -->
+                <div class="wide-services-grid">
+                    <!-- Service 1 -->
+                    <div class="service-card quick-fixes">
+                        <div class="card-glow"></div>
+                        <div class="service-icon">🟡</div>
+                        <h3 class="service-title">Tech Touch-Ups</h3>
+                        <p class="service-subtitle">One-time fixes</p>
+                        <div class="service-price">
+                            <span class="price-from">From</span>
+                            <span class="price-amount">$50</span>
+                            <span class="price-range">- $150</span>
+                        </div>
+                        <ul class="service-features">
+                            <li>✓ Analytics setup</li>
+                            <li>✓ Email configuration</li>
+                            <li>✓ Security hardening</li>
+                            <li>✓ Speed optimization</li>
+                        </ul>
+                        <a href="#packages" class="service-cta">View Services</a>
+                    </div>
+                    
+                    <!-- Service 2 - Featured -->
+                    <div class="service-card business-sites featured">
+                        <div class="popular-tag">Most Popular</div>
+                        <div class="card-glow featured-glow"></div>
+                        <div class="service-icon">🟠</div>
+                        <h3 class="service-title">Business Site Builder</h3>
+                        <p class="service-subtitle">Complete website solution</p>
+                        <div class="service-price">
+                            <span class="price-from">From</span>
+                            <span class="price-amount">$500</span>
+                            <span class="price-range">- $1,500</span>
+                        </div>
+                        <ul class="service-features">
+                            <li>✓ 5-page WordPress site</li>
+                            <li>✓ Mobile responsive design</li>
+                            <li>✓ Contact forms & security</li>
+                            <li>✓ 2-4 week delivery</li>
+                        </ul>
+                        <a href="#packages" class="service-cta primary">Get Started Today</a>
+                    </div>
+                    
+                    <!-- Service 3 -->
+                    <div class="service-card custom-systems">
+                        <div class="card-glow"></div>
+                        <div class="service-icon">🔴</div>
+                        <h3 class="service-title">Custom Systems</h3>
+                        <p class="service-subtitle">Advanced development</p>
+                        <div class="service-price">
+                            <span class="price-from">Starting at</span>
+                            <span class="price-amount">$1,500</span>
+                            <span class="price-range">+</span>
+                        </div>
+                        <ul class="service-features">
+                            <li>✓ Full-stack applications</li>
+                            <li>✓ Headless CMS solutions</li>
+                            <li>✓ Custom dashboards</li>
+                            <li>✓ API integrations</li>
+                        </ul>
+                        <a href="#packages" class="service-cta">Get Custom Quote</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Asymmetric Problem/Solution Section -->
+        <section class="asymmetric-section">
+            <div class="asymmetric-layout">
+                <!-- Problem Side -->
+                <div class="problem-side">
+                    <div class="problem-content">
+                        <div class="section-badge problem">
+                            <span>⚠️</span>
+                            <span>The Problem</span>
+                        </div>
+                        
+                        <h2 class="area-title">What Businesses Struggle With</h2>
+                        
+                        <div class="problem-list">
+                            <div class="problem-item">
+                                <div class="problem-icon">😤</div>
+                                <div class="problem-text">
+                                    <h4>Outdated DIY Sites</h4>
+                                    <p>Unprofessional websites driving customers away</p>
+                                </div>
+                            </div>
                             
-                            <!-- Quick Stats -->
-                            <div class="services-hero-features">
-                                <div class="services-feature-item">
-                                    <span class="services-feature-icon">⚡</span>
-                                    <span class="services-feature-text">2-4 Week Delivery</span>
-                                </div>
-                                <div class="services-feature-item">
-                                    <span class="services-feature-icon">💰</span>
-                                    <span class="services-feature-text">From $500</span>
-                                </div>
-                                <div class="services-feature-item">
-                                    <span class="services-feature-icon">📱</span>
-                                    <span class="services-feature-text">Mobile Ready</span>
-                                </div>
-                                <div class="services-feature-item">
-                                    <span class="services-feature-icon">📍</span>
-                                    <span class="services-feature-text">Las Vegas Local</span>
+                            <div class="problem-item">
+                                <div class="problem-icon">😵‍💫</div>
+                                <div class="problem-text">
+                                    <h4>Technical Confusion</h4>
+                                    <p>DNS, SSL, hosting - "what's safe?" becomes overwhelming</p>
                                 </div>
                             </div>
-
-                            <!-- Primary CTA -->
-                            <div class="services-hero-actions">
-                                <a href="#book-call" class="action-button">
-                                    <span>Book Free Consultation</span>
-                                    <div class="button-icon">
-                                        <svg class="arrow-right" width="28" height="28">
-                                            <use xlink:href="#arrow-right"></use>
-                                        </svg>
-                                    </div>
-                                </a>
-                                <div class="services-hero-links">
-                                    <a href="#packages" class="services-hero-link">View Packages</a>
-                                    <span class="services-link-separator">•</span>
-                                    <a href="#faq" class="services-hero-link">Learn More</a>
+                            
+                            <div class="problem-item">
+                                <div class="problem-icon">🐌</div>
+                                <div class="problem-text">
+                                    <h4>Poor Performance</h4>
+                                    <p>Slow pages hurting Google rankings and conversions</p>
+                                </div>
+                            </div>
+                            
+                            <div class="problem-item">
+                                <div class="problem-icon">💸</div>
+                                <div class="problem-text">
+                                    <h4>Agency Bloat</h4>
+                                    <p>Big retainers, long timelines, unclear pricing</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- Services Preview Section -->
-        <section class="content-section services-preview">
-            <div class="site-container">
-                <div class="section-content">
-                    <h2 class="section-title centered">Choose Your <span class="text-highlight">Perfect Package</span></h2>
-                    <div class="services-grid">
-                        <div class="service-card quick-wins">
-                            <div class="service-header">
-                                <div class="service-icon">🟡</div>
-                                <h3 class="service-title">Tech Touch-Ups</h3>
-                                <p class="service-price">$50 - $150</p>
-                            </div>
-                            <p class="service-description">Quick fixes: analytics setup, email configuration, security hardening, speed optimization</p>
-                            <a href="#packages" class="service-cta">View Services</a>
+                
+                <!-- Solution Side -->
+                <div class="solution-side">
+                    <div class="solution-card">
+                        <div class="section-badge solution">
+                            <span>✅</span>
+                            <span>My Solution</span>
                         </div>
                         
-                        <div class="service-card core-package featured">
-                            <div class="service-header">
-                                <div class="service-icon">🟠</div>
-                                <h3 class="service-title">Business Site Builder</h3>
-                                <p class="service-price">$500 - $1,500</p>
-                                <span class="popular-badge">Most Popular</span>
+                        <h3 class="area-title">Simple, <span class="text-highlight">Productized Services</span></h3>
+                        
+                        <p class="solution-intro">I turn complex technology into clear, simple packages. You get exactly what you need with transparent pricing and realistic timelines.</p>
+                        
+                        <div class="solution-features">
+                            <div class="feature-row">
+                                <div class="feature-icon">🎯</div>
+                                <div class="feature-text">
+                                    <h5>Clearly Scoped</h5>
+                                    <p>No surprises, no scope creep</p>
+                                </div>
                             </div>
-                            <p class="service-description">Complete 5-page website with WordPress, mobile design, contact forms, and security</p>
-                            <a href="#packages" class="service-cta primary">Get Started</a>
+                            
+                            <div class="feature-row">
+                                <div class="feature-icon">⚡</div>
+                                <div class="feature-text">
+                                    <h5>Fast Performance</h5>
+                                    <p>Built for speed and SEO</p>
+                                </div>
+                            </div>
+                            
+                            <div class="feature-row">
+                                <div class="feature-icon">🔒</div>
+                                <div class="feature-text">
+                                    <h5>Secure Foundation</h5>
+                                    <p>SSL, firewalls, regular updates</p>
+                                </div>
+                            </div>
+                            
+                            <div class="feature-row">
+                                <div class="feature-icon">💰</div>
+                                <div class="feature-text">
+                                    <h5>Fair Pricing</h5>
+                                    <p>Small-business friendly rates</p>
+                                </div>
+                            </div>
                         </div>
                         
-                        <div class="service-card premium">
-                            <div class="service-header">
-                                <div class="service-icon">🔴</div>
-                                <h3 class="service-title">Custom Systems</h3>
-                                <p class="service-price">$1,500+</p>
+                        <a href="#packages" class="solution-cta">
+                            See My Packages
+                            <svg width="16" height="16">
+                                <use xlink:href="#arrow-right"></use>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wide Testimonials Section -->
+        <section class="wide-testimonials">
+            <div class="testimonials-bg"></div>
+            
+            <div class="testimonials-container">
+                <div class="testimonials-header">
+                    <h2 class="section-title">Real Results, <span class="text-highlight">Happy Clients</span></h2>
+                    <p class="section-subtitle">See what local businesses are saying</p>
+                </div>
+                
+                <div class="testimonials-grid">
+                    <div class="testimonial-card featured">
+                        <div class="testimonial-rating">
+                            <span>⭐⭐⭐⭐⭐</span>
+                        </div>
+                        <blockquote class="testimonial-text">
+                            "Professional, fast, and friendly. Our website finally reflects our business — customers are finding us and booking online. The difference in lead quality has been incredible."
+                        </blockquote>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">LB</div>
+                            <div class="author-info">
+                                <div class="author-name">Local Business Owner</div>
+                                <div class="author-location">Las Vegas, NV</div>
                             </div>
-                            <p class="service-description">Full-stack apps, headless CMS, custom dashboards, and API integrations</p>
-                            <a href="#packages" class="service-cta">Get Quote</a>
+                            <div class="testimonial-metric">
+                                <span class="metric-number">3x</span>
+                                <span class="metric-label">More Leads</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-rating">
+                            <span>⭐⭐⭐⭐⭐</span>
+                        </div>
+                        <blockquote class="testimonial-text">
+                            "Christin handled everything: domain, email, SSL, forms, the works. Clear pricing and no surprises. Finally, a developer who speaks in plain English!"
+                        </blockquote>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">SF</div>
+                            <div class="author-info">
+                                <div class="author-name">Solo Founder</div>
+                                <div class="author-location">Henderson, NV</div>
+                            </div>
+                            <div class="testimonial-metric">
+                                <span class="metric-number">2 wks</span>
+                                <span class="metric-label">Delivery</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-rating">
+                            <span>⭐⭐⭐⭐⭐</span>
+                        </div>
+                        <blockquote class="testimonial-text">
+                            "The whole process was smooth from start to finish. Great communication, delivered on time, and our new site loads so much faster than our old one."
+                        </blockquote>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">NP</div>
+                            <div class="author-info">
+                                <div class="author-name">Nonprofit Director</div>
+                                <div class="author-location">Las Vegas, NV</div>
+                            </div>
+                            <div class="testimonial-metric">
+                                <span class="metric-number">95%</span>
+                                <span class="metric-label">Faster</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <!-- Problem Solution Section -->
-        <section class="content-section problem-solution-section" id="problem-solution">
+
+        <!-- Traditional Sections (with better spacing) -->
+        <div class="traditional-sections">
             <div class="site-container">
-                <div class="section-content">
-                    <h2 class="section-title">The Problem Modern Local Businesses Face</h2>
-                    <div class="content-grid two-column">
-                        <div class="column">
-                            <ul class="feature-list">
-                                <li><strong>Outdated or DIY sites</strong> that look unprofessional and drive customers away.</li>
-                                <li><strong>Technical confusion</strong> about domains, hosting, SSL, email, analytics, and "what's safe."</li>
-                                <li><strong>Slow or broken pages</strong> hurting Google rankings and conversions.</li>
-                                <li><strong>Agency bloat</strong> — big retainers, long timelines, unclear pricing.</li>
-                            </ul>
-                        </div>
-                        <div class="column">
-                            <h3 class="subsection-title">My Solution</h3>
-                            <p class="content-description">I turn complex technology into <strong>simple, productized services</strong>. You get a clearly scoped website,
-                                solid security, faster performance, and a path to grow — all at small-business-friendly prices.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Positioning Section -->
-        <section class="content-section positioning-section" id="positioning">
-            <div class="site-container">
-                <div class="section-content">
-                    <div class="content-grid two-column">
-                        <div class="column">
-                            <h2 class="section-title">Who I Help</h2>
-                            <ul class="feature-list">
-                                <li><strong>Local service businesses</strong> (contractors, salons, clinics, trainers, photographers)</li>
-                                <li><strong>Community orgs & nonprofits</strong> needing credibility and easy updates</li>
-                                <li><strong>Creators & solo founders</strong> who want to launch fast and look pro</li>
-                            </ul>
-                        </div>
-                        <div class="column">
-                            <h3 class="section-title">What You Get</h3>
-                            <ul class="feature-list">
-                                <li><strong>Simple & transparent:</strong> clear deliverables, clear pricing, no jargon.</li>
-                                <li><strong>Local & personal:</strong> direct access to your developer (me), not a ticket queue.</li>
-                                <li><strong>Secure & scalable:</strong> SSL, spam/reCAPTCHA, CDN, growth-ready structure.</li>
-                                <li><strong>Fast turnaround:</strong> weeks, not months — with realistic expectations.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Value Ladder Section -->
-        <section class="content-section value-ladder-section" id="value-ladder-overview">
-            <div class="site-container">
-                <div class="section-content centered-content">
-                    <h2 class="section-title">How We Can Work Together <span class="text-highlight">(Value Ladder)</span></h2>
-                    <div class="value-ladder-steps">
-                        <ol class="numbered-list">
-                            <li><strong>Free Value:</strong> <a href="#lead-magnet" class="inline-link">Launch Smarter Toolkit (Download)</a></li>
-                            <li><strong>Quick Wins:</strong> Tech Touch-Up Services (one-offs: analytics, email, DNS, speed)</li>
-                            <li><strong>Core Website:</strong> The Business Site Builder (5-page pro site, ready to grow)</li>
-                            <li><strong>Premium Builds:</strong> Next-Level Web Systems (custom dashboards, APIs, headless CMS)</li>
-                            <li><strong>Care & Growth:</strong> Optional maintenance, analytics reviews, light SEO setup</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Packages & Pricing Section -->
-        <section class="content-section packages-section" id="packages">
-            <div class="site-container">
-                <div class="section-content">
-                    <h2 class="section-title">Packages & Pricing</h2>
+                <!-- Value Ladder -->
+                <section class="value-ladder" id="value-ladder">
+                    <h2 class="section-title centered">How We Can Work Together <span class="text-highlight">(Value Ladder)</span></h2>
+                    <ol class="value-steps">
+                        <li><strong>Free Value:</strong> <a href="#toolkit">Launch Smarter Toolkit (Download)</a></li>
+                        <li><strong>Quick Wins:</strong> Tech Touch-Up Services (one-offs: analytics, email, DNS, speed)</li>
+                        <li><strong>Core Website:</strong> The Business Site Builder (5-page pro site, ready to grow)</li>
+                        <li><strong>Premium Builds:</strong> Next-Level Web Systems (custom dashboards, APIs, headless CMS)</li>
+                        <li><strong>Care & Growth:</strong> Optional maintenance, analytics reviews, light SEO setup</li>
+                    </ol>
+                </section>
+
+                <!-- Detailed Packages -->
+                <section class="detailed-packages" id="packages">
+                    <h2 class="section-title centered">Packages & Pricing</h2>
+                    
                     <div class="packages-grid">
-                        <article class="package-card quick-wins">
+                        <div class="package-card quick-wins">
                             <div class="package-header">
-                                <h3 class="package-title">🟡 Tech Touch-Up Services <span class="package-subtitle">(One-Offs)</span></h3>
-                                <p class="package-price"><em>Typical range: $50–$150 per item</em></p>
+                                <h3 class="package-title">🟡 Tech Touch-Up Services</h3>
+                                <p class="package-subtitle">One-time fixes</p>
+                                <div class="package-price">$50–$150 per item</div>
                             </div>
-                            <div class="package-content">
-                                <ul class="feature-list">
-                                    <li><strong>Branded Email Setup:</strong> domain-based email for a professional look</li>
-                                    <li><strong>Analytics Setup:</strong> Google Analytics 4 + Tag Manager + basic goals</li>
-                                    <li><strong>DNS & Cloudflare Hardening:</strong> firewall rules, bot filtering, caching</li>
-                                    <li><strong>Speed Optimization:</strong> images, caching plugin, lazy loading</li>
-                                    <li><strong>reCAPTCHA & Anti-Spam:</strong> cleaner contact forms, fewer junk leads</li>
-                                </ul>
-                            </div>
-                            <div class="package-footer">
-                                <a href="#book-call" class="action-button secondary">Ask about Tech Touch-Ups</a>
-                            </div>
-                        </article>
-                        <article class="package-card core-website featured">
+                            <ul class="package-features">
+                                <li><strong>Branded Email Setup:</strong> domain-based email for a professional look</li>
+                                <li><strong>Analytics Setup:</strong> Google Analytics 4 + Tag Manager + basic goals</li>
+                                <li><strong>DNS & Cloudflare Hardening:</strong> firewall rules, bot filtering, caching</li>
+                                <li><strong>Speed Optimization:</strong> images, caching plugin, lazy loading</li>
+                                <li><strong>reCAPTCHA & Anti-Spam:</strong> cleaner contact forms, fewer junk leads</li>
+                            </ul>
+                            <a href="#consultation" class="package-cta">Ask about Tech Touch-Ups</a>
+                        </div>
+
+                        <div class="package-card core-website featured">
+                            <div class="popular-ribbon">Most Popular</div>
                             <div class="package-header">
-                                <h3 class="package-title">🟠 The Business Site Builder <span class="package-subtitle">(Core Website)</span></h3>
-                                <p class="package-price"><em>Typical range: $500–$1,500 depending on scope</em></p>
+                                <h3 class="package-title">🟠 The Business Site Builder</h3>
+                                <p class="package-subtitle">Complete website solution</p>
+                                <div class="package-price">$500–$1,500 depending on scope</div>
                             </div>
-                            <div class="package-content">
-                                <ul class="feature-list">
-                                    <li>Custom WordPress setup with essential, well-supported plugins</li>
-                                    <li><strong>5 core pages:</strong> Home, About, Services, Contact, Blog</li>
-                                    <li>Mobile-responsive design and accessibility-minded structure</li>
-                                    <li>Contact forms with spam protection and email notifications</li>
-                                    <li>Foundations for speed (CDN, image compression) and security (SSL, firewall)</li>
-                                    <li>Content guidance + a simple handoff to manage your own site</li>
-                                </ul>
+                            <ul class="package-features">
+                                <li>Custom WordPress setup with essential, well-supported plugins</li>
+                                <li><strong>5 core pages:</strong> Home, About, Services, Contact, Blog</li>
+                                <li>Mobile-responsive design and accessibility-minded structure</li>
+                                <li>Contact forms with spam protection and email notifications</li>
+                                <li>Foundations for speed (CDN, image compression) and security (SSL, firewall)</li>
+                                <li>Content guidance + a simple handoff to manage your own site</li>
+                            </ul>
+                            <div class="package-actions">
+                                <a href="#process" class="package-cta secondary">See Process</a>
+                                <a href="#consultation" class="package-cta primary">Get Quote</a>
                             </div>
-                            <div class="package-footer">
-                                <div class="cta-buttons">
-                                    <a href="#process" class="action-button secondary">See Process</a>
-                                    <a href="#book-call" class="action-button primary">Get Quote</a>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="package-card premium-systems">
+                        </div>
+
+                        <div class="package-card premium-systems">
                             <div class="package-header">
-                                <h3 class="package-title">🔴 Next-Level Web Systems <span class="package-subtitle">(Custom)</span></h3>
-                                <p class="package-price"><em>Typical range: $1,500–$5,000+ based on features</em></p>
+                                <h3 class="package-title">🔴 Next-Level Web Systems</h3>
+                                <p class="package-subtitle">Custom development</p>
+                                <div class="package-price">$1,500–$5,000+ based on features</div>
                             </div>
-                            <div class="package-content">
-                                <ul class="feature-list">
-                                    <li>Headless CMS (Strapi / Contentful / WP REST) + custom client dashboards</li>
-                                    <li>Forms, guest submissions, moderation workflows, email automation</li>
-                                    <li>Full-stack apps (Node/Express, Laravel) and database logic</li>
-                                    <li>Data conversion & migration from spreadsheets or old CMSs</li>
-                                    <li>"No-Code Unlocker" — backend logic to extend Webflow/Squarespace affordably</li>
-                                </ul>
-                            </div>
-                            <div class="package-footer">
-                                <a href="#book-call" class="action-button primary">Discuss Custom Build</a>
-                            </div>
-                        </article>
-                        <article class="package-card care-plan">
+                            <ul class="package-features">
+                                <li>Headless CMS (Strapi / Contentful / WP REST) + custom client dashboards</li>
+                                <li>Forms, guest submissions, moderation workflows, email automation</li>
+                                <li>Full-stack apps (Node/Express, Laravel) and database logic</li>
+                                <li>Data conversion & migration from spreadsheets or old CMSs</li>
+                                <li>"No-Code Unlocker" — backend logic to extend Webflow/Squarespace affordably</li>
+                            </ul>
+                            <a href="#consultation" class="package-cta">Discuss Custom Build</a>
+                        </div>
+
+                        <div class="package-card care-plan">
                             <div class="package-header">
-                                <h3 class="package-title">⚪ Site Care & Growth Plan <span class="package-subtitle">(Optional)</span></h3>
-                                <p class="package-price"><em>Maintenance, analytics insights, and light SEO setup — monthly or quarterly</em></p>
+                                <h3 class="package-title">⚪ Site Care & Growth Plan</h3>
+                                <p class="package-subtitle">Optional ongoing support</p>
+                                <div class="package-price">Monthly or quarterly maintenance</div>
                             </div>
-                            <div class="package-content">
-                                <ul class="feature-list">
-                                    <li>Plugin/theme updates, uptime monitoring, backups, SSL checks</li>
-                                    <li>Monthly/quarterly analytics snapshot + recommendations</li>
-                                    <li>Priority email support; discounted add-ons</li>
-                                </ul>
-                            </div>
-                            <div class="package-footer">
-                                <a href="#book-call" class="action-button tertiary">Ask about Care Plans</a>
-                            </div>
-                        </article>
+                            <ul class="package-features">
+                                <li>Plugin/theme updates, uptime monitoring, backups, SSL checks</li>
+                                <li>Monthly/quarterly analytics snapshot + recommendations</li>
+                                <li>Priority email support; discounted add-ons</li>
+                            </ul>
+                            <a href="#consultation" class="package-cta">Ask about Care Plans</a>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </section>
-        <!-- Local Proof Section -->
-        <section class="content-section local-proof-section" id="local-proof">
-            <div class="site-container">
-                <div class="section-content centered-content">
-                    <h2 class="section-title">Built for <span class="text-highlight">Las Vegas Businesses</span></h2>
-                    <p class="content-description">I'm local to Las Vegas (based in Henderson). That means you get a partner who understands the community, can meet
-                        virtually on your schedule, and builds with local search and real-world customers in mind.</p>
-                    <ul class="feature-list">
-                        <li><strong>Local SEO focus:</strong> structure and content that help you show up in Maps</li>
-                        <li><strong>Fast turnaround:</strong> small-business-friendly timelines and budgets</li>
-                        <li><strong>Direct access:</strong> you work with me, not an agency ticket system</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-        <!-- Process Section -->
-        <section class="content-section process-section" id="process">
-            <div class="site-container">
-                <div class="section-content centered-content">
-                    <h2 class="section-title">How It Works <span class="text-highlight">(Simple 7-Step Process)</span></h2>
-                    <div class="process-steps">
-                        <ol class="numbered-list process-list">
-                            <li><strong>Book a Free Call:</strong> a quick 15-minute chat to understand your goals.</li>
-                            <li><strong>Fast Estimate:</strong> you'll get a clear price range and recommended package.</li>
-                            <li><strong>Proposal & Deposit:</strong> scope, timeline, and deposit link — all straightforward.</li>
-                            <li><strong>Kickoff & Intake:</strong> I gather content, brand info, and must-have features.</li>
-                            <li><strong>Build & Review:</strong> I build, you review; we adjust quickly with clear milestones.</li>
-                            <li><strong>Launch:</strong> secure, fast, and connected to your domain and email.</li>
-                            <li><strong>Aftercare:</strong> training + optional Site Care & Growth Plan.</li>
-                        </ol>
-                    </div>
-                    <div class="cta-section">
-                        <a href="#book-call" class="action-button primary">
-                            <span>Start with a Free Call</span>
-                            <div class="button-icon">
-                                <svg class="arrow-right" width="28" height="28">
-                                    <use xlink:href="#arrow-right"></use>
-                                </svg>
-                            </div>
+                </section>
+
+                <!-- Process -->
+                <section class="process-section" id="process">
+                    <h2 class="section-title centered">How It Works <span class="text-highlight">(Simple 7-Step Process)</span></h2>
+                    <ol class="process-steps">
+                        <li><strong>Book a Free Call:</strong> a quick 15-minute chat to understand your goals.</li>
+                        <li><strong>Fast Estimate:</strong> you'll get a clear price range and recommended package.</li>
+                        <li><strong>Proposal & Deposit:</strong> scope, timeline, and deposit link — all straightforward.</li>
+                        <li><strong>Kickoff & Intake:</strong> I gather content, brand info, and must-have features.</li>
+                        <li><strong>Build & Review:</strong> I build, you review; we adjust quickly with clear milestones.</li>
+                        <li><strong>Launch:</strong> secure, fast, and connected to your domain and email.</li>
+                        <li><strong>Aftercare:</strong> training + optional Site Care & Growth Plan.</li>
+                    </ol>
+                    
+                    <div class="process-cta">
+                        <a href="#consultation" class="btn-primary large">
+                            Start with a Free Call
+                            <svg width="20" height="20">
+                                <use xlink:href="#arrow-right"></use>
+                            </svg>
                         </a>
                     </div>
-                </div>
-            </div>
-        </section>
-        <!-- Lead Magnet Section -->
-        <section class="content-section lead-magnet-section" id="lead-magnet">
-            <div class="site-container">
-                <div class="section-content centered-content">
-                    <h2 class="section-title">Free: <span class="text-highlight">Launch Smarter Toolkit</span></h2>
-                    <p class="content-description">Not ready to hire yet? Grab my free Website Launch Planner PDF. It helps you organize pages, content, and
-                        must-have features so your project moves fast and stays on budget.</p>
-                    <ul class="feature-list">
-                        <li>Pages & content checklist</li>
-                        <li>Tech stack chooser (WordPress vs. custom vs. builder)</li>
-                        <li>Prep guide for a smooth build</li>
-                    </ul>
-                    <div class="cta-section">
-                        <a href="#book-call" class="action-button primary">
-                            <span>Download the Toolkit</span>
-                            <div class="button-icon">
-                                <svg class="arrow-right" width="28" height="28">
-                                    <use xlink:href="#arrow-right"></use>
-                                </svg>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Social Proof Section -->
-        <section class="content-section testimonials-section" id="social-proof">
-            <div class="site-container">
-                <div class="section-content centered-content">
-                    <h2 class="section-title">Results & <span class="text-highlight">Peace of Mind</span></h2>
-                    <div class="testimonials-grid">
-                        <blockquote class="testimonial-card">
-                            <svg class="quote-icon" width="24" height="24">
-                                <use xlink:href="#quote-left"></use>
-                            </svg>
-                            <p class="testimonial-text">"Professional, fast, and friendly. Our website finally reflects our business — customers are finding us and
-                                booking online."</p>
-                            <footer class="testimonial-author">— Local Business Owner, Las Vegas</footer>
-                        </blockquote>
-                        <blockquote class="testimonial-card">
-                            <svg class="quote-icon" width="24" height="24">
-                                <use xlink:href="#quote-left"></use>
-                            </svg>
-                            <p class="testimonial-text">"Christin handled everything: domain, email, SSL, forms, the works. Clear pricing and no surprises."</p>
-                            <footer class="testimonial-author">— Solo Founder, Henderson</footer>
-                        </blockquote>
-                    </div>
-                    <p class="content-note"><em>Ask for more samples and references during your consultation.</em></p>
-                </div>
-            </div>
-        </section>
-        <div class="site-container">
-            <section id="compare">
-        <h2>Why Choose a Local Solo Developer vs. a Big Agency</h2>
-        <ul>
-            <li><strong>Direct line to the builder:</strong> no hand-offs, faster iterations</li>
-            <li><strong>Transparent pricing:</strong> packages that fit small-business budgets</li>
-            <li><strong>Security & speed baked in:</strong> not an afterthought</li>
-            <li><strong>Scales with you:</strong> start simple, add advanced features later</li>
-        </ul>
-    </section>
-    <section id="guarantee">
-        <h2>Clear Communication, Clear Deliverables</h2>
-        <p>I’ll document your scope, timelines, and deliverables before we start. You’ll always know what’s done and what’s
-            next. If something isn’t clear, I’ll fix it quickly.</p>
-    </section>
-        </div>
-        <!-- FAQ Section -->
-        <section class="content-section faq-section" id="faq">
-            <div class="site-container">
-                <div class="section-content centered-content">
-                    <h2 class="section-title">Frequently Asked <span class="text-highlight">Questions</span></h2>
+                </section>
+
+                <!-- FAQ -->
+                <section class="faq-section" id="faq">
+                    <h2 class="section-title centered">Frequently Asked <span class="text-highlight">Questions</span></h2>
+                    
                     <div class="faq-grid">
                         <div class="faq-item">
                             <h3 class="faq-question">How long does a standard 5-page site take?</h3>
-                            <p class="faq-answer">Most Business Site Builder projects launch within 2–4 weeks, depending on content readiness and feedback speed.</p>
+                            <div class="faq-answer">
+                                <p>Most Business Site Builder projects launch within <strong>2–4 weeks</strong>, depending on content readiness and feedback speed.</p>
+                                <ul>
+                                    <li><strong>Week 1:</strong> Planning & setup</li>
+                                    <li><strong>Week 2-3:</strong> Development & design</li>
+                                    <li><strong>Week 4:</strong> Testing & launch</li>
+                                </ul>
+                            </div>
                         </div>
+                        
                         <div class="faq-item">
                             <h3 class="faq-question">Do you work with platforms other than WordPress?</h3>
-                            <p class="faq-answer">Yes. I build with WordPress for many small businesses, but I also deliver custom backends (Node/Express, Laravel)
-                                and headless CMS builds (Strapi/Contentful/WP REST) when needed.</p>
+                            <div class="faq-answer">
+                                <p>Yes! While I use WordPress for most small businesses, I also deliver:</p>
+                                <ul>
+                                    <li>Custom backends (Node/Express, Laravel)</li>
+                                    <li>Headless CMS (Strapi/Contentful/WP REST)</li>
+                                    <li>Full-stack applications</li>
+                                </ul>
+                            </div>
                         </div>
+                        
                         <div class="faq-item">
                             <h3 class="faq-question">Can you help with domain, hosting, SSL, and email?</h3>
-                            <p class="faq-answer">Absolutely. I'll set up DNS, SSL, firewall, caching/CDN, and domain-based email — or harden what you already
-                                have.</p>
+                            <div class="faq-answer">
+                                <p>Absolutely! I handle all the technical infrastructure:</p>
+                                <ul>
+                                    <li>DNS setup and configuration</li>
+                                    <li>SSL certificates (secure HTTPS)</li>
+                                    <li>Firewall and security hardening</li>
+                                    <li>CDN and caching optimization</li>
+                                    <li>Professional domain-based email</li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="faq-item">
-                            <h3 class="faq-question">What about e-commerce?</h3>
-                            <p class="faq-answer">Starter stores are available as an add-on. For advanced stores, I'll scope a custom plan that fits inventory,
-                                taxes, shipping, and payment needs.</p>
-                        </div>
+                        
                         <div class="faq-item">
                             <h3 class="faq-question">Do you offer ongoing maintenance?</h3>
-                            <p class="faq-answer">Yes. The Site Care & Growth Plan covers updates, backups, uptime monitoring, and a light analytics review. It's
-                                optional, but recommended.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Final CTA Section -->
-        <section class="content-section final-cta-section" id="cta">
-            <div class="site-container">
-                <div class="section-content centered-content">
-                    <h2 class="section-title">Ready to Look <span class="text-highlight">Professional Online?</span></h2>
-                    <p class="content-description">Let's talk about your goals and the right package for your budget. No pressure, no jargon — just a clear plan to
-                        launch or upgrade your website.</p>
-                    <div class="cta-section" id="book-call">
-                        <a href="#book-call" class="action-button primary large">
-                            <span>Book Your Free 15-Minute Consultation</span>
-                            <div class="button-icon">
-                                <svg class="arrow-right" width="28" height="28">
-                                    <use xlink:href="#arrow-right"></use>
-                                </svg>
+                            <div class="faq-answer">
+                                <p>Yes! The <strong>Site Care & Growth Plan</strong> includes:</p>
+                                <ul>
+                                    <li>Plugin & theme updates</li>
+                                    <li>Uptime monitoring & backups</li>
+                                    <li>Analytics insights & recommendations</li>
+                                    <li>Priority email support</li>
+                                </ul>
+                                <p>It's optional, but highly recommended for peace of mind.</p>
                             </div>
-                        </a>
-                        <div class="secondary-ctas">
-                            <a href="#packages" class="inline-link">Or review packages first</a>
-                            <span class="separator">·</span>
-                            <a href="#lead-magnet" class="inline-link">Download the free Launch Toolkit</a>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
-        
-    </div>
-    
-    </main>
+                </section>
 
-    <!-- Floating CTA -->
-    <div class="floating-cta" id="floatingCta">
-        <a href="#leadCaptureForm" class="funnel-cta">
-            📞 Get Free Quote
-        </a>
-    </div>
+                <!-- Final CTA -->
+                <section class="final-cta" id="consultation">
+                    <h2 class="section-title centered">Ready to Look <span class="text-highlight">Professional Online?</span></h2>
+                    <p class="section-description">Let's talk about your goals and the right package for your budget. No pressure, no jargon — just a clear plan to launch or upgrade your website.</p>
+                    
+                    <div class="cta-actions">
+                        <a href="#consultation" class="btn-primary large">
+                            Book Your Free 15-Minute Consultation
+                            <svg width="20" height="20">
+                                <use xlink:href="#arrow-right"></use>
+                            </svg>
+                        </a>
+                        <div class="secondary-links">
+                            <a href="#packages" class="link">Review packages first</a>
+                            <span>·</span>
+                            <a href="#toolkit" class="link">Download the free Launch Toolkit</a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
 
     <!-- Custom Scripts ================================================== -->
     <script type="module" src="js/main.js"></script>
-    <script type="module" src="js/modules/SalesFunnelForm.js"></script>
-    <script type="module">
-        // Initialize sales funnel functionality
-        import SalesFunnelForm from './js/modules/SalesFunnelForm.js';
-        
-        const funnelForm = new SalesFunnelForm({
-            apiEndpoint: '/wp-json/jet-cct/message'
-        });
-        
-        // Handle lead capture form submission
-        document.getElementById('leadCaptureForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const submitBtn = document.getElementById('leadSubmitBtn');
-            const originalText = submitBtn.textContent;
-            
-            // Show loading state
-            submitBtn.disabled = true;
-            submitBtn.classList.add('loading');
-            submitBtn.textContent = 'Sending...';
-            
-            try {
-                const result = await funnelForm.handleFormSubmission('lead', e.target, {
-                    userMessage: e.target.userMessage.value
-                });
-                
-                if (result.success) {
-                    // Track conversion
-                    if (window.analyticsTracker) {
-                        window.analyticsTracker.trackEvent('lead_conversion', {
-                            source: 'services_page',
-                            service_interest: e.target.serviceInterest.value,
-                            timeline: e.target.timeline.value
-                        });
-                    }
-                    
-                    // Reset form
-                    e.target.reset();
-                }
-            } catch (error) {
-                console.error('Lead submission error:', error);
-                funnelForm.showErrorMessage('Sorry, something went wrong. Please try again.');
-            } finally {
-                // Reset button state
-                submitBtn.disabled = false;
-                submitBtn.classList.remove('loading');
-                submitBtn.textContent = originalText;
-            }
-        });
-        
-        // Handle all CTA buttons that should scroll to form
-        document.querySelectorAll('.cta-button, .tier-cta a').forEach(button => {
-            if (button.getAttribute('href') === '#leadCaptureForm') {
-                button.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    document.getElementById('leadCaptureForm').scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                    
-                    // Pre-select service based on button class
-                    const serviceSelect = document.getElementById('service-interest');
-                    if (button.classList.contains('cta-free')) {
-                        serviceSelect.value = 'Free Toolkit';
-                    } else if (button.classList.contains('cta-quick-win')) {
-                        serviceSelect.value = 'Quick Win';
-                    } else if (button.classList.contains('cta-core')) {
-                        serviceSelect.value = 'Business Site';
-                    } else if (button.classList.contains('cta-premium')) {
-                        serviceSelect.value = 'Custom System';
-                    } else if (button.classList.contains('cta-continuity')) {
-                        serviceSelect.value = 'Consultation';
-                    }
-                });
-            }
-        });
-        
-        // Handle floating CTA
-        document.querySelector('.floating-cta a').addEventListener('click', (e) => {
-            e.preventDefault();
-            document.getElementById('leadCaptureForm').scrollIntoView({
-                behavior: 'smooth'
-            });
-        });
-        
-        // Show floating CTA after scrolling
-        let lastScrollY = window.scrollY;
-        window.addEventListener('scroll', () => {
-            const floatingCta = document.getElementById('floatingCta');
-            const leadForm = document.getElementById('leadCaptureForm');
-            const formTop = leadForm.offsetTop;
-            
-            if (window.scrollY > 500 && window.scrollY < formTop - 100) {
-                floatingCta.style.display = 'block';
-            } else {
-                floatingCta.style.display = 'none';
-            }
-        });
-    </script>
 </body>
 
 </html>
