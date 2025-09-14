@@ -678,29 +678,48 @@ body[data-template="background"] {
 
 .hero-content {
   display: flex;
-    flex-direction: row;
-    justify-content: space-between; // or space-around
-    align-items: center; // instead of justify-items
-    gap: 2rem;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
 
-    .hero-column:first-child {
-      flex: 1; // instead of grid-column
-      min-width: 0; // Prevents flex item from overflowing
+  // Desktop/Large Screen Layout (900px and above)
+  .hero-column:first-child {
+    flex: 2 1 0%; // Takes 2/3 of the space (carousel content) with flex-basis 0
+    min-width: 0; // Prevents flex item from overflowing
+    max-width: 66.67%; // Enforce maximum width
 
-      .hero-carousel-container {
-        width: 100%; // Ensure carousel container takes full width
-        height: auto; // Or set explicit height like 400px
-      }
+    .hero-carousel-container {
+      width: 100%; // Ensure carousel container takes full width
+      height: auto; // Or set explicit height like 400px
+    }
 
-      .swiper {
+    .swiper {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .hero-column:last-child {
+    flex: 1 1 0%; // Takes 1/3 of the space (image) with flex-basis 0
+    min-width: 0; // Prevents flex item from overflowing
+    max-width: 33.33%; // Enforce maximum width
+    display: flex;
+    align-items: center; // Center the image vertically
+    justify-content: center; // Center the image horizontally
+
+    .hero-image {
+      width: 100%;
+      max-width: 100%;
+
+      img {
         width: 100%;
-        height: 100%;
+        height: auto;
+        max-width: 100%;
+        object-fit: contain; // Maintain aspect ratio without stretching
       }
     }
-
-    .hero-column:last-child {
-      flex: 1; // instead of grid-column
-    }
+  }
 
   .hero-column {
     display: flex;
@@ -708,9 +727,238 @@ body[data-template="background"] {
     justify-content: center;
     align-items: center;
     align-self: flex-end;
-
     padding: 1.5rem;
     text-align: center;
+  }
+
+  // Tablet Portrait (below 1000px)
+  @media (max-width: 999px) {
+    flex-direction: column; // Stack vertically
+    align-items: stretch; // Full width columns
+    gap: 1.5rem;
+
+    .hero-column:first-child {
+      flex: none; // Remove flex grow
+      order: 1; // Carousel on top
+      max-width: 100%; // Full width on mobile
+
+      .hero-carousel-container {
+        width: 100%;
+      }
+
+      .swiper {
+        width: 100%;
+      }
+    }
+
+    .hero-column:last-child {
+      flex: none; // Remove flex grow
+      order: 2; // Image below
+      max-width: 100%; // Full width on mobile
+
+      .hero-image {
+        width: 75%; // 25% smaller than full width
+        max-width: 75%;
+        margin: 0 auto; // Center the smaller image
+
+        img {
+          width: 100%;
+          max-width: 100%;
+        }
+      }
+    }
+
+    .hero-column {
+      align-self: stretch; // Full width
+      width: 100%; // Explicit full width
+      padding: 1rem;
+    }
+  }
+
+  // iPad Portrait (below 768px)
+  @media (max-width: 767px) {
+    gap: 1.25rem;
+
+    .hero-column:first-child {
+      .hero-carousel-container {
+        width: 100%;
+        min-width: 100%; // Prevent shrinking
+        overflow: hidden; // Contain carousel content
+      }
+
+      .swiper {
+        width: 100%;
+        min-width: 100%; // Prevent shrinking
+
+        .swiper-slide {
+          width: 100%;
+          min-width: 0;
+          padding: 0.75rem;
+        }
+
+        .slide-content {
+          width: 100%;
+          min-width: 0;
+          max-width: 100%;
+        }
+      }
+    }
+
+    .hero-column {
+      padding: 0.875rem;
+      min-width: 0;
+    }
+
+    .hero-column:last-child {
+      .hero-image {
+        width: 70%;
+        max-width: 70%;
+      }
+    }
+  }
+
+  // Large Mobile (below 640px)
+  @media (max-width: 639px) {
+    gap: 1rem;
+
+    .hero-column:first-child {
+      .hero-carousel-container {
+        padding: 0; // Remove any padding
+        margin: 0; // Remove any margin
+      }
+
+      .swiper-slide {
+        padding: 0.5rem;
+      }
+    }
+
+    .hero-column {
+      padding: 0.75rem;
+    }
+
+    .hero-column:last-child {
+      .hero-image {
+        width: 65%;
+        max-width: 65%;
+      }
+    }
+  }
+
+  // Medium Mobile (below 480px)
+  @media (max-width: 479px) {
+    gap: 0.875rem;
+
+    .hero-column:first-child {
+      .hero-carousel-container {
+        padding: 0; // Remove any padding
+        margin: 0; // Remove any margin
+      }
+
+      .swiper-slide {
+        padding: 0.375rem;
+      }
+
+      .slide-content {
+        .hero-title {
+          font-size: 1.5rem; // Reduce title size on small screens
+        }
+
+        .hero-description {
+          font-size: 0.9rem; // Reduce description size
+        }
+      }
+    }
+
+    .hero-column {
+      padding: 0.625rem;
+    }
+
+    .hero-column:last-child {
+      .hero-image {
+        width: 60%;
+        max-width: 60%;
+      }
+    }
+  }
+
+  // Small Mobile (below 425px)
+  @media (max-width: 424px) {
+    gap: 0.75rem;
+
+    .hero-column:first-child {
+      .hero-carousel-container {
+        padding: 0; // Remove any padding
+        margin: 0; // Remove any margin
+      }
+
+      .swiper-slide {
+        padding: 0.25rem;
+      }
+
+      .slide-content {
+        .hero-title {
+          font-size: 1.375rem;
+        }
+
+        .hero-description {
+          font-size: 0.85rem;
+        }
+
+        .action-button {
+          padding: 0.75rem 1.25rem; // Smaller button on tiny screens
+          font-size: 0.875rem;
+        }
+      }
+    }
+
+    .hero-column {
+      padding: 0.5rem;
+    }
+
+    .hero-column:last-child {
+      .hero-image {
+        width: 55%;
+        max-width: 55%;
+      }
+    }
+  }
+
+  // Extra Small Mobile (below 320px)
+  @media (max-width: 319px) {
+    gap: 0.5rem;
+
+    .hero-column:first-child {
+      .hero-carousel-container {
+        padding: 0; // Remove any padding
+        margin: 0; // Remove any margin
+      }
+
+      .slide-content {
+        .hero-title {
+          font-size: 1.25rem;
+        }
+
+        .hero-description {
+          font-size: 0.8rem;
+        }
+
+        .action-button {
+          padding: 0.625rem 1rem;
+          font-size: 0.8rem;
+        }
+      }
+    }
+
+    .hero-column {
+      padding: 0.375rem;
+    }
+
+    .hero-column:last-child {
+      .hero-image {
+        width: 50%;
+        max-width: 50%;
+      }
+    }
   }
 }
 
