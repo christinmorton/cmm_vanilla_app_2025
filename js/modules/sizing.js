@@ -1,59 +1,118 @@
-// sizing.js
-export function createSizer({ renderer, camera, getHostEl, maxDpr = 2 }) {
-  let framePending = false;
+// sizing.js - SIMPLE WORKING VERSION v2.0 - FORCE REFRESH
+import * as THREE from 'three';
+
+console.log('🔥 NEW SIZING.JS LOADED - SIMPLE VERSION 2.0');
+
+export function createSizer({ renderer, camera, getHostEl, maxDpr = 2, canvasId = 'unknown', mode = 'inline' }) {
+  let resizeTimeout = null;
+  let isResizing = false;
+  let lastResizeTime = 0;
 
   const applySize = () => {
-    framePending = false;
-    const host = getHostEl();                     // <— returns the current canvas host element
-    const rect = host ? host.getBoundingClientRect() : { width: innerWidth, height: innerHeight };
-    const width = Math.max(1, rect.width);
-    const height = Math.max(1, rect.height);
+    const now = performance.now();
 
-    const dpr = Math.min(maxDpr, window.devicePixelRatio || 1);
-    renderer.setPixelRatio(dpr);
-    renderer.setSize(width, height, false);
-
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
-  };
-
-  const onResize = () => {
-    if (!framePending) {
-      framePending = true;
-      requestAnimationFrame(applySize);
+    // Throttle rapid resize calls (minimum 50ms between updates)
+    if (isResizing && now - lastResizeTime < 50) {
+      return;
     }
-  };
 
-  // Global resize (useful for fixed/full-viewport)
-  window.addEventListener('resize', onResize);
-  window.addEventListener('orientationchange', onResize);
-
-  // Visibility pause (optional)
-  let currentAnimationLoop = null;
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-      // Store current loop and pause
-      currentAnimationLoop = renderer.getAnimationLoop ? renderer.getAnimationLoop() : null;
-      renderer.setAnimationLoop(null);
-    } else {
-      // Resume animation loop
-      if (currentAnimationLoop) {
-        renderer.setAnimationLoop(currentAnimationLoop);
+    isResizing = true;
+    lastResizeTime = now;
+    try {
+      const host = getHostEl();
+      if (!host) {
+        console.warn(`Sizer[${canvasId}]: No host element available`);
+        return;
       }
-    }
-  });
 
-  // Inline container observation (swap host on mode change; see CanvasManager below)
-  let ro;
-  const observe = (el) => {
-    if (ro) ro.disconnect();
-    if (!el) return;
-    ro = new ResizeObserver(onResize);
-    ro.observe(el);
+      let width, height;
+
+      // For background mode, always use full viewport dimensions
+      if (mode === 'background') {
+        width = window.innerWidth;
+        height = window.innerHeight;
+
+        // Height calculation working correctly
+      } else {
+        // For inline/hybrid mode, use host element bounds
+        const rect = host.getBoundingClientRect();
+        width = Math.max(1, rect.width || window.innerWidth);
+        height = Math.max(1, rect.height || window.innerHeight);
+      }
+
+      const dpr = Math.min(maxDpr, window.devicePixelRatio || 1);
+
+      // Update renderer
+      if (renderer.setPixelRatio) {
+        renderer.setPixelRatio(dpr);
+      }
+      if (renderer.setSize) {
+        renderer.setSize(width, height, false);
+      }
+
+      // CRITICAL FIX: Explicitly set CSS dimensions
+      // Three.js setSize() only sets canvas HTML attributes, not CSS styles!
+      const canvas = renderer.domElement;
+      canvas.style.width = width + 'px';
+      canvas.style.height = height + 'px';
+
+      // Update camera
+      if (camera && camera.updateProjectionMatrix) {
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+      }
+
+      // Simplified logging for better performance
+      console.log(`Sizer[${canvasId}]: Updated size to ${width}x${height} (DPR: ${dpr})`);
+
+    } catch (error) {
+      console.error(`Sizer[${canvasId}]: Error applying size:`, error);
+    } finally {
+      // Reset throttling flag after a short delay
+      setTimeout(() => {
+        isResizing = false;
+      }, 100);
+    }
   };
 
-  // First apply
+  let resizeCount = 0;
+  const onResize = () => {
+    resizeCount++;
+
+    // Clear existing timeout
+    clearTimeout(resizeTimeout);
+
+    // Longer debounce for smoother experience
+    resizeTimeout = setTimeout(() => {
+      applySize();
+    }, 100); // 100ms debounce for smoothness
+  };
+
+  // Simple window resize listener
+  window.addEventListener('resize', onResize);
+
+  // Simple observe function
+  const observe = (el) => {
+    console.log(`Sizer[${canvasId}]: Simple observe called`);
+  };
+
+  // Cleanup function
+  const cleanup = () => {
+    window.removeEventListener('resize', onResize);
+    clearTimeout(resizeTimeout);
+    console.log(`Sizer[${canvasId}]: Cleanup completed`);
+  };
+
+  // Mode setter for dynamic mode changes
+  const setMode = (newMode) => {
+    mode = newMode;
+    console.log(`🔧 MODE CHANGED for ${canvasId}: ${newMode}`);
+    // Immediately apply size with new mode
+    applySize();
+  };
+
+  // Initial apply
   applySize();
 
-  return { applySize, onResize, observe };
+  return { applySize, onResize, observe, cleanup, setMode };
 }

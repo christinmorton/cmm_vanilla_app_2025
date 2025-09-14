@@ -130,9 +130,12 @@ html, body {
     font-weight: 400;
     font-size: 16px;
     line-height: 1.688rem;
-    /* background-image: radial-gradient(#120D44, #0C0930); */
+
+    /* Black background to prevent white flashes during canvas resize */
+    background-color: #000000; /* Solid black fallback */
+    background-image: radial-gradient(#120D44, #0C0930); /* Dark gradient overlay */
     color: var(--white-color);
-    
+
     /* Default scrollable behavior for hybrid and inline templates */
     overflow-x: hidden; /* Prevent horizontal scroll */
     overflow-y: auto;   /* Allow vertical scroll */

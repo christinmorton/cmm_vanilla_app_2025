@@ -1,4 +1,5 @@
 // import './style.css'
+console.log('🚀 MAIN.JS LOADED - RESIZEMANAGER DISABLED');
 import PreloadManager from './modules/PreloadManager.js';
 import DesignGridWindow from './modules/DesignGridTypes/index.js';
 import PageTransitionManager from './modules/PageTransitionManager.js';
@@ -9,6 +10,7 @@ import PortfolioFilter from './modules/PortfolioFilter.js';
 import ContactForm from './modules/ContactForm.js';
 import analytics from './modules/AnalyticsTracker.js';
 import CarouselManager from './modules/CarouselManager.js';
+// TEMPORARILY DISABLED - import resizeManager from './modules/ResizeManager.js';
 import { gsap } from 'gsap';
 
 // Initialize preloader immediately
@@ -75,9 +77,18 @@ if (document.readyState === 'loading') {
   setTimeout(initAnimatedCounters, 1000);
 }
 
-// Handle window resize for carousels
+// TEMPORARILY DISABLED - Subscribe carousel resize handling to ResizeManager
+// resizeManager.subscribe('main-carousel-resize', (resizeEvent) => {
+//   carouselManager.handleResize();
+// }, 'main');
+
+// Debounced window resize for carousel to prevent conflicts
+let carouselResizeTimeout;
 window.addEventListener('resize', () => {
-  carouselManager.handleResize();
+  clearTimeout(carouselResizeTimeout);
+  carouselResizeTimeout = setTimeout(() => {
+    carouselManager.handleResize();
+  }, 150); // Slightly longer delay to avoid conflicts with canvas resize
 });
 
 // Listen for custom page transition events
@@ -180,23 +191,29 @@ if (template === 'hybrid') {
     if (collapsed || animating) return;
     animating = true;
     collapsed = true;
-    
+
     // Kill any existing animation
     if (currentTween) currentTween.kill();
-    
+
+    // DISABLED - Notify ResizeManager of transition start
+    // resizeManager.startTransition('hybrid-collapse');
+
     // Pre-setup hybrid host with proper styling
     hybridHost.hidden = false;
     hybridHost.style.height = '0px';
     hybridHost.style.overflow = 'hidden';
     hybridHost.style.transition = 'none'; // Prevent CSS transitions from interfering
-    
+
     // Create smooth timeline animation
     const tl = gsap.timeline({
       onComplete: () => {
         // Update buttons
         btnExpand.hidden = false;
         btnCollapse.hidden = true;
-        
+
+        // DISABLED - End transition and allow resize processing
+        // resizeManager.endTransition('hybrid-collapse');
+
         // Final resize and cleanup
         setTimeout(() => {
           if (cm.sizer) cm.sizer.applySize();
@@ -204,13 +221,14 @@ if (template === 'hybrid') {
         }, 50);
       }
     });
-    
+
     // Step 1: Smooth height reveal with canvas staying in background
-    tl.to(hybridHost, { 
-      height: '40vh', 
-      duration: 0.8, 
+    tl.to(hybridHost, {
+      height: '40vh',
+      duration: 0.8,
       ease: 'power2.out',
       onUpdate: () => {
+        // Reduced resize calls during animation - ResizeManager will handle debouncing
         if (cm.sizer) cm.sizer.onResize();
       }
     })
@@ -221,11 +239,11 @@ if (template === 'hybrid') {
       cm.mountTo(hybridHost);
     })
     // Step 4: Small fade-in effect for smoothness
-    .fromTo(hybridHost, 
-      { opacity: 0.8 }, 
+    .fromTo(hybridHost,
+      { opacity: 0.8 },
       { opacity: 1, duration: 0.3, ease: 'power1.out' }
     );
-    
+
     currentTween = tl;
   };
 
@@ -233,32 +251,38 @@ if (template === 'hybrid') {
     if (!collapsed || animating) return;
     animating = true;
     collapsed = false;
-    
+
     // Kill any existing animation
     if (currentTween) currentTween.kill();
-    
+
+    // DISABLED - Notify ResizeManager of transition start
+    // resizeManager.startTransition('hybrid-expand');
+
     // Move canvas back to background first
     cm.mountTo(bgHost);
-    
+
     // Update buttons immediately
     btnExpand.hidden = true;
     btnCollapse.hidden = false;
-    
+
     // Animate collapse
-    currentTween = gsap.to(hybridHost, { 
-      height: 0, 
-      duration: 0.6, 
+    currentTween = gsap.to(hybridHost, {
+      height: 0,
+      duration: 0.6,
       ease: 'power2.in',
       onUpdate: () => {
-        // Throttled resize updates  
+        // ResizeManager will handle debouncing of these calls
         if (cm.sizer) cm.sizer.onResize();
       },
       onComplete: () => {
         hybridHost.hidden = true;
-        
+
+        // DISABLED - End transition and allow resize processing
+        // resizeManager.endTransition('hybrid-expand');
+
         // Smooth scroll to top
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        
+
         // Final resize and cleanup
         setTimeout(() => {
           if (cm.sizer) cm.sizer.applySize();

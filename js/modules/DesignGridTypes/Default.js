@@ -21,8 +21,13 @@ class DesignGridWindow {
             this.camera = new THREE.PerspectiveCamera(100, 1, 0.1, 100);
             
             // Create renderer without canvas (we'll append it to host)
-            this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            this.renderer.domElement.id = 'webgl';
+            this.renderer = new THREE.WebGLRenderer({
+                antialias: true,
+                alpha: true,
+                preserveDrawingBuffer: false,
+                powerPreference: 'default'
+            });
+            this.renderer.domElement.id = 'design-grid-webgl-canvas';
             this.renderer.setClearColor(0x000000, 0); // transparent background
             this.renderer.outputColorSpace = THREE.SRGBColorSpace;
             
@@ -33,7 +38,9 @@ class DesignGridWindow {
             this.sizer = createSizer({
                 renderer: this.renderer,
                 camera: this.camera,
-                getHostEl: () => this.currentHost
+                getHostEl: () => this.currentHost,
+                canvasId: 'design-grid-canvas',
+                mode: this.mode // Pass the canvas mode to the sizer
             });
             
             // Initialize viewport grid system
@@ -73,7 +80,16 @@ class DesignGridWindow {
 
     mountTo(hostEl) {
         if (!hostEl) return;
-        if (this.renderer.domElement.parentElement === hostEl) return;
+        if (this.renderer.domElement.parentElement === hostEl) {
+            console.log('DEBUG: Canvas already mounted to this host, skipping');
+            return;
+        }
+
+        // Remove from previous parent if exists
+        if (this.renderer.domElement.parentElement) {
+            console.log('DEBUG: Removing canvas from previous host');
+            this.renderer.domElement.parentElement.removeChild(this.renderer.domElement);
+        }
 
         // Move canvas into the target host
         hostEl.appendChild(this.renderer.domElement);
@@ -136,23 +152,14 @@ class DesignGridWindow {
 
     /**
      * Setup responsive handling for screen size changes
+     * Now integrated with ResizeManager instead of direct window listeners
      */
     setupResponsiveHandling() {
-        let resizeTimeout;
-        const handleResize = () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                console.log('DEBUG: Screen size changed, updating responsive layout');
-                this.handleCanvasResize();
-                this.updateResponsiveLayout();
-            }, 250); // Debounce resize events
-        };
-        
-        window.addEventListener('resize', handleResize);
-        window.addEventListener('orientationchange', handleResize);
-        
-        // Store reference for cleanup
-        this.resizeHandler = handleResize;
+        // Remove direct window listeners - now handled by ResizeManager via sizing.js
+        console.log('DEBUG: ResponsiveHandling integrated with ResizeManager');
+
+        // The sizer system now handles all resize events through ResizeManager
+        // No additional window listeners needed here
     }
 
     /**
@@ -203,6 +210,10 @@ class DesignGridWindow {
 
     setMode(mode) {
         this.mode = mode;
+        // Update the sizer with the new mode if it exists
+        if (this.sizer && this.sizer.setMode) {
+            this.sizer.setMode(mode);
+        }
     }
 
     _tick() {
