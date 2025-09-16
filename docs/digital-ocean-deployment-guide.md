@@ -163,7 +163,7 @@ jobs:
         WORDPRESS_API_BASE_PROD: ${{ secrets.WORDPRESS_API_BASE_PROD }}
         VITE_STRIPE_PUBLISHABLE_KEY_PROD: ${{ secrets.VITE_STRIPE_PUBLISHABLE_KEY_PROD }}
 
-    - name: Deploy static files to VPS
+    - name: Deploy to VPS
       uses: appleboy/ssh-action@v1.0.3
       with:
         host: ${{ secrets.VPS_HOST }}
@@ -171,17 +171,15 @@ jobs:
         key: ${{ secrets.VPS_SSH_KEY }}
         port: 22
         script: |
-          # Create backup of current deployment
+          # Create backup
           if [ -d "/var/www/christinmorton.com/html" ]; then
             sudo cp -r /var/www/christinmorton.com/html /var/www/christinmorton.com/backups/backup-$(date +%Y%m%d-%H%M%S)
-            # Keep only last 5 backups
-            cd /var/www/christinmorton.com/backups && sudo ls -t | tail -n +6 | sudo xargs rm -rf
           fi
 
-          # Clear current files for fresh deployment
+          # Clear current files
           sudo rm -rf /var/www/christinmorton.com/html/*
 
-    - name: Copy built static files to VPS
+    - name: Copy files to VPS
       uses: appleboy/scp-action@v0.1.7
       with:
         host: ${{ secrets.VPS_HOST }}
@@ -192,7 +190,7 @@ jobs:
         target: "/var/www/christinmorton.com/html/"
         strip_components: 1
 
-    - name: Set permissions and reload Nginx
+    - name: Set permissions and reload
       uses: appleboy/ssh-action@v1.0.3
       with:
         host: ${{ secrets.VPS_HOST }}
@@ -200,32 +198,21 @@ jobs:
         key: ${{ secrets.VPS_SSH_KEY }}
         port: 22
         script: |
-          # Set correct permissions for static files
+          # Set correct permissions
           sudo chown -R www-data:www-data /var/www/christinmorton.com/html
           sudo chmod -R 755 /var/www/christinmorton.com/html
 
-          # Test Nginx configuration
-          sudo nginx -t
-
-          # Reload Nginx to serve new files
-          if [ $? -eq 0 ]; then
-            sudo systemctl reload nginx
-            echo "✅ Nginx reloaded successfully"
-          else
-            echo "❌ Nginx configuration error"
-            exit 1
-          fi
+          # Test and reload Nginx
+          sudo nginx -t && sudo systemctl reload nginx
 
           # Log deployment
-          echo "Static site deployment completed at $(date)" | sudo tee -a /var/www/christinmorton.com/logs/deploy.log
+          echo "Deployment completed at $(date)" | sudo tee -a /var/www/christinmorton.com/logs/deploy.log
 
           # Verify deployment
           if [ -f "/var/www/christinmorton.com/html/index.html" ]; then
-            echo "✅ Static files deployed successfully!"
-            echo "Available pages:"
-            ls -la /var/www/christinmorton.com/html/*.html | head -5
+            echo "✅ Deployment successful!"
           else
-            echo "❌ Deployment failed - index.html not found!"
+            echo "❌ Deployment failed!"
             exit 1
           fi
 ```
