@@ -21,6 +21,7 @@ export default defineConfig(({ command, mode }) => {
           'js-about': resolve(__dirname, 'js/pages/about.js'),
           'js-service': resolve(__dirname, 'js/pages/service.js'),
           'js-contact': resolve(__dirname, 'js/pages/contact.js'),
+          'js-checkout': resolve(__dirname, 'js/pages/checkout.js'),
 
           // Consultation and booking flows
           consultation: resolve(__dirname, 'free-consultation.html'),
