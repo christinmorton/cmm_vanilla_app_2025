@@ -20,7 +20,7 @@
         rel="stylesheet" />
 </head>
 
-<body data-template="hybrid" class="preloader-active">
+<body data-template="background" class="preloader-active">
 
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
         <symbol id="arrow-right" viewBox="0 0 24 24">
@@ -438,8 +438,10 @@
     </main>
 
     <!-- Custom Scripts -->
-    <script type="module" src="js/main.js"></script>
-    <script type="module" src="js/modules/ConsultationBooking.js"></script>
+    <!-- Core functionality (needed on all pages) -->
+    <script type="module" src="js/core.js"></script>
+    <!-- Consultation booking page specific functionality -->
+    <script type="module" src="js/pages/consultation-booking.js"></script>
 
 </body>
 
