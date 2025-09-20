@@ -18,6 +18,7 @@ export default defineConfig(({ command, mode }) => {
           // JavaScript entry points (for optimal bundling)
           'js-core': resolve(__dirname, 'js/core.js'),
           'js-home': resolve(__dirname, 'js/pages/home.js'),
+          'js-about': resolve(__dirname, 'js/pages/about.js'),
 
           // Consultation and booking flows
           consultation: resolve(__dirname, 'free-consultation.html'),
