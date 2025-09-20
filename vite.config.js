@@ -25,6 +25,7 @@ export default defineConfig(({ command, mode }) => {
           'js-consultation-booking': resolve(__dirname, 'js/pages/consultation-booking.js'),
           'js-project-quote': resolve(__dirname, 'js/pages/project-quote.js'),
           'js-free-consultation': resolve(__dirname, 'js/pages/free-consultation.js'),
+          'js-project-discovery': resolve(__dirname, 'js/pages/project-discovery.js'),
 
           // Consultation and booking flows
           consultation: resolve(__dirname, 'free-consultation.html'),
