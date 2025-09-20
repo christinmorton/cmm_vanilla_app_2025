@@ -19,6 +19,7 @@ export default defineConfig(({ command, mode }) => {
           'js-core': resolve(__dirname, 'js/core.js'),
           'js-home': resolve(__dirname, 'js/pages/home.js'),
           'js-about': resolve(__dirname, 'js/pages/about.js'),
+          'js-service': resolve(__dirname, 'js/pages/service.js'),
 
           // Consultation and booking flows
           consultation: resolve(__dirname, 'free-consultation.html'),
