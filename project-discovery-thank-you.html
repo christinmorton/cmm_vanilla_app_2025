@@ -336,16 +336,21 @@
         </section>
     </main>
 
-    <!-- Custom Scripts -->
-    <script type="module" src="js/main.js"></script>
+    <!-- Scripts -->
+    <!-- Core functionality (needed on all pages) -->
+    <script type="module" src="js/core.js"></script>
+    <!-- Simple page functionality -->
+    <script type="module" src="js/pages/simple.js"></script>
     <script>
         // Track discovery thank you page visit
-        if (window.analyticsTracker) {
-            window.analyticsTracker.trackEvent('page_view', {
-                page: 'project-discovery-thank-you',
-                funnel_stage: 'discovery_complete'
-            });
-        }
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.coreComponents && window.coreComponents.analytics) {
+                window.coreComponents.analytics.trackEvent('page_view', {
+                    page: 'project-discovery-thank-you',
+                    funnel_stage: 'discovery_complete'
+                });
+            }
+        });
     </script>
 
 </body>
