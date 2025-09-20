@@ -20,6 +20,7 @@ export default defineConfig(({ command, mode }) => {
           'js-home': resolve(__dirname, 'js/pages/home.js'),
           'js-about': resolve(__dirname, 'js/pages/about.js'),
           'js-service': resolve(__dirname, 'js/pages/service.js'),
+          'js-contact': resolve(__dirname, 'js/pages/contact.js'),
 
           // Consultation and booking flows
           consultation: resolve(__dirname, 'free-consultation.html'),
