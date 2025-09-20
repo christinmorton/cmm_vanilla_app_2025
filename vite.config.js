@@ -5,14 +5,19 @@ export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   
   return {
+    base: './',
     build: {
       rollupOptions: {
         input: {
-          // Core pages
+          // HTML entry points
           main: resolve(__dirname, 'index.html'),
           about: resolve(__dirname, 'about.html'),
           services: resolve(__dirname, 'service.html'), // Note: renamed to 'services' for better URL
           contact: resolve(__dirname, 'contact.html'),
+
+          // JavaScript entry points (for optimal bundling)
+          'js-core': resolve(__dirname, 'js/core.js'),
+          'js-home': resolve(__dirname, 'js/pages/home.js'),
 
           // Consultation and booking flows
           consultation: resolve(__dirname, 'free-consultation.html'),
