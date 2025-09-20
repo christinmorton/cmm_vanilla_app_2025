@@ -24,6 +24,7 @@ export default defineConfig(({ command, mode }) => {
           'js-checkout': resolve(__dirname, 'js/pages/checkout.js'),
           'js-consultation-booking': resolve(__dirname, 'js/pages/consultation-booking.js'),
           'js-project-quote': resolve(__dirname, 'js/pages/project-quote.js'),
+          'js-free-consultation': resolve(__dirname, 'js/pages/free-consultation.js'),
 
           // Consultation and booking flows
           consultation: resolve(__dirname, 'free-consultation.html'),
