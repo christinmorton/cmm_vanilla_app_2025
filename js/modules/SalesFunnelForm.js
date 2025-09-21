@@ -4,13 +4,15 @@
  */
 
 import AppPasswordManager from './AppPasswordManager.js';
+import { API_ENDPOINTS } from '../config/api-config.js';
 
 class SalesFunnelForm {
     constructor(options = {}) {
-        this.apiEndpoint = options.apiEndpoint || '/wp-json/cmm/v1/submit-message';
+        // Use centralized API configuration
+        this.apiEndpoint = options.apiEndpoint || API_ENDPOINTS.SUBMIT_MESSAGE;
         this.analyticsTracker = options.analyticsTracker || null;
         this.authManager = null;
-        
+
         // Initialize authentication
         this.initializeAuth();
     }
@@ -22,19 +24,19 @@ class SalesFunnelForm {
         try {
             this.authManager = new AppPasswordManager();
             const isReady = await this.authManager.initialize();
-            
-            // Update endpoint to use full API base URL
-            this.apiEndpoint = `${this.authManager.apiBaseUrl}/cmm/v1/submit-message`;
-            
+
+            // Use centralized endpoint configuration
+            this.apiEndpoint = API_ENDPOINTS.SUBMIT_MESSAGE;
+
             console.log('SalesFunnelForm using API endpoint:', this.apiEndpoint);
-            
+
             if (!isReady) {
                 console.warn('WordPress authentication not available - forms will work in development mode');
             }
         } catch (error) {
             console.warn('WordPress authentication failed - forms will work in development mode:', error.message);
-            // Keep default relative path for development fallback
-            this.apiEndpoint = '/wp-json/cmm/v1/submit-message';
+            // Fallback to centralized configuration
+            this.apiEndpoint = API_ENDPOINTS.SUBMIT_MESSAGE;
         }
     }
 

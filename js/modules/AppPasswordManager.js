@@ -1,30 +1,31 @@
+import { getEnvironmentConfig, API_ENDPOINTS } from '../config/api-config.js';
+
 /**
  * WordPress Application Password Authentication Manager
  * Handles secure authentication for WordPress REST API using Application Passwords
  */
 class AppPasswordManager {
     constructor(config = {}) {
-        this.apiBaseUrl = config.apiBaseUrl || this.getEnvironmentApiUrl();
+        // Use centralized environment configuration
+        this.envConfig = getEnvironmentConfig();
+        this.apiBaseUrl = config.apiBaseUrl || this.envConfig.apiBaseUrl;
         this.appUser = __WORDPRESS_APP_USER__;
         this.appPassword = __WORDPRESS_APP_PASSWORD__;
-        
+
         // Validate credentials are available
         if (!this.appUser || !this.appPassword) {
             throw new Error('WordPress Application Password credentials not found in environment variables');
         }
+
+        console.log(`AppPasswordManager initialized for ${this.envConfig.environment} environment`);
     }
 
     /**
-     * Get environment-specific API URL
+     * Get environment-specific API URL (deprecated - use getEnvironmentConfig instead)
+     * @deprecated Use getEnvironmentConfig from api-config.js
      */
     getEnvironmentApiUrl() {
-        const hostname = window.location.hostname;
-        
-        if (hostname.includes('localhost') || hostname.includes('.local')) {
-            return __WORDPRESS_API_BASE_DEV__ || 'http://christinmorton.local/wp-json';
-        }
-        
-        return __WORDPRESS_API_BASE_PROD__ || 'https://cms.christinmorton.com/wp-json';
+        return this.envConfig.apiBaseUrl;
     }
 
     /**
@@ -116,7 +117,7 @@ class AppPasswordManager {
     async submitAnalyticsEvent(eventData) {
         try {
             const response = await this.makeRequest(
-                `${this.apiBaseUrl}/jet-cct/analytics_event`,
+                API_ENDPOINTS.ANALYTICS_EVENT,
                 {
                     method: 'POST',
                     body: JSON.stringify(eventData)
@@ -142,7 +143,7 @@ class AppPasswordManager {
     async submitMessage(messageData) {
         try {
             const response = await this.makeRequest(
-                `${this.apiBaseUrl}/cmm/v1/submit-message`,
+                API_ENDPOINTS.SUBMIT_MESSAGE,
                 {
                     method: 'POST',
                     body: JSON.stringify(messageData)
