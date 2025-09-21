@@ -967,7 +967,7 @@ body[data-template="background"] {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   gap: 2rem;
 
   // Desktop/Large Screen Layout (1000px and above)
@@ -993,8 +993,9 @@ body[data-template="background"] {
     max-width: 50%; // Enforce maximum width
     display: flex;
     flex-direction: column;
-    align-items: center; // Center the skills content vertically
+    align-items: center; // Center the skills content horizontally
     justify-content: flex-start; // Align skills content to top
+    align-self: flex-start !important; // Override the flex-end alignment
   }
 
   .about-content,
