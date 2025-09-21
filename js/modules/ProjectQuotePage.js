@@ -20,8 +20,41 @@ class ProjectQuotePage {
             brand: ['.png', '.jpg', '.jpeg', '.pdf', '.svg', '.ai', '.eps'],
             documents: ['.pdf', '.doc', '.docx', '.txt', '.rtf']
         };
-        
+
+        // Immediately prevent form submission until initialization completes
+        this.setupTemporaryFormHandler();
+
         this.init();
+    }
+
+    /**
+     * Setup temporary form handler to prevent default submission during initialization
+     */
+    setupTemporaryFormHandler() {
+        const form = document.getElementById('projectQuoteForm');
+        if (form) {
+            const tempHandler = (e) => {
+                e.preventDefault();
+                console.log('Form submission prevented - initialization still in progress');
+
+                // Show loading message
+                const submitBtn = form.querySelector('button[type="submit"]');
+                if (submitBtn) {
+                    const originalText = submitBtn.textContent;
+                    submitBtn.textContent = 'Initializing...';
+                    submitBtn.disabled = true;
+
+                    // Re-enable after a moment
+                    setTimeout(() => {
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                    }, 2000);
+                }
+            };
+
+            form.addEventListener('submit', tempHandler);
+            this.tempHandler = tempHandler;
+        }
     }
 
     async init() {
@@ -300,6 +333,13 @@ class ProjectQuotePage {
     initializeFormSubmission() {
         const form = document.getElementById('projectQuoteForm');
         if (!form) return;
+
+        // Remove temporary handler if it exists
+        if (this.tempHandler) {
+            form.removeEventListener('submit', this.tempHandler);
+            this.tempHandler = null;
+            console.log('ProjectQuote: Temporary form handler removed, permanent handler attached');
+        }
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();

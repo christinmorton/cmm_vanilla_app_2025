@@ -11,7 +11,42 @@ class ConsultationPage {
         this.analyticsTracker = options.analyticsTracker;
         this.funnelForm = null;
 
+        // Immediately prevent form submission until initialization completes
+        this.setupTemporaryFormHandler();
+
         this.init();
+    }
+
+    /**
+     * Setup temporary form handler to prevent default submission during initialization
+     */
+    setupTemporaryFormHandler() {
+        const consultationForm = document.getElementById('consultationForm');
+        if (consultationForm) {
+            const tempHandler = (e) => {
+                e.preventDefault();
+                console.log('Form submission prevented - initialization still in progress');
+
+                // Show loading message
+                const submitBtn = document.getElementById('consultationSubmitBtn');
+                if (submitBtn) {
+                    const originalText = submitBtn.textContent;
+                    submitBtn.textContent = 'Initializing...';
+                    submitBtn.disabled = true;
+
+                    // Re-enable after a moment
+                    setTimeout(() => {
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                    }, 2000);
+                }
+            };
+
+            consultationForm.addEventListener('submit', tempHandler);
+
+            // Store reference to remove later
+            this.tempHandler = tempHandler;
+        }
     }
 
     /**
@@ -85,6 +120,13 @@ class ConsultationPage {
     setupFormHandler() {
         const consultationForm = document.getElementById('consultationForm');
         if (!consultationForm) return;
+
+        // Remove temporary handler if it exists
+        if (this.tempHandler) {
+            consultationForm.removeEventListener('submit', this.tempHandler);
+            this.tempHandler = null;
+            console.log('Temporary form handler removed, permanent handler attached');
+        }
 
         consultationForm.addEventListener('submit', async (e) => {
             e.preventDefault();
