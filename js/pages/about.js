@@ -4,6 +4,7 @@ console.log('👤 ABOUT.JS LOADED - About page specific functionality');
 import DesignGridWindow from '../modules/DesignGridTypes/index.js';
 import TabSwitcher from '../modules/TabSwitcher.js';
 import AnimatedCounter from '../modules/AnimatedCounter.js';
+import CarouselManager from '../modules/CarouselManager.js';
 
 // Wait for core components to be ready
 const waitForCore = () => {
@@ -33,8 +34,12 @@ const initAboutPage = async () => {
   // Initialize tab switcher for skills section
   const tabSwitcher = new TabSwitcher('.skills-section');
 
-  // Make tab switcher globally available for page transitions
+  // Initialize carousel manager for CTA carousel
+  const carouselManager = new CarouselManager();
+
+  // Make components globally available for page transitions
   window.tabSwitcher = tabSwitcher;
+  window.carouselManager = carouselManager;
 
   // Initialize animated counter for years of experience
   let animatedCounters = null;
@@ -86,6 +91,19 @@ const initAboutPage = async () => {
       console.log('Canvas ready, hiding preloader');
       window.hidePreloader();
 
+      // Initialize CTA carousel after preloader is hidden
+      console.log('Initializing CTA carousel for about page');
+      carouselManager.initCtaCarousel();
+
+      // Ensure carousel container gets initialized class
+      setTimeout(() => {
+        const ctaContainer = document.querySelector('.cta-section-wrapper');
+        if (ctaContainer) {
+          ctaContainer.classList.add('carousel-initialized');
+          console.log('CTA carousel container marked as initialized');
+        }
+      }, 200);
+
       // Initialize page transitions after canvas is ready
       const pageTransitions = window.initPageTransitions(cm);
 
@@ -132,6 +150,11 @@ const initAboutPage = async () => {
     // Reinitialize tab switcher
     if (window.tabSwitcher) {
       window.tabSwitcher.reinitialize();
+    }
+
+    // Reinitialize carousel after page transition
+    if (window.carouselManager) {
+      window.carouselManager.reinitializeAfterTransition();
     }
 
     // Reinitialize animated counters

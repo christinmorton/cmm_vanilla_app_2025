@@ -19,14 +19,15 @@ export default class PageTransitionManager {
    * Initialize global navigation interception
    */
   initializeNavigation() {
+    // TEMPORARILY DISABLED: Page transitions causing form loading issues
     // Intercept clicks on HTML page links
-    document.addEventListener('click', (e) => {
-      const link = e.target.closest('a[href$=".html"]');
-      if (link && !link.hasAttribute('data-no-transition')) {
-        e.preventDefault();
-        this.navigateTo(link.href);
-      }
-    });
+    // document.addEventListener('click', (e) => {
+    //   const link = e.target.closest('a[href$=".html"]');
+    //   if (link && !link.hasAttribute('data-no-transition')) {
+    //     e.preventDefault();
+    //     this.navigateTo(link.href);
+    //   }
+    // });
 
     // Handle browser back/forward buttons
     window.addEventListener('popstate', (e) => {

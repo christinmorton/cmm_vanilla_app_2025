@@ -275,3 +275,112 @@ All forms now provide:
 - **Professional user experience** with proper feedback
 
 This establishes a robust foundation for the sales funnel that can handle high-traffic scenarios and various user interaction patterns reliably.
+
+---
+
+## Page Transition System Issue - September 21, 2025
+
+### **Additional Critical Issue Discovered**
+
+**Problem:** Page transitions preventing JavaScript module reinitialization across navigation.
+
+**Symptoms:**
+- Forms working inconsistently after page navigation
+- JavaScript appearing to "not load fully" on certain pages
+- Free consultation form and other pages working on direct load but not after navigation
+- "Two different forms" behavior when transitioning between pages
+
+**Root Cause:**
+The `PageTransitionManager` was intercepting all navigation clicks and performing AJAX content swaps instead of full page reloads. This meant:
+- ❌ Page-specific JavaScript modules (`free-consultation.js`, etc.) never re-executed
+- ❌ Form handlers remained attached to old DOM elements
+- ❌ New page content loaded without proper JavaScript initialization
+
+**Technical Details:**
+```javascript
+// In PageTransitionManager.js - This was causing the issue
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('a[href$=".html"]');
+  if (link && !link.hasAttribute('data-no-transition')) {
+    e.preventDefault();  // ❌ Prevented normal page loads
+    this.navigateTo(link.href);  // ❌ Only swapped HTML content
+  }
+});
+```
+
+**Immediate Solution Applied:**
+- **Temporarily disabled page transitions** in `PageTransitionManager.js`
+- Navigation now performs standard full page reloads
+- All JavaScript modules reinitialize properly on each page visit
+
+**Files Modified:**
+- `js/modules/PageTransitionManager.js` - Commented out navigation interception
+
+**Impact Assessment:**
+### ✅ **Fixed**
+- Form modules initialize correctly on every page load
+- Consistent JavaScript behavior across all pages
+- Free consultation form works reliably
+- All sales funnel forms work on first interaction
+
+### ⚠️ **Trade-offs**
+- Slightly slower navigation (full page reloads vs. AJAX transitions)
+- Brief white flash between pages (standard browser behavior)
+- Lost smooth visual transitions between pages
+
+**Future Development TODO:**
+
+### **Priority: Medium-High**
+The page transition system needs to be redesigned to properly reinitialize page-specific modules:
+
+#### **Required Changes:**
+1. **Module Registry System**
+   - Create a registry of page-specific modules that need reinitialization
+   - Map URL patterns to required modules
+
+2. **Enhanced Content Swapping**
+   - Detect which page-specific modules need to run
+   - Execute page-specific initialization after content swap
+   - Handle module dependencies and async initialization
+
+3. **Form Module Integration**
+   - Ensure `ConsultationPage`, `ProjectQuotePage`, etc. are properly reinitialized
+   - Handle authentication timing and race conditions during transitions
+   - Maintain form state and error handling across transitions
+
+#### **Implementation Approach:**
+```javascript
+// Proposed solution structure
+class PageTransitionManager {
+  reinitializePageModules(url) {
+    const pageModules = this.getPageModulesForUrl(url);
+    pageModules.forEach(moduleInit => {
+      moduleInit(); // Re-execute page-specific initialization
+    });
+  }
+
+  getPageModulesForUrl(url) {
+    const moduleMap = {
+      'free-consultation.html': [initFreeConsultationPage],
+      'project-quote.html': [initProjectQuotePage],
+      'contact.html': [initContactPage],
+      // etc.
+    };
+
+    return moduleMap[this.getPageFromUrl(url)] || [];
+  }
+}
+```
+
+#### **Testing Requirements:**
+- Verify form functionality works after AJAX transitions
+- Test authentication timing with transition system
+- Ensure no memory leaks from multiple module initializations
+- Validate all interactive elements work post-transition
+
+#### **Alternative Solutions:**
+1. **Hybrid Approach**: Use transitions for non-form pages, full reloads for form pages
+2. **Web Components**: Refactor forms as self-contained web components
+3. **Framework Migration**: Consider moving to a modern SPA framework (React, Vue, etc.)
+
+**Priority Level:** Should be addressed before production deployment if smooth transitions are desired, but current disabled state is fully functional for production use.
