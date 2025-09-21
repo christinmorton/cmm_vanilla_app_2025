@@ -8,28 +8,34 @@ import { API_ENDPOINTS } from '../config/api-config.js';
 
 class ConsultationPage {
     constructor(options = {}) {
-        this.funnelForm = new SalesFunnelForm({
-            apiEndpoint: options.apiEndpoint || API_ENDPOINTS.SUBMIT_MESSAGE,
-            analyticsTracker: options.analyticsTracker
-        });
-        
+        this.analyticsTracker = options.analyticsTracker;
+        this.funnelForm = null;
+
         this.init();
     }
 
     /**
      * Initialize the consultation page functionality
      */
-    init() {
-        this.setupRichTextEditor();
-        this.setupFormHandler();
-        
-        // Wait for DOM to be ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => {
-                this.setupEventListeners();
+    async init() {
+        try {
+            // Initialize sales funnel with analytics tracking
+            this.funnelForm = new SalesFunnelForm({
+                apiEndpoint: API_ENDPOINTS.SUBMIT_MESSAGE,
+                analyticsTracker: this.analyticsTracker
             });
-        } else {
+
+            // Wait for authentication to initialize
+            await new Promise(resolve => setTimeout(resolve, 1000));
+
+            this.setupRichTextEditor();
+            this.setupFormHandler();
+
             this.setupEventListeners();
+
+            console.log('ConsultationPage initialized successfully');
+        } catch (error) {
+            console.error('Failed to initialize ConsultationPage:', error);
         }
     }
 
@@ -93,17 +99,24 @@ class ConsultationPage {
         const submitBtn = document.getElementById('consultationSubmitBtn');
         if (!submitBtn) return;
 
+        // Check if form handler is ready
+        if (!this.funnelForm) {
+            console.error('Form handler not ready - please wait a moment and try again');
+            alert('Form is still initializing. Please wait a moment and try again.');
+            return;
+        }
+
         const originalText = submitBtn.textContent;
-        
+
         // Show loading state
         submitBtn.disabled = true;
         submitBtn.classList.add('loading');
         submitBtn.textContent = 'Submitting Request...';
-        
+
         try {
             // Get rich text content
             const richTextContent = document.getElementById('project-details')?.innerHTML || '';
-            
+
             const result = await this.funnelForm.handleFormSubmission('consultation', event.target, {
                 userMessage: richTextContent
             });
