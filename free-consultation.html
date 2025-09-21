@@ -18,6 +18,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet" />
+        
     <style>
         /* Page-specific styles */
         .consultation-hero {
@@ -29,6 +30,15 @@
         .consultation-hero .value-proposition__headline,
         .consultation-hero .value-proposition__subheadline {
             color: var(--white-color);
+        }
+
+        .consultation-hero .benefit__title,
+        .consultation-hero .benefit__description {
+            color: var(--white-color);
+        }
+
+        .consultation-hero .value-proposition__benefits {
+            padding-top: 2rem;
         }
         
         .consultation-form-section {
@@ -305,23 +315,23 @@
                         <div class="value-proposition__benefits">
                             <div class="benefit">
                                 <div class="benefit__icon">🎯</div>
-                                <div class="benefit__title">Project Strategy</div>
-                                <div class="benefit__description">Discuss your goals and requirements</div>
+                                <h3 class="benefit__title">Project Strategy</h3>
+                                <p class="benefit__description">Discuss your goals and requirements</p>
                             </div>
                             <div class="benefit">
                                 <div class="benefit__icon">💡</div>
-                                <div class="benefit__title">Expert Advice</div>
-                                <div class="benefit__description">Technology recommendations</div>
+                                <h3 class="benefit__title">Expert Advice</h3>
+                                <p class="benefit__description">Technology recommendations</p>
                             </div>
                             <div class="benefit">
                                 <div class="benefit__icon">📋</div>
-                                <div class="benefit__title">Custom Proposal</div>
-                                <div class="benefit__description">Detailed plan with timeline & pricing</div>
+                                <h3 class="benefit__title">Custom Proposal</h3>
+                                <p class="benefit__description">Detailed plan with timeline & pricing</p>
                             </div>
                             <div class="benefit">
                                 <div class="benefit__icon">🚀</div>
-                                <div class="benefit__title">No Obligation</div>
-                                <div class="benefit__description">Completely free with no pressure</div>
+                                <h3 class="benefit__title">No Obligation</h3>
+                                <p class="benefit__description">Completely free with no pressure</p>
                             </div>
                         </div>
                     </div>
