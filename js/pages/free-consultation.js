@@ -31,9 +31,7 @@ const initFreeConsultationPage = async () => {
   const { preloader, analytics } = await waitForCore();
 
   // Initialize consultation functionality (existing module)
-  const consultationPage = new ConsultationPage({
-    analyticsTracker: analytics
-  });
+  // ConsultationPage auto-initializes via DOMContentLoaded event
 
   // Get DOM elements for canvas integration
   const bgHost = document.getElementById('bgHost');

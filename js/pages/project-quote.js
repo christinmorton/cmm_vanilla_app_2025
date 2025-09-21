@@ -31,8 +31,7 @@ const initProjectQuotePage = async () => {
   const { preloader } = await waitForCore();
 
   // Initialize project quote functionality (existing module)
-  // ProjectQuotePage module handles its own initialization
-  // Note: ProjectQuotePage.js is already imported and will initialize automatically
+  // ProjectQuotePage auto-initializes via DOMContentLoaded event
 
   // Get DOM elements for canvas integration
   const bgHost = document.getElementById('bgHost');

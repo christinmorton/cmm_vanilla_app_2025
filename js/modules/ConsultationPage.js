@@ -4,11 +4,12 @@
  */
 
 import SalesFunnelForm from './SalesFunnelForm.js';
+import { API_ENDPOINTS } from '../config/api-config.js';
 
 class ConsultationPage {
     constructor(options = {}) {
         this.funnelForm = new SalesFunnelForm({
-            apiEndpoint: options.apiEndpoint || '/wp-json/jet-cct/message',
+            apiEndpoint: options.apiEndpoint || API_ENDPOINTS.SUBMIT_MESSAGE,
             analyticsTracker: options.analyticsTracker
         });
         
@@ -244,5 +245,10 @@ class ConsultationPage {
         }
     }
 }
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    new ConsultationPage();
+});
 
 export default ConsultationPage;
