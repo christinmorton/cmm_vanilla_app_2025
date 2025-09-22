@@ -57,7 +57,7 @@ class ConsultationPage {
             // Initialize sales funnel with analytics tracking
             this.funnelForm = new SalesFunnelForm({
                 apiEndpoint: API_ENDPOINTS.SUBMIT_MESSAGE,
-                analyticsTracker: this.analyticsTracker
+                analyticsTracker: window.analyticsTracker
             });
 
             // Wait for authentication to initialize
@@ -138,50 +138,109 @@ class ConsultationPage {
      * Handle consultation form submission
      */
     async handleConsultationSubmission(event) {
-        const submitBtn = document.getElementById('consultationSubmitBtn');
-        if (!submitBtn) return;
-
-        // Check if form handler is ready
-        if (!this.funnelForm) {
-            console.error('Form handler not ready - please wait a moment and try again');
-            alert('Form is still initializing. Please wait a moment and try again.');
-            return;
-        }
-
-        const originalText = submitBtn.textContent;
-
-        // Show loading state
-        submitBtn.disabled = true;
-        submitBtn.classList.add('loading');
-        submitBtn.textContent = 'Submitting Request...';
-
         try {
+            // Check if form handler is ready
+            if (!this.funnelForm) {
+                console.error('Form handler not ready - please wait a moment and try again');
+                this.funnelForm?.showErrorMessage('Form is still initializing. Please wait a moment and try again.');
+                return;
+            }
+
+            // Show loading state
+            this.setFormLoadingState(true);
+
             // Get rich text content
             const richTextContent = document.getElementById('project-details')?.innerHTML || '';
 
             const result = await this.funnelForm.handleFormSubmission('consultation', event.target, {
                 userMessage: richTextContent
             });
-            
+
             if (result.success) {
-                // Track conversion
-                this.trackConsultationConversion(event.target);
-                
-                // Show success and redirect
-                this.funnelForm.showSuccessMessage('consultation');
-                setTimeout(() => {
-                    window.location.href = '/consultation-thank-you.html';
-                }, 2000);
+                this.handleSubmissionSuccess(result);
+            } else {
+                this.handleSubmissionError(result.error);
             }
+
         } catch (error) {
             console.error('Consultation submission error:', error);
-            this.funnelForm.showErrorMessage('Sorry, something went wrong. Please try again.');
+            this.handleSubmissionError('Sorry, something went wrong. Please try again.');
         } finally {
-            // Reset button state
-            submitBtn.disabled = false;
-            submitBtn.classList.remove('loading');
-            submitBtn.textContent = originalText;
+            // Only reset loading state if submission wasn't successful
+            if (!this.submissionSuccessful) {
+                this.setFormLoadingState(false);
+            }
         }
+    }
+
+    /**
+     * Set form loading state
+     */
+    setFormLoadingState(isLoading) {
+        const submitBtn = document.getElementById('consultationSubmitBtn');
+        if (!submitBtn) return;
+
+        if (isLoading) {
+            this.originalButtonText = submitBtn.textContent;
+            this.submissionSuccessful = false; // Reset success flag
+            submitBtn.disabled = true;
+            submitBtn.classList.add('loading');
+            submitBtn.textContent = 'Submitting Request...';
+        } else {
+            // Only reset button if submission wasn't successful
+            if (!this.submissionSuccessful) {
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('loading');
+                if (this.originalButtonText) {
+                    submitBtn.textContent = this.originalButtonText;
+                }
+            }
+        }
+    }
+
+    /**
+     * Handle successful form submission
+     */
+    handleSubmissionSuccess(result) {
+        // Mark success immediately to prevent finally block interference
+        this.submissionSuccessful = true;
+
+        const submitBtn = document.getElementById('consultationSubmitBtn');
+
+        // Track conversion
+        this.trackConsultationConversion(document.getElementById('consultationForm'));
+
+        // Show success message
+        this.funnelForm.showSuccessMessage('consultation');
+
+        // Update button to show success state
+        if (submitBtn) {
+            // Clear all previous states
+            submitBtn.classList.remove('loading');
+            submitBtn.classList.add('success');
+            submitBtn.textContent = 'Request Submitted Successfully!';
+            submitBtn.disabled = true; // Keep disabled to prevent re-submission
+
+            // Force a slight delay to ensure the state is visible
+            setTimeout(() => {
+                submitBtn.style.backgroundColor = '#28a745';
+                submitBtn.style.borderColor = '#28a745';
+                submitBtn.style.color = 'white';
+            }, 100);
+        }
+
+        // Redirect to thank you page
+        setTimeout(() => {
+            window.location.href = '/consultation-thank-you.html';
+        }, 2000);
+    }
+
+    /**
+     * Handle form submission error
+     */
+    handleSubmissionError(error) {
+        console.error('Form submission failed:', error);
+        this.funnelForm?.showErrorMessage(error || 'Sorry, something went wrong. Please try again.');
     }
 
     /**

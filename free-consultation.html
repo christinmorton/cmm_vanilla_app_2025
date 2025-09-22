@@ -130,14 +130,26 @@
             text-align: center;
             margin-top: 1rem;
         }
+
+        /* Button success state */
+        .funnel-submit.success {
+            background-color: #28a745 !important;
+            border-color: #28a745 !important;
+            color: white !important;
+        }
         
         /* Rich text editor styles */
+        #project-details {
+            color: var(--dark-color) !important;
+            background-color: white !important;
+        }
+
         #project-details.empty::before {
             content: attr(data-placeholder);
             color: #999;
             font-style: italic;
         }
-        
+
         #project-details:focus {
             outline: none;
             border-color: var(--primary-color);

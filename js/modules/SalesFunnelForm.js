@@ -435,12 +435,14 @@ class SalesFunnelForm {
      * Track form submissions for analytics
      */
     trackSubmission(formType, status) {
-        if (this.analyticsTracker) {
-            this.analyticsTracker.trackEvent('funnel_form_submission', {
-                form_type: formType,
+        if (this.analyticsTracker && typeof this.analyticsTracker.trackFormSubmit === 'function') {
+            this.analyticsTracker.trackFormSubmit({
+                type: formType,
                 status: status,
                 timestamp: new Date().toISOString()
             });
+        } else {
+            console.log('Analytics tracking not available or trackFormSubmit method missing');
         }
     }
 
