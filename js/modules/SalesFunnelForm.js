@@ -368,8 +368,132 @@ class SalesFunnelForm {
     handleSubmissionSuccess(formType, responseData) {
         // Show success message
         this.showSuccessMessage(formType);
-        
+
         // Redirect if specified
+        const redirectUrls = {
+            'lead': '/thank-you.html',
+            'consultation': '/consultation-thank-you.html',
+            'quote': '/quote-thank-you.html'
+        };
+
+        if (redirectUrls[formType]) {
+            setTimeout(() => {
+                window.location.href = redirectUrls[formType];
+            }, 2000);
+        }
+    }
+
+    /**
+     * Generate appropriate checkout URL based on form type and context
+     */
+    generateCheckoutURL(formType, context = {}) {
+        const baseUrls = {
+            'consultation': 'checkout-free.html',
+            'quote': 'checkout.html',
+            'project': 'checkout.html',
+            'custom': 'checkout-custom.html'
+        };
+
+        // Determine base URL
+        let baseUrl = baseUrls[formType] || baseUrls['custom'];
+
+        // Build query parameters
+        const params = new URLSearchParams();
+
+        // Add source tracking
+        params.set('source', `${formType}_form`);
+
+        // Add form-specific parameters
+        switch (formType) {
+            case 'consultation':
+                // Free consultation checkout
+                if (context.urgency) params.set('urgency', context.urgency);
+                if (context.projectType) params.set('project_type', context.projectType);
+                break;
+
+            case 'quote':
+                // Quote form should suggest appropriate deposit
+                baseUrl = 'checkout.html';
+                if (context.budgetRange) {
+                    const deposit = this.calculateRecommendedDeposit(context.budgetRange);
+                    params.set('recommended', deposit.toString());
+                }
+                if (context.projectType) params.set('project_type', context.projectType);
+                break;
+
+            case 'custom':
+                // Custom amount checkout
+                if (context.amount) params.set('amount', context.amount);
+                if (context.description) params.set('description', encodeURIComponent(context.description));
+                if (context.type) params.set('type', context.type);
+                break;
+
+            default:
+                // General project inquiry - suggest standard deposit
+                params.set('recommended', '150');
+                break;
+        }
+
+        // Add message ID for tracking if available
+        if (context.messageId) {
+            params.set('message_id', context.messageId);
+        }
+
+        return `${baseUrl}?${params.toString()}`;
+    }
+
+    /**
+     * Calculate recommended deposit based on budget range
+     */
+    calculateRecommendedDeposit(budgetRange) {
+        const depositMap = {
+            'under-5k': 150,
+            '5k-10k': 250,
+            '10k-25k': 500,
+            '25k-50k': 750,
+            'over-50k': 1000
+        };
+
+        return depositMap[budgetRange] || 250; // Default deposit
+    }
+
+    /**
+     * Generate checkout CTA link for thank you pages
+     */
+    generateCheckoutCTA(formType, formData, messageId) {
+        const context = {
+            budgetRange: formData.budgetRange,
+            projectType: formData.projectType,
+            urgency: formData.urgency,
+            messageId: messageId
+        };
+
+        return this.generateCheckoutURL(formType, context);
+    }
+
+    /**
+     * Enhanced submission success handling with checkout integration
+     */
+    handleSubmissionSuccessWithCheckout(formType, responseData, formData) {
+        // Show success message
+        this.showSuccessMessage(formType);
+
+        // Generate checkout context
+        const checkoutContext = {
+            budgetRange: formData.budgetRange,
+            projectType: formData.projectType,
+            urgency: formData.urgency,
+            messageId: responseData.id
+        };
+
+        // Store checkout URL for thank you pages
+        if (window.sessionStorage) {
+            sessionStorage.setItem('checkoutURL', this.generateCheckoutURL(formType, checkoutContext));
+            sessionStorage.setItem('formType', formType);
+            sessionStorage.setItem('formData', JSON.stringify(formData));
+        }
+
+        // Redirect to appropriate thank you page
         const redirectUrls = {
             'lead': '/thank-you.html',
             'consultation': '/consultation-thank-you.html',
