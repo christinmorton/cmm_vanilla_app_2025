@@ -163,11 +163,11 @@
                             </svg>
                         </div>
                         
-                        <h1 class="thank-you-title">
+                        <h1 class="thank-you-title" id="thankYouTitle">
                             Thank You for Your <span class="highlight">Interest!</span>
                         </h1>
-                        
-                        <p class="thank-you-message">
+
+                        <p class="thank-you-message" id="thankYouMessage">
                             Your message has been received successfully. I'll get back to you within 24 hours with a personalized response about your project.
                         </p>
                         
@@ -221,14 +221,67 @@
     <!-- Custom Scripts -->
     <script type="module" src="js/main.js"></script>
     <script type="module">
-        // Track thank you page visit
+        // Dynamic Thank You Page Handler
         document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const type = urlParams.get('type') || 'general';
+            const amount = urlParams.get('amount');
+            const source = urlParams.get('source') || 'unknown';
+
+            // Get elements to update
+            const titleElement = document.getElementById('thankYouTitle');
+            const messageElement = document.getElementById('thankYouMessage');
+
+            // Define content variations based on type
+            const contentVariations = {
+                payment_success: {
+                    title: `Payment Successful! <span class="highlight">Thank You!</span>`,
+                    message: amount
+                        ? `Your payment of $${amount} has been processed successfully. You'll receive a confirmation email shortly with your receipt and next steps.`
+                        : 'Your payment has been processed successfully. You\'ll receive a confirmation email shortly with your receipt and next steps.'
+                },
+                custom_service: {
+                    title: `Payment Received! <span class="highlight">Thank You!</span>`,
+                    message: amount
+                        ? `Your custom service payment of $${amount} has been processed. I'll be in touch within 24 hours to discuss the next steps for your project.`
+                        : 'Your custom service payment has been processed. I\'ll be in touch within 24 hours to discuss the next steps for your project.'
+                },
+                free_consultation: {
+                    title: `Consultation Scheduled! <span class="highlight">Thank You!</span>`,
+                    message: 'Your free consultation request has been received. I\'ll reach out within 24 hours to schedule our call and discuss your project needs.'
+                },
+                deposit: {
+                    title: `Deposit Received! <span class="highlight">Thank You!</span>`,
+                    message: amount
+                        ? `Your project deposit of $${amount} has been received and your development timeline is now secured. I'll be in touch shortly with detailed project planning.`
+                        : 'Your project deposit has been received and your development timeline is now secured. I\'ll be in touch shortly with detailed project planning.'
+                },
+                consultation_deposit: {
+                    title: `Consultation Deposit Received! <span class="highlight">Thank You!</span>`,
+                    message: `Your consultation deposit of $50 has been received. This will be fully credited toward your final project cost. I\'ll reach out within 24 hours to schedule our detailed consultation.`
+                },
+                general: {
+                    title: `Thank You for Your <span class="highlight">Interest!</span>`,
+                    message: `Your message has been received successfully. I\'ll get back to you within 24 hours with a personalized response about your project.`
+                }
+            };
+
+            // Update content based on type
+            const content = contentVariations[type] || contentVariations.general;
+            titleElement.innerHTML = content.title;
+            messageElement.textContent = content.message;
+
+            // Track the thank you page visit with appropriate context
             if (window.analyticsTracker) {
                 window.analyticsTracker.trackEvent('thank_you_page_visit', {
-                    source: 'lead_form',
+                    type: type,
+                    source: source,
+                    amount: amount || null,
                     page: 'thank-you'
                 });
             }
+
+            console.log('Thank you page loaded with parameters:', { type, amount, source });
         });
     </script>
 

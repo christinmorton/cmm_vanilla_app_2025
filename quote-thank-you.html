@@ -293,6 +293,31 @@
                                 <a href="free-consultation.html" class="funnel-cta funnel-cta--secondary">Schedule Consultation</a>
                             </div>
                         </div>
+
+                        <div class="ready-to-start">
+                            <div class="start-card">
+                                <h2>Ready to Get Started?</h2>
+                                <p>If you're excited about your project and want to secure your development timeline, you can reserve your spot with a project deposit while we finalize the proposal details.</p>
+                                <div class="start-benefits">
+                                    <div class="benefit-item">
+                                        <span class="benefit-icon">🎯</span>
+                                        <span>Lock in your preferred timeline</span>
+                                    </div>
+                                    <div class="benefit-item">
+                                        <span class="benefit-icon">💎</span>
+                                        <span>Priority project scheduling</span>
+                                    </div>
+                                    <div class="benefit-item">
+                                        <span class="benefit-icon">🚀</span>
+                                        <span>Fast-track project kickoff</span>
+                                    </div>
+                                </div>
+                                <a href="checkout.html?source=quote_form&recommended=250" class="checkout-cta">
+                                    Reserve Your Spot with Project Deposit →
+                                </a>
+                                <p class="deposit-note">Deposits are fully credited toward your final project cost</p>
+                            </div>
+                        </div>
                         
                         <div class="contact-options">
                             <h3>Questions About Your Quote?</h3>
@@ -535,13 +560,13 @@
         .next-actions {
             margin-bottom: 3rem;
         }
-        
+
         .next-actions h2 {
             font-size: 2rem;
             margin-bottom: 1rem;
             color: var(--white-color);
         }
-        
+
         .next-actions p {
             font-size: 1.1rem;
             margin-bottom: 2rem;
@@ -550,28 +575,105 @@
             margin-left: auto;
             margin-right: auto;
         }
-        
+
         .action-buttons {
             display: flex;
             gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
         }
-        
+
         .action-buttons .funnel-cta {
             background: var(--white-color);
             color: var(--primary-color);
         }
-        
+
         .action-buttons .funnel-cta--secondary {
             background: transparent;
             color: var(--white-color);
             border: 2px solid var(--white-color);
         }
-        
+
         .action-buttons .funnel-cta--secondary:hover {
             background: var(--white-color);
             color: var(--primary-color);
+        }
+
+        /* Ready to Start Section */
+        .ready-to-start {
+            margin-bottom: 3rem;
+        }
+
+        .start-card {
+            background: linear-gradient(135deg, rgba(2, 154, 45, 0.2) 0%, rgba(2, 154, 45, 0.1) 100%);
+            border: 2px solid rgba(2, 154, 45, 0.4);
+            border-radius: 12px;
+            padding: 2.5rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .start-card h2 {
+            font-size: 1.75rem;
+            color: #90EE90;
+            margin-bottom: 1rem;
+        }
+
+        .start-card > p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .start-benefits {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+            color: var(--white-color);
+        }
+
+        .benefit-icon {
+            font-size: 1.25rem;
+        }
+
+        .checkout-cta {
+            display: inline-block;
+            background: linear-gradient(135deg, #90EE90 0%, var(--primary-color) 100%);
+            color: #1a1a1a;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .checkout-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(144, 238, 144, 0.3);
+            color: #1a1a1a;
+            text-decoration: none;
+        }
+
+        .deposit-note {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            font-style: italic;
+            margin-bottom: 0;
         }
         
         /* Contact Options */
@@ -702,6 +804,18 @@
             .guarantee-features {
                 flex-direction: column;
                 gap: 1rem;
+            }
+
+            .start-benefits {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: center;
+            }
+
+            .checkout-cta {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
             }
         }
     </style>
