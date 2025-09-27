@@ -22,6 +22,8 @@ export default defineConfig(({ command, mode }) => {
           'js-service': resolve(__dirname, 'js/pages/service.js'),
           'js-contact': resolve(__dirname, 'js/pages/contact.js'),
           'js-checkout': resolve(__dirname, 'js/pages/checkout.js'),
+          'js-checkout-free': resolve(__dirname, 'js/pages/checkout-free.js'),
+          'js-checkout-custom': resolve(__dirname, 'js/pages/checkout-custom.js'),
           'js-consultation-booking': resolve(__dirname, 'js/pages/consultation-booking.js'),
           'js-project-quote': resolve(__dirname, 'js/pages/project-quote.js'),
           'js-free-consultation': resolve(__dirname, 'js/pages/free-consultation.js'),
@@ -41,6 +43,8 @@ export default defineConfig(({ command, mode }) => {
 
           // Payment and checkout flows
           checkout: resolve(__dirname, 'checkout.html'),
+          'checkout/free': resolve(__dirname, 'checkout-free.html'),
+          'checkout/custom': resolve(__dirname, 'checkout-custom.html'),
           'payment/success': resolve(__dirname, 'payment-success.html'),
           'payment/cancel': resolve(__dirname, 'payment-cancel.html'),
 
@@ -74,7 +78,15 @@ export default defineConfig(({ command, mode }) => {
       __WORDPRESS_API_BASE_DEV__: JSON.stringify(env.WORDPRESS_API_BASE_DEV),
       __WORDPRESS_API_BASE_PROD__: JSON.stringify(env.WORDPRESS_API_BASE_PROD),
       __STRIPE_PUBLISHABLE_KEY_DEV__: JSON.stringify(env.VITE_STRIPE_PUBLISHABLE_KEY_DEV),
-      __STRIPE_PUBLISHABLE_KEY_PROD__: JSON.stringify(env.VITE_STRIPE_PUBLISHABLE_KEY_PROD)
+      __STRIPE_PUBLISHABLE_KEY_PROD__: JSON.stringify(env.VITE_STRIPE_PUBLISHABLE_KEY_PROD),
+      __STRIPE_PRICE_ID_WEB_DEV_STARTER_DEV__: JSON.stringify(env.VITE_STRIPE_PRICE_ID_WEB_DEV_STARTER_DEV),
+      __STRIPE_PRICE_ID_WEB_DEV_STANDARD_DEV__: JSON.stringify(env.VITE_STRIPE_PRICE_ID_WEB_DEV_STANDARD_DEV),
+      __STRIPE_PRICE_ID_WEB_DEV_PREMIUM_DEV__: JSON.stringify(env.VITE_STRIPE_PRICE_ID_WEB_DEV_PREMIUM_DEV),
+      __STRIPE_PRICE_ID_CONSULTATION_DEV__: JSON.stringify(env.VITE_STRIPE_PRICE_ID_CONSULTATION_DEV),
+      __STRIPE_PRICE_ID_WEB_DEV_STARTER_PROD__: JSON.stringify(env.VITE_STRIPE_PRICE_ID_WEB_DEV_STARTER_PROD),
+      __STRIPE_PRICE_ID_WEB_DEV_STANDARD_PROD__: JSON.stringify(env.VITE_STRIPE_PRICE_ID_WEB_DEV_STANDARD_PROD),
+      __STRIPE_PRICE_ID_WEB_DEV_PREMIUM_PROD__: JSON.stringify(env.VITE_STRIPE_PRICE_ID_WEB_DEV_PREMIUM_PROD),
+      __STRIPE_PRICE_ID_CONSULTATION_PROD__: JSON.stringify(env.VITE_STRIPE_PRICE_ID_CONSULTATION_PROD)
     }
   }
 });
