@@ -32,4 +32,4 @@ design_system/
 wordpress_form_submission_info.txt
 
 # Ignore headless API files (contains sensitive keys)
-headless_api/docs/fn-stripe-payment.php
+docs/fn-stripe-payment.php
