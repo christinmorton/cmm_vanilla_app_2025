@@ -1,0 +1,145 @@
+name: Deploy to Digital Ocean
+
+on:
+  push:
+    branches: [ deploy/digital-ocean-setup ]
+  pull_request:
+    branches: [ deploy/digital-ocean-setup ]
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Create production environment file
+      run: |
+        cat << EOF > .env.production
+        # Node Environment
+        NODE_ENV=production
+        
+        # Domain/URL Configuration
+        VITE_SITE_URL='https://christinmorton.com'
+        VITE_API_URL='https://cms.christinmorton.com/wp-json'
+        
+        # WordPress Application Password
+        WORDPRESS_APP_USER='${{ secrets.WORDPRESS_APP_USER }}'
+        WORDPRESS_APP_PASSWORD='${{ secrets.WORDPRESS_APP_PASSWORD }}'
+        
+        # WordPress API Endpoints  
+        WORDPRESS_API_BASE_DEV='http://christinmorton.local/wp-json'
+        WORDPRESS_API_BASE_PROD='${{ secrets.WORDPRESS_API_BASE_PROD }}'
+        
+        # Stripe API Keys - Production
+        VITE_STRIPE_PUBLISHABLE_KEY_PROD='${{ secrets.VITE_STRIPE_PUBLISHABLE_KEY_PROD }}'
+        STRIPE_SECRET_KEY_PROD='${{ secrets.STRIPE_SECRET_KEY_PROD }}'
+        
+        # Stripe Price IDs - Production
+        VITE_STRIPE_PRICE_ID_WEB_DEV_STARTER_PROD='${{ secrets.VITE_STRIPE_PRICE_ID_WEB_DEV_STARTER_PROD }}'
+        VITE_STRIPE_PRICE_ID_WEB_DEV_STANDARD_PROD='${{ secrets.VITE_STRIPE_PRICE_ID_WEB_DEV_STANDARD_PROD }}'
+        VITE_STRIPE_PRICE_ID_WEB_DEV_PREMIUM_PROD='${{ secrets.VITE_STRIPE_PRICE_ID_WEB_DEV_PREMIUM_PROD }}'
+        VITE_STRIPE_PRICE_ID_CONSULTATION_PROD='${{ secrets.VITE_STRIPE_PRICE_ID_CONSULTATION_PROD }}'
+        EOF
+        
+    - name: Build project
+      run: npm run build
+      env:
+        NODE_ENV: production
+        
+    - name: Create deployment archive
+      run: |
+        tar -czf deployment.tar.gz dist/
+        
+    - name: Deploy to Digital Ocean
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.DIGITAL_OCEAN_SERVER_HOST }}
+        username: ${{ secrets.DIGITAL_OCEAN_SERVER_USER }}
+        key: ${{ secrets.DIGITAL_OCEAN_SSH_KEY }}
+        port: 22
+        script: |
+          # Create backup of current deployment
+          if [ -d "/var/www/christinmorton.com/dist" ]; then
+            sudo mv /var/www/christinmorton.com/dist /var/www/christinmorton.com/backups/dist_$(date +%Y%m%d_%H%M%S)
+            # Keep only last 3 backups
+            cd /var/www/christinmorton.com/backups && sudo ls -t | tail -n +4 | sudo xargs rm -rf
+          fi
+          
+          # Create directories if they don't exist
+          sudo mkdir -p /var/www/christinmorton.com/{dist,backups,logs}
+          
+          # Set proper ownership
+          sudo chown -R www-data:www-data /var/www/christinmorton.com
+          
+    - name: Copy files to server
+      uses: appleboy/scp-action@v0.1.7
+      with:
+        host: ${{ secrets.DIGITAL_OCEAN_SERVER_HOST }}
+        username: ${{ secrets.DIGITAL_OCEAN_SERVER_USER }}
+        key: ${{ secrets.DIGITAL_OCEAN_SSH_KEY }}
+        port: 22
+        source: "deployment.tar.gz"
+        target: "/tmp/"
+        
+    - name: Extract and setup files on server
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.DIGITAL_OCEAN_SERVER_HOST }}
+        username: ${{ secrets.DIGITAL_OCEAN_SERVER_USER }}
+        key: ${{ secrets.DIGITAL_OCEAN_SSH_KEY }}
+        port: 22
+        script: |
+          # Extract files
+          cd /tmp
+          tar -xzf deployment.tar.gz
+          
+          # Move to web directory
+          sudo mv dist/* /var/www/christinmorton.com/dist/
+          
+          # Set proper permissions
+          sudo chown -R www-data:www-data /var/www/christinmorton.com/dist
+          sudo chmod -R 755 /var/www/christinmorton.com/dist
+          
+          # Test nginx configuration
+          sudo nginx -t
+          
+          # Reload nginx if config is valid
+          if [ $? -eq 0 ]; then
+            sudo systemctl reload nginx
+            echo "Deployment successful - $(date)" | sudo tee -a /var/www/christinmorton.com/logs/deployment.log
+          else
+            echo "Nginx configuration error - $(date)" | sudo tee -a /var/www/christinmorton.com/logs/deployment.log
+            exit 1
+          fi
+          
+          # Cleanup
+          rm /tmp/deployment.tar.gz
+          
+    - name: Verify deployment
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.DIGITAL_OCEAN_SERVER_HOST }}
+        username: ${{ secrets.DIGITAL_OCEAN_SERVER_USER }}
+        key: ${{ secrets.DIGITAL_OCEAN_SSH_KEY }}
+        port: 22
+        script: |
+          # Check if files are in place
+          if [ -f "/var/www/christinmorton.com/dist/index.html" ]; then
+            echo "✅ Deployment verification successful"
+            curl -I https://christinmorton.com/ || echo "⚠️  Website check failed - may need DNS/SSL setup"
+          else
+            echo "❌ Deployment verification failed"
+            exit 1
+          fi

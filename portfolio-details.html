@@ -6,22 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Christin Morton</title>
 
-    <!-- Link Swiper's CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-
-    <!--Bootstrap ================================================== -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous" />
-
-    <!--vendor css ================================================== -->
-    <link rel="stylesheet" type="text/css" href="css/vendor.css" />
-
         <!-- Icomoon fonts -->
     <link rel="stylesheet" type="text/css" href="css/icofont.min.css" />
 
 
     <!--Styles css ================================================== -->
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="/scss/main.scss" />
 
 
     <!--Google Font css ================================================== -->
@@ -32,12 +22,24 @@
         rel="stylesheet" />
 </head>
 
-<body>
+<body data-template="background" class="preloader-active">
 
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
         <symbol id="page-add" viewBox="0 0 20 20">
             <path fill="currentColor"
                 d="M4 4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v5.207A5.5 5.5 0 0 0 14.5 9a5.5 5.5 0 0 0-3.163 1H7.5a.5.5 0 0 0 0 1h2.757a5.48 5.48 0 0 0-1.254 3.675A5.48 5.48 0 0 0 10.257 18H6a2 2 0 0 1-2-2zm8.5 2h-5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1m2 13a4.5 4.5 0 1 0 0-9a4.5 4.5 0 0 0 0 9m0-7a.5.5 0 0 1 .5.5V14h1.5a.5.5 0 0 1 0 1H15v1.5a.5.5 0 0 1-1 0V15h-1.5a.5.5 0 0 1 0-1H14v-1.5a.5.5 0 0 1 .5-.5" />
+        </symbol>
+        <symbol id="multiple-pages" viewBox="0 0 24 24">
+            <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+                <path d="M1.992 19h3m3 0h-3m0 0v-3m0 3v3M7 2h9.5L21 6.5V19" />
+                <path
+                    d="M11 22h5.5a1.5 1.5 0 0 0 1.5-1.5V8.749a.6.6 0 0 0-.176-.425l-3.148-3.148A.6.6 0 0 0 14.25 5H4.5A1.5 1.5 0 0 0 3 6.5V13" />
+                <path d="M14 5v3.4a.6.6 0 0 0 .6.6H18" />
+            </g>
+        </symbol>
+        <symbol id="pages" viewBox="0 0 24 24">
+            <path fill="currentColor"
+                d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h14q.825 0 1.413.588T21 5v14q0 .825-.587 1.413T19 21zm4.075-4.75L12 14.475l2.925 1.775l-.775-3.325l2.6-2.25l-3.425-.275L12 7.25l-1.325 3.15l-3.425.275l2.6 2.25z" />
         </symbol>
         <symbol id="contact" viewBox="0 0 14 14">
             <path fill="currentColor" fill-rule="evenodd"
@@ -106,353 +108,372 @@
         </symbol>
     </svg>
 
-    <div class="preloader">
-        <div class="loader"></div>
-    </div>
+        <!-- Background host (exists on pages that need background or hybrid start) -->
+    <div id="bgHost" class="bg-canvas-host"></div>
 
-    <nav id="header-nav" class="navbar navbar-expand-lg py-4 z-1" data-bs-theme="dark">
-        <div class="container-fluid padding-side text-white">
-            <a class="navbar-brand" href="index.html"><img src="images/logo_2.png" alt="logo"></a>
+    <!-- Content -->
+    <header id="hybridHost" class="hybrid-banner" hidden></header>
 
-            <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="offcanvas"
-                data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
-                aria-labelledby="offcanvasNavbarLabel">
-                <div class="offcanvas-header">
-                    <!-- <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5> -->
-                    <button type="button" class="btn-close text-reset shadow-none" data-bs-dismiss="offcanvas"
-                        aria-label="Close"></button>
+
+    <main>
+        <header id="header-nav" class="header-nav">
+            <div class="site-container">
+                <!-- Logo - Left -->
+                <div class="header-left">
+                    <a class="logo" href="index.html">
+                        <img src="/images/logo_2.png" alt="Christin Morton Logo">
+                    </a>
                 </div>
-                <div class="offcanvas-body justify-content-end">
-                    <div class="d-lg-none">
-                        <img src="images/banner-img.png" alt="img" class="img-fluid">
-                        <div class="text-center">
-                            <a href="contact.html" class="btn button  text-white mt-4 position-relative pe-5"
-                                data-aos="fade-up" data-aos-duration="1600">
-                                <span> Hire Me </span>
-                                <div class="position-absolute top-50 end-0 translate-middle-y me-3">
-                                    <svg class="arrow-right text-white p-1" width="28" height="28">
-                                        <use xlink:href="#arrow-right"></use>
-                                    </svg>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <ul class="d-flex list-unstyled justify-content-center mt-4">
-                        <li>
-                            <a class="nav-link" href="https://www.facebook.com/morton41Christin">
-                                <svg class="social-icon" width="24" height="24">
-                                    <use xlink:href="#facebook"></use>
-                                </svg>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="nav-link ms-4" href="https://www.instagram.com/christinmorton41">
-                                <svg class="social-icon" width="24" height="24">
-                                    <use xlink:href="#instagram"></use>
-                                </svg>
-                            </a>
-                        </li>
-                        <!-- <li>
-                            <a class="nav-link ms-4" href="#">
-                                <svg class="social-icon" width="24" height="24">
-                                    <use xlink:href="#twitter"></use>
-                                </svg>
-                            </a>
-                        </li> 
-                        <li>
-                            <a class="nav-link ms-4" href="#">
-                                <svg class="social-icon" width="24" height="24">
-                                    <use xlink:href="#skype"></use>
-                                </svg>
-                            </a>
-                        </li>-->
-                        <li>
-                            <a class="nav-link ms-4" href="https://www.linkedin.com/in/christin-morton-b24512209">
-                                <svg class="social-icon" width="24" height="24">
-                                    <use xlink:href="#linkedin"></use>
-                                </svg>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="nav-link ms-4" href="https://github.com/christinmorton">
-                                <i class="icofont-github"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="nav-link ms-4" href="https://dribbble.com/ChristinMorton">
-                                <svg class="social-icon" width="24" height="24">
-                                    <use xlink:href="#dribbble"></use>
-                                </svg>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="nav-link ms-4" href="https://www.behance.net/chrismorton11">
-                                <i class="icofont-behance"></i>
-                            </a>
-                        </li>
 
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <section id="hero" class="padding-medium position-relative">
-        <div class="container-fluid padding-side text-white">
-            <div class="row justify-content-center align-items-center">
-                <div class="col-lg-8 text-center">
-                    <nav class="breadcrumb d-flex justify-content-center" data-bs-theme="dark" data-aos="fade-up"
-                        data-aos-duration="1000">
-                        <a class="breadcrumb-item " href="index.html">Home</a>
-                        <span class="breadcrumb-item active " aria-current="page">Portfolio-Details</span>
+                <!-- Navigation - Right (Desktop only) -->
+                <div class="header-right desktop-only">
+                    <nav class="main-nav">
+                        <ul class="nav-menu">
+                            <li><a href="index.html" class="nav-link active">Home</a></li>
+                            <li><a href="about.html" class="nav-link">About</a></li>
+                            <li><a href="service.html" class="nav-link">Services</a></li>
+                            <li><a href="contact.html" class="nav-link">Contact</a></li>
+                        </ul>
                     </nav>
-                    <h3 class="banner-size fw-medium display-6 mb-3" data-aos="fade-up" data-aos-duration="1200">
-                        Portfolio <span class="text-highlight"> Details</span>
-                    </h3>
-                    <p data-aos="fade-up" data-aos-duration="1400">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, rem autem neque ratione esse
-                        vero laboriosam eaque, laudantium placeat dolor inventore obcaecati aliquam eius assumenda ullam
-                        vitae, repellat dignissimos velit.
-                    </p>
                 </div>
-            </div>
 
-            <div class="pt-5 mt-5" data-aos="fade-up" data-aos-duration="1400">
-                <div class="details">
-                    <h3 class=""> Minimalism Looks: New Brand</h3>
-                    <div class="mt-4">
-                        <ul class="list-unstyled gap-2 gap-md-5 d-lg-flex">
+                <!-- Mobile Menu Toggle -->
+                <button class="mobile-menu-toggle mobile-only" type="button" aria-label="Toggle navigation" aria-controls="mobile-menu" aria-expanded="false">
+                    <span class="menu-icon"></span>
+                </button>
+                
+                <!-- Mobile Menu -->
+                <div class="mobile-menu" id="mobile-menu">
+                    <div class="mobile-menu-header">
+                        <button type="button" class="mobile-menu-close" aria-label="Close menu">
+                            <svg width="16" height="16">
+                                <use xlink:href="#close"></use>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div class="mobile-menu-content">
+                        <!-- Mobile Navigation -->
+                        <nav class="mobile-nav">
+                            <ul class="mobile-nav-menu">
+                                <li><a href="index.html" class="nav-link active">Home</a></li>
+                                <li><a href="about.html" class="nav-link">About</a></li>
+                                <li><a href="service.html" class="nav-link">Services</a></li>
+                                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                            </ul>
+                        </nav>
+
+                        <div class="mobile-only">
+                            <div class="cta-section">
+                                <a href="project-quote.html" class="action-button">
+                                    <span>Get Quote</span>
+                                    <div class="button-icon">
+                                        <svg class="arrow-right" width="28" height="28">
+                                            <use xlink:href="#arrow-right"></use>
+                                        </svg>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Mobile Social Links -->
+                        <ul class="social-links mobile-social">
                             <li>
-                                <h5 class="text-highlight">Client</h5>
-                                <p>Hachicko Tee</p>
+                                <a href="https://www.facebook.com/morton41Christin" aria-label="Facebook">
+                                    <svg class="social-icon" width="24" height="24">
+                                        <use xlink:href="#facebook"></use>
+                                    </svg>
+                                </a>
                             </li>
                             <li>
-                                <h5 class="text-highlight">Date</h5>
-                                <p>12-03-2023</p>
+                                <a href="https://www.instagram.com/christinmorton41" aria-label="Instagram">
+                                    <svg class="social-icon" width="24" height="24">
+                                        <use xlink:href="#instagram"></use>
+                                    </svg>
+                                </a>
                             </li>
                             <li>
-                                <h5 class="text-highlight">Project link</h5>
-                                <p><a href="#" target="_blank">https://clientwebsite.com/</a>
-                                </p>
+                                <a href="https://www.linkedin.com/in/christin-morton-b24512209" aria-label="LinkedIn">
+                                    <svg class="social-icon" width="24" height="24">
+                                        <use xlink:href="#linkedin"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/christinmorton" aria-label="GitHub">
+                                    <i class="icofont-github"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://dribbble.com/ChristinMorton" aria-label="Dribbble">
+                                    <svg class="social-icon" width="24" height="24">
+                                        <use xlink:href="#dribbble"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.behance.net/chrismorton11" aria-label="Behance">
+                                    <i class="icofont-behance"></i>
+                                </a>
                             </li>
                         </ul>
                     </div>
-                    <div class="fs-5 my-4">
-                        <p>Labore accusam in modo compungi, iacentem substantiales um se sed
-                            esse haec. Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Doloribus veniam fugiat asperiores sapiente esse magnam
-                            perferendis mollitia at quos alias recusandae molestias, quis,
-                            quod placeat voluptatem voluptate minima dicta illo.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut cum esse consequatur magni
-                            error odio, maiores, adipisci dolorum odit eligendi quos autem quibusdam soluta consequuntur
-                            voluptas quae? Repellat, eligendi iure.</p>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="portfolio-image">
-                                <figure>
-                                    <a href="images/portfolio5.jpg" title="Branding" class="image-link"><img
-                                            src="images/portfolio5.jpg" alt="portfolio" class="img-fluid"></a>
-                                </figure>
-                                <figcaption>Nostaligia Portrait</figcaption>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="portfolio-image">
-                                <figure>
-                                    <a href="images/portfolio2.jpg" title="Branding" class="image-link"><img
-                                            src="images/portfolio2.jpg" alt="portfolio" class="img-fluid"></a>
-                                </figure>
-                                <figcaption>Workoholic City Design</figcaption>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="portfolio-image py-5">
-                                <figure>
-                                    <a href="images/portfolio-large2.jpg" title="Branding" class="image-link"><img
-                                            src="images/portfolio-large2.jpg" alt="portfolio" class="img-fluid"></a>
-                                </figure>
-                                <figcaption>Nostaligia Portrait</figcaption>
-                            </div>
-                        </div>
-                    </div>
-                    <blockquote>“Sit suscipit tortor turpis sed fringilla lectus facilisis amet.
-                        Ipsum,
-                        amet dolor curabitur non aliquet orci urna volutpat. Id aliquam neque, ut
-                        vivamus sit imperdiet enim, lacus, vel.</blockquote>
-                    <h4>Consectetur Facilisis Vivamus</h4>
-                    <ul class="inner-list">
-                        <li>Blandit mauris libero condimentum commodo sociis convallis sit.</li>
-                        <li>Magna diam amet justo sed vel dolor et volutpat integer.</li>
-                        <li>Laculis sit sapien hac odio elementum egestas neque.</li>
-                    </ul>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="portfolio-image py-5">
-                                <figure>
-                                    <a href="images/portfolio-large1.jpg" title="Branding" class="image-link"><img
-                                            src="images/portfolio-large1.jpg" alt="portfolio" class="img-fluid"></a>
-                                </figure>
-                                <figcaption>Nostaligia Portrait</figcaption>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="portfolio-image">
-                                <figure>
-                                    <a href="images/portfolio4.jpg" title="Branding" class="image-link"><img
-                                            src="images/portfolio4.jpg" alt="portfolio" class="img-fluid"></a>
-                                </figure>
-                                <figcaption>Nostaligia Portrait</figcaption>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="portfolio-image">
-                                <figure>
-                                    <a href="images/portfolio1.jpg" title="Branding" class="image-link"><img
-                                            src="images/portfolio1.jpg" alt="portfolio" class="img-fluid"></a>
-                                </figure>
-                                <figcaption>Workoholic City Design</figcaption>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="pt-5">Tortor diam dignissim amet, in interdum aliquet. Magnis dictum
-                        et eros purus
-                        fermentum, massa ullamcorper sit sollicitudin. Nascetur libero elementum
-                        adipiscing mauris maecenas et magna. Etiam nec, rutrum a diam lacus, nunc
-                        integer etiam. Mattis pulvinar non viverra donec pellentesque. Odio mi
-                        consequat
-                        libero dolor. Porta ut diam lobortis eget leo, lectus. Nunc tempus feugiat
-                        massa
-                        laoreet ultrices diam magna quam. Congue auctor auctor luctus neque. Enim
-                        lorem
-                        ultrices diam donec. Sed id placerat consectetur faucibus.</p>
-                    <h4>Velit, praesent pharetra malesuada</h4>
-                    <p>Id pulvinar amet. Consequat potenti mollis massa iaculis et, dolor, eget
-                        lectus.
-                        Aliquam pellentesque molestie felis fames sed eget non euismod eget. Et eget
-                        ullamcorper urna, elit ac diam tellus viverra lacus.</p>
-                    <p>Tortor diam dignissim amet, in interdum aliquet. Magnis dictum et eros purus
-                        fermentum, massa ullamcorper sit sollicitudin. Nascetur libero elementum
-                        adipiscing mauris maecenas et magna. Etiam nec, rutrum a diam lacus, nunc
-                        integer etiam. Mattis pulvinar non viverra donec pellentesque. Odio mi
-                        consequat
-                        libero dolor. Porta ut diam lobortis eget leo, lectus.</p>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="portfolio-image py-5">
-                                <figure>
-                                    <img src="images/portfolio-large3.jpg" alt="portfolio" class="img-fluid">
-                                </figure>
-                                <figcaption>Nostaligia Portrait</figcaption>
-                            </div>
-                        </div>
-                    </div>
+                </div>
+            </div>
+        </header>
 
-                    <p>Tortor diam dignissim amet, in interdum aliquet. Magnis dictum
-                        et eros purus
-                        fermentum, massa ullamcorper sit sollicitudin. Nascetur libero elementum
-                        adipiscing mauris maecenas et magna. Etiam nec, rutrum a diam lacus, nunc
-                        integer etiam. Mattis pulvinar non viverra donec pellentesque. Odio mi
-                        consequat
-                        libero dolor. Porta ut diam lobortis eget leo, lectus.</p>
+    <section class="portfolio-details-hero">
+        <div class="site-container">
+            <div class="centered-content">
+                <nav class="breadcrumb-nav">
+                    <a class="breadcrumb-link" href="index.html">Home</a>
+                    <span class="breadcrumb-separator">›</span>
+                    <span class="breadcrumb-current">Portfolio Details</span>
+                </nav>
+                <h1 class="section-title">
+                    Portfolio <span class="text-highlight">Details</span>
+                </h1>
+                <p class="section-description">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, rem autem neque ratione esse
+                    vero laboriosam eaque, laudantium placeat dolor inventore obcaecati aliquam eius assumenda ullam
+                    vitae, repellat dignissimos velit.
+                </p>
+            </div>
+
+            <div class="portfolio-details-content">
+                <div class="site-container">
+                    <div class="project-details">
+                        <h2 class="project-title">Minimalism Looks: New Brand</h2>
+                        <div class="project-meta">
+                            <ul class="project-info-list">
+                                <li class="project-info-item">
+                                    <h3 class="info-label text-highlight">Client</h3>
+                                    <p class="info-value">Hachicko Tee</p>
+                                </li>
+                                <li class="project-info-item">
+                                    <h3 class="info-label text-highlight">Date</h3>
+                                    <p class="info-value">12-03-2023</p>
+                                </li>
+                                <li class="project-info-item">
+                                    <h3 class="info-label text-highlight">Project link</h3>
+                                    <p class="info-value"><a href="#" target="_blank">https://clientwebsite.com/</a></p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="project-description">
+                            <p>Labore accusam in modo compungi, iacentem substantiales um se sed
+                                esse haec. Lorem ipsum dolor sit amet consectetur adipisicing
+                                elit. Doloribus veniam fugiat asperiores sapiente esse magnam
+                                perferendis mollitia at quos alias recusandae molestias, quis,
+                                quod placeat voluptatem voluptate minima dicta illo.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut cum esse consequatur magni
+                                error odio, maiores, adipisci dolorum odit eligendi quos autem quibusdam soluta consequuntur
+                                voluptas quae? Repellat, eligendi iure.</p>
+                        </div>
+                        <div class="project-gallery two-col-layout">
+                            <div class="gallery-item">
+                                <div class="project-image">
+                                    <figure>
+                                        <a href="images/portfolio5.jpg" title="Branding" class="image-link">
+                                            <img src="images/portfolio5.jpg" alt="portfolio" class="showcase-image">
+                                        </a>
+                                    </figure>
+                                    <figcaption class="image-caption">Nostaligia Portrait</figcaption>
+                                </div>
+                            </div>
+                            <div class="gallery-item">
+                                <div class="project-image">
+                                    <figure>
+                                        <a href="images/portfolio2.jpg" title="Branding" class="image-link">
+                                            <img src="images/portfolio2.jpg" alt="portfolio" class="showcase-image">
+                                        </a>
+                                    </figure>
+                                    <figcaption class="image-caption">Workoholic City Design</figcaption>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-gallery full-width">
+                            <div class="gallery-item">
+                                <div class="project-image featured-image">
+                                    <figure>
+                                        <a href="images/portfolio-large2.jpg" title="Branding" class="image-link">
+                                            <img src="images/portfolio-large2.jpg" alt="portfolio" class="showcase-image">
+                                        </a>
+                                    </figure>
+                                    <figcaption class="image-caption">Nostaligia Portrait</figcaption>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-quote">
+                            <blockquote class="quote-text">"Sit suscipit tortor turpis sed fringilla lectus facilisis amet.
+                                Ipsum,
+                                amet dolor curabitur non aliquet orci urna volutpat. Id aliquam neque, ut
+                                vivamus sit imperdiet enim, lacus, vel."</blockquote>
+                        </div>
+                        <div class="project-features">
+                            <h3 class="features-title">Consectetur Facilisis Vivamus</h3>
+                            <ul class="features-list">
+                                <li class="feature-item">Blandit mauris libero condimentum commodo sociis convallis sit.</li>
+                                <li class="feature-item">Magna diam amet justo sed vel dolor et volutpat integer.</li>
+                                <li class="feature-item">Laculis sit sapien hac odio elementum egestas neque.</li>
+                            </ul>
+                        </div>
+                        <div class="project-gallery full-width">
+                            <div class="gallery-item">
+                                <div class="project-image featured-image">
+                                    <figure>
+                                        <a href="images/portfolio-large1.jpg" title="Branding" class="image-link">
+                                            <img src="images/portfolio-large1.jpg" alt="portfolio" class="showcase-image">
+                                        </a>
+                                    </figure>
+                                    <figcaption class="image-caption">Nostaligia Portrait</figcaption>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-gallery two-col-layout">
+                            <div class="gallery-item">
+                                <div class="project-image">
+                                    <figure>
+                                        <a href="images/portfolio4.jpg" title="Branding" class="image-link">
+                                            <img src="images/portfolio4.jpg" alt="portfolio" class="showcase-image">
+                                        </a>
+                                    </figure>
+                                    <figcaption class="image-caption">Nostaligia Portrait</figcaption>
+                                </div>
+                            </div>
+                            <div class="gallery-item">
+                                <div class="project-image">
+                                    <figure>
+                                        <a href="images/portfolio1.jpg" title="Branding" class="image-link">
+                                            <img src="images/portfolio1.jpg" alt="portfolio" class="showcase-image">
+                                        </a>
+                                    </figure>
+                                    <figcaption class="image-caption">Workoholic City Design</figcaption>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-text-section">
+                            <p class="project-text">Tortor diam dignissim amet, in interdum aliquet. Magnis dictum
+                                et eros purus
+                                fermentum, massa ullamcorper sit sollicitudin. Nascetur libero elementum
+                                adipiscing mauris maecenas et magna. Etiam nec, rutrum a diam lacus, nunc
+                                integer etiam. Mattis pulvinar non viverra donec pellentesque. Odio mi
+                                consequat
+                                libero dolor. Porta ut diam lobortis eget leo, lectus. Nunc tempus feugiat
+                                massa
+                                laoreet ultrices diam magna quam. Congue auctor auctor luctus neque. Enim
+                                lorem
+                                ultrices diam donec. Sed id placerat consectetur faucibus.</p>
+                            <h3 class="project-subheading">Velit, praesent pharetra malesuada</h3>
+                            <p class="project-text">Id pulvinar amet. Consequat potenti mollis massa iaculis et, dolor, eget
+                                lectus.
+                                Aliquam pellentesque molestie felis fames sed eget non euismod eget. Et eget
+                                ullamcorper urna, elit ac diam tellus viverra lacus.</p>
+                            <p class="project-text">Tortor diam dignissim amet, in interdum aliquet. Magnis dictum et eros purus
+                                fermentum, massa ullamcorper sit sollicitudin. Nascetur libero elementum
+                                adipiscing mauris maecenas et magna. Etiam nec, rutrum a diam lacus, nunc
+                                integer etiam. Mattis pulvinar non viverra donec pellentesque. Odio mi
+                                consequat
+                                libero dolor. Porta ut diam lobortis eget leo, lectus.</p>
+                        </div>
+                        <div class="project-gallery full-width">
+                            <div class="gallery-item">
+                                <div class="project-image featured-image">
+                                    <figure>
+                                        <img src="images/portfolio-large3.jpg" alt="portfolio">
+                                    </figure>
+                                    <figcaption class="image-caption">Nostaligia Portrait</figcaption>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project-conclusion">
+                            <p class="project-text">Tortor diam dignissim amet, in interdum aliquet. Magnis dictum
+                                et eros purus
+                                fermentum, massa ullamcorper sit sollicitudin. Nascetur libero elementum
+                                adipiscing mauris maecenas et magna. Etiam nec, rutrum a diam lacus, nunc
+                                integer etiam. Mattis pulvinar non viverra donec pellentesque. Odio mi
+                                consequat
+                                libero dolor. Porta ut diam lobortis eget leo, lectus.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
+    </main>
 
-    <nav id="side-nav" class="navbar-side p-3 p-lg-4 me-lg-5" data-bs-theme="dark">
-        <ul class="navbar-nav">
-            <li class="nav-item">
+    <!-- <nav id="side-nav" class="side-navigation">
+        <ul class="nav-menu">
+            <li>
                 <a class="nav-link" href="index.html">
                     <svg width="24" height="24">
                         <use xlink:href="#home"></use>
                     </svg>
                 </a>
             </li>
-            <li class="nav-item">
+            <li>
                 <a class="nav-link" href="about.html">
                     <svg width="24" height="24">
                         <use xlink:href="#person"></use>
                     </svg>
                 </a>
             </li>
-            <li class="nav-item">
+            <li>
                 <a class="nav-link" href="portfolio.html">
                     <svg width="24" height="24">
                         <use xlink:href="#layout"></use>
                     </svg>
                 </a>
             </li>
-            <li class="nav-item">
+            <li>
                 <a class="nav-link" href="reviews.html">
                     <svg width="24" height="24">
                         <use xlink:href="#testimonial"></use>
                     </svg>
                 </a>
             </li>
-            <li class="nav-item">
+            <li>
                 <a class="nav-link" href="contact.html">
                     <svg width="24" height="24">
                         <use xlink:href="#contact"></use>
                     </svg>
                 </a>
             </li>
-            <li class="dropdown">
-                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                    aria-expanded="false">
+            <li class="nav-dropdown">
+                <a class="nav-link dropdown-trigger" href="#" role="button">
                     <svg width="24" height="24">
                         <use xlink:href="#page-add"></use>
-                    </svg></a>
+                    </svg>
+                </a>
                 <ul class="dropdown-menu">
-                    <li><a href="blog.html" class="dropdown-item">Blog <span class="badge bg-dark">Pro</span></a></li>
-                    <li><a href="single-post.html" class="dropdown-item">Single-Post
-                            <span class="badge bg-dark">Pro</span></a>
+                    <li><a href="blog.html" class="dropdown-link">Blog <span class="page-badge">Pro</span></a></li>
+                    <li><a href="single-post.html" class="dropdown-link">Single-Post
+                            <span class="page-badge">Pro</span></a>
                     </li>
-                    <li><a href="services.html" class="dropdown-item">Services <span
-                                class="badge bg-dark">Pro</span></a></li>
-                    <li><a href="service.html" class="dropdown-item">Services-Details
-                            <span class="badge bg-dark">Pro</span></a></li>
-                    <li><a href="portfolio-masonry.html" class="dropdown-item">Portfolio-Masonry <span
-                                class="badge bg-dark">Pro</span></a></li>
-                    <li><a href="portfolio-details.html" class="dropdown-item">Portfolio-Details
-                            <span class="badge bg-dark">Pro</span></a></li>
+                    <li><a href="services.html" class="dropdown-link">Services <span
+                                class="page-badge">Pro</span></a></li>
+                    <li><a href="service.html" class="dropdown-link">Services-Details
+                            <span class="page-badge">Pro</span></a></li>
+                    <li><a href="portfolio-masonry.html" class="dropdown-link">Portfolio-Masonry <span
+                                class="page-badge">Pro</span></a></li>
+                    <li><a href="portfolio-details.html" class="dropdown-link active" aria-current="page">Portfolio-Details
+                            <span class="page-badge">Pro</span></a></li>
 
-                    <li><a href="faqs.html" class="dropdown-item">FAQs <span class="badge bg-dark">Pro</span></a></li>
-                    <li><a href="team.html" class="dropdown-item">Team <span class="badge bg-dark">Pro</span></a></li>
+                    <li><a href="faqs.html" class="dropdown-link">FAQs <span class="page-badge">Pro</span></a></li>
+                    <li><a href="team.html" class="dropdown-link">Team <span class="page-badge">Pro</span></a></li>
                 </ul>
             </li>
         </ul>
-    </nav>
+    </nav> -->
 
-    <div class="position-fixed bottom-0 start-0 z-n1">
-        <img src="images/pattern.png" alt="pattern" class="img-fluid">
+    <div class="decorative-pattern">
+        <img src="images/pattern.png" alt="pattern" class="pattern-image">
     </div>
 
-    <!-- script ================================================== -->
-    <script src="js/jquery-1.11.0.min.js"></script>
-
-    <!-- Bootstarp script ================================================== -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-        crossorigin="anonymous"></script>
-
-    <!-- Swiper script ================================================== -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-
-    <!--iconify script ================================================== -->
-    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.7/dist/iconify-icon.min.js"></script>
-
-
-    <script src="js/plugins.js"></script>
-    <script src="js/script.js"></script>
+    <!-- Custom Scripts ================================================== -->
+    <script type="module" src="js/main.js"></script>
 
 </body>
 

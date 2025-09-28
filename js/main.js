@@ -1,129 +1,335 @@
 // import './style.css'
+console.log('🚀 MAIN.JS LOADED - RESIZEMANAGER DISABLED');
+import PreloadManager from './modules/PreloadManager.js';
+import DesignGridWindow from './modules/DesignGridTypes/index.js';
+import PageTransitionManager from './modules/PageTransitionManager.js';
+import HeaderNavigation from './modules/HeaderNavigation.js';
+import TabSwitcher from './modules/TabSwitcher.js';
+import AnimatedCounter from './modules/AnimatedCounter.js';
+import PortfolioFilter from './modules/PortfolioFilter.js';
+import ContactForm from './modules/ContactForm.js';
+import analytics from './modules/AnalyticsTracker.js';
+import CarouselManager from './modules/CarouselManager.js';
+// TEMPORARILY DISABLED - import resizeManager from './modules/ResizeManager.js';
+import { gsap } from 'gsap';
 
-let canvas = document.createElement('canvas');
-canvas.id = "webgl";
-canvas.classList.add('z-n1')
-document.body.insertBefore(canvas, document.body.firstChild);
+// Initialize preloader immediately
+const preloader = new PreloadManager();
+console.log('DEBUG: PreloadManager created:', preloader);
+preloader.show();
+console.log('DEBUG: Preloader show() called');
 
-import * as THREE from 'three';
-import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
-import gsap from 'gsap';
+// Initialize header navigation
+const headerNav = new HeaderNavigation();
 
-const sizes = {
-  width: window.innerWidth,
-  height: window.innerHeight
+// Initialize tab switcher (skills section on about page)
+const tabSwitcher = new TabSwitcher('.skills-section');
+
+// Make tab switcher globally available for page transitions
+window.tabSwitcher = tabSwitcher;
+
+// Initialize portfolio filter (portfolio masonry page)
+const portfolioFilter = new PortfolioFilter();
+
+// Initialize contact form (contact page)
+const contactForm = new ContactForm('#contactForm');
+
+// Initialize carousel manager
+const carouselManager = new CarouselManager();
+
+// Initialize animated counter
+let animatedCounters = null;
+
+// Function to initialize or reinitialize animated counters
+const initAnimatedCounters = () => {
+  console.log('Initializing AnimatedCounters...');
+  
+  // Create new instance or reinitialize existing one
+  if (animatedCounters) {
+    animatedCounters.resetAndAnimate();
+  } else {
+    animatedCounters = new AnimatedCounter('.counter-value', {
+      duration: 2500,
+      easing: 'easeOutQuart',
+      useIntersectionObserver: true, // Re-enable intersection observer
+      observerThreshold: 0.3,
+      startDelay: 500 // Shorter delay
+    });
+  }
+  console.log('AnimatedCounters initialized/reinitialized');
+};
+
+// Make components globally available for page transitions
+window.carouselManager = carouselManager;
+window.animatedCounters = animatedCounters;
+window.initAnimatedCounters = initAnimatedCounters;
+
+// Initialize components after DOM is loaded
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    carouselManager.initAllCarousels();
+    // Initialize counters after a delay to ensure preloader sequence
+    setTimeout(initAnimatedCounters, 1000);
+  });
+} else {
+  carouselManager.initAllCarousels();
+  // Initialize counters after a delay to ensure preloader sequence  
+  setTimeout(initAnimatedCounters, 1000);
 }
 
+// TEMPORARILY DISABLED - Subscribe carousel resize handling to ResizeManager
+// resizeManager.subscribe('main-carousel-resize', (resizeEvent) => {
+//   carouselManager.handleResize();
+// }, 'main');
 
-const scene = new THREE.Scene();
+// Debounced window resize for carousel to prevent conflicts
+let carouselResizeTimeout;
+window.addEventListener('resize', () => {
+  clearTimeout(carouselResizeTimeout);
+  carouselResizeTimeout = setTimeout(() => {
+    carouselManager.handleResize();
+  }, 150); // Slightly longer delay to avoid conflicts with canvas resize
+});
 
-const geometry = new THREE.BoxGeometry(1, 1, 1);
-const material = new THREE.MeshBasicMaterial({ color: 0x029a2d });
-const mesh = new THREE.Mesh(geometry, material);
-scene.add(mesh);
+// Listen for custom page transition events
+document.addEventListener('page-transition-complete', () => {
+  console.log('Page transition complete, reinitializing components');
+  carouselManager.reinitializeAfterTransition();
+  
+  // Reinitialize tab switcher
+  if (window.tabSwitcher) {
+    window.tabSwitcher.reinitialize();
+  }
+  
+  // Reinitialize animated counters
+  setTimeout(() => {
+    if (window.initAnimatedCounters) {
+      window.initAnimatedCounters();
+    }
+  }, 300);
+});
 
-// const textureLoader = new THREE.TextureLoader();
+const bgHost = document.getElementById('bgHost');
+const inlineHost = document.getElementById('inlineHost');
+const hybridHost = document.getElementById('hybridHost');
+const btnExpand = document.getElementById('expandCanvas');
+const btnCollapse = document.getElementById('collapseCanvas');
 
-const particlesGeometry = new THREE.SphereGeometry(1, 32, 32);
-const particlesMaterials = new THREE.PointsMaterial();
-particlesMaterials.size = 0.002
-particlesMaterials.sizeAttenuation = true;
+// Initialize canvas with preloader integration
+const cm = new DesignGridWindow({ 
+  bgHost, 
+  inlineHost, 
+  hybridHost,
+  onReady: () => {
+    // Hide preloader when canvas is ready
+    console.log('Canvas ready, hiding preloader');
+    setTimeout(() => {
+      console.log('Calling preloader.hide()');
+      console.log('Preloader state before hide:', {
+        visible: preloader.visible,
+        overlay: preloader.overlay,
+        bodyClasses: document.body.className
+      });
+      preloader.hide();
+      console.log('Preloader state after hide:', {
+        visible: preloader.visible,
+        overlay: preloader.overlay,
+        bodyClasses: document.body.className
+      });
+    }, 500); // Small delay for smooth transition
+    
+    // Initialize page transitions after canvas is ready
+    const pageTransitions = new PageTransitionManager(cm, preloader);
+    // Disable debug logging for production (set to true for debugging)
+    pageTransitions.setDebug(false);
+    
+    // Reinitialize animated counters after canvas is ready
+    console.log('Canvas ready, reinitializing counters if needed');
+    setTimeout(() => {
+      if (window.initAnimatedCounters) {
+        window.initAnimatedCounters();
+      }
+    }, 500);
+    
+    // Make available globally for debugging
+    window.pageTransitions = pageTransitions;
+  }
+});
 
-const particles = new THREE.Points(particlesGeometry, particlesMaterials)
-scene.add(particles);
+// Example: choose a template at runtime (or hardcode per page)
+const template = document.body.dataset.template; // "background" | "inline" | "hybrid"
+console.log('Template:', template, 'bgHost found:', !!bgHost);
 
-
-
-const fieldGeometry = new THREE.BufferGeometry();
-const fieldMaterials = new THREE.PointsMaterial();
-fieldMaterials.size = 0.002
-fieldMaterials.sizeAttenuation = true;
-
-const count = 500;
-const fieldPositions = new Float32Array(count * 3);
-
-for (let i = 0; i < count * 3; i++) {
-  fieldPositions[i] = (Math.random() - 0.5) * 10 ;
+if (template === 'background') {
+  console.log('Mounting canvas to bgHost');
+  cm.setMode('background');
+  cm.mountTo(bgHost);
 }
 
-fieldGeometry.setAttribute(
-  'position',
-  new THREE.BufferAttribute(fieldPositions, 3)
-)
-
-const field = new THREE.Points(fieldGeometry, fieldMaterials)
-scene.add(field);
-
-
-
-const camera = new THREE.PerspectiveCamera(100, sizes.width / sizes.height)
-// camera.position.z = 3;
-camera.position.set(1, 1, 1)
-scene.add(camera);
-// console.log("distance from camera: ", mesh.position.length(camera.position))
-camera.lookAt(mesh.position)
-
-const controls = new OrbitControls(camera, canvas)
-controls.enabled = false
-controls.enableDamping = true;
-
-const renderer = new THREE.WebGLRenderer({
-  canvas
-})
-
-renderer.setSize(sizes.width, sizes.height)
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-renderer.render(scene, camera)
-
-
-
-// window.addEventListener('resize', () => {
-//   // update sizes
-//   sizes.width = window.innerWidth
-//   sizes.height = window.innerHeight
-
-//   camera.aspect = sizes.width / sizes.height
-//   camera.updateProjectionMatrix()
-
-//   renderer.setSize(sizes.width, sizes.height)
-// })
-
-// window.addEventListener('dblclick', () => {
-
-//   const fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement
-
-//   if(!fullscreenElement) {
-//     if(canvas.requestFullscreen) {
-//       canvas.requestFullscreen()
-//     } else if(canvas.webkitFullscreenElement) {
-//       canvas.webkitFullscreenElement()
-//     }
-//     // canvas.requestFullscreen()
-//     // console.log('go fullscreen')
-//   } else {
-//     if(document.exitFullscreen){
-//       document.exitFullscreen()
-//     } else if(document.webkitExitFullscreen) {
-//       document.webkitExitFullscreen()
-//     }
-//   }
-// })
-
-const clock = new THREE.Clock()
-
-const tick = () => {
-    const elapsedTime = clock.getElapsedTime()
-
-  mesh.rotation.z += 0.01;
-  particles.rotation.z -= 0.01;
-
-  field.rotation.x = Math.cos(elapsedTime)
-  field.rotation.z = Math.sin(elapsedTime)
-    // // mesh.position.x = Math.sin(elapsedTime)
-  // // mesh.position.y = Math.cos(elapsedTime)
-
-  window.requestAnimationFrame(tick)
-  renderer.render(scene, camera)
+if (template === 'inline') {
+  cm.setMode('inline');
+  cm.mountTo(inlineHost);
+  // Optional: pause when offscreen via IntersectionObserver
+  // (left out for brevity)
 }
 
-tick()
+if (template === 'hybrid') {
+  cm.setMode('hybrid');
+  cm.mountTo(bgHost);
+
+  // Start collapsed controls hidden
+  btnExpand.hidden = true;
+  btnCollapse.hidden = false;
+
+  // Trigger collapse on scroll or CTA
+  const threshold = 150; // px
+  let collapsed = false;
+  let animating = false; // Prevent overlapping animations
+  let currentTween = null; // Track current animation
+
+  const collapse = () => {
+    if (collapsed || animating) return;
+    animating = true;
+    collapsed = true;
+
+    // Kill any existing animation
+    if (currentTween) currentTween.kill();
+
+    // DISABLED - Notify ResizeManager of transition start
+    // resizeManager.startTransition('hybrid-collapse');
+
+    // Pre-setup hybrid host with proper styling
+    hybridHost.hidden = false;
+    hybridHost.style.height = '0px';
+    hybridHost.style.overflow = 'hidden';
+    hybridHost.style.transition = 'none'; // Prevent CSS transitions from interfering
+
+    // Create smooth timeline animation
+    const tl = gsap.timeline({
+      onComplete: () => {
+        // Update buttons
+        btnExpand.hidden = false;
+        btnCollapse.hidden = true;
+
+        // DISABLED - End transition and allow resize processing
+        // resizeManager.endTransition('hybrid-collapse');
+
+        // Final resize and cleanup
+        setTimeout(() => {
+          if (cm.sizer) cm.sizer.applySize();
+          animating = false;
+        }, 50);
+      }
+    });
+
+    // Step 1: Smooth height reveal with canvas staying in background
+    tl.to(hybridHost, {
+      height: '40vh',
+      duration: 0.8,
+      ease: 'power2.out',
+      onUpdate: () => {
+        // Reduced resize calls during animation - ResizeManager will handle debouncing
+        if (cm.sizer) cm.sizer.onResize();
+      }
+    })
+    // Step 2: Brief pause for visual stability
+    .to({}, { duration: 0.1 })
+    // Step 3: Seamlessly move canvas to hybrid host
+    .call(() => {
+      cm.mountTo(hybridHost);
+    })
+    // Step 4: Small fade-in effect for smoothness
+    .fromTo(hybridHost,
+      { opacity: 0.8 },
+      { opacity: 1, duration: 0.3, ease: 'power1.out' }
+    );
+
+    currentTween = tl;
+  };
+
+  const expand = () => {
+    if (!collapsed || animating) return;
+    animating = true;
+    collapsed = false;
+
+    // Kill any existing animation
+    if (currentTween) currentTween.kill();
+
+    // DISABLED - Notify ResizeManager of transition start
+    // resizeManager.startTransition('hybrid-expand');
+
+    // Move canvas back to background first
+    cm.mountTo(bgHost);
+
+    // Update buttons immediately
+    btnExpand.hidden = true;
+    btnCollapse.hidden = false;
+
+    // Animate collapse
+    currentTween = gsap.to(hybridHost, {
+      height: 0,
+      duration: 0.6,
+      ease: 'power2.in',
+      onUpdate: () => {
+        // ResizeManager will handle debouncing of these calls
+        if (cm.sizer) cm.sizer.onResize();
+      },
+      onComplete: () => {
+        hybridHost.hidden = true;
+
+        // DISABLED - End transition and allow resize processing
+        // resizeManager.endTransition('hybrid-expand');
+
+        // Smooth scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // Final resize and cleanup
+        setTimeout(() => {
+          if (cm.sizer) cm.sizer.applySize();
+          animating = false;
+        }, 50);
+      }
+    });
+  };
+
+  // Smooth scroll trigger with progressive detection
+  let scrollTimeout = null;
+  let hasTriggered = false;
+  
+  const onScroll = () => {
+    if (collapsed || animating || hasTriggered) return;
+    
+    const scrollY = window.scrollY;
+    
+    // Smoother trigger with slight anticipation
+    if (scrollY > threshold - 50) {
+      // Clear any pending timeout
+      clearTimeout(scrollTimeout);
+      
+      // Slight delay to ensure user is actually scrolling (not just briefly)
+      scrollTimeout = setTimeout(() => {
+        if (window.scrollY > threshold && !collapsed && !animating) {
+          hasTriggered = true;
+          window.removeEventListener('scroll', onScroll);
+          
+          // Add small delay to make transition feel more natural
+          setTimeout(() => {
+            collapse();
+          }, 150);
+        }
+      }, 200); // Longer debounce for smoother feel
+    }
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Button event handlers with additional safety checks
+  btnExpand.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (!animating) expand();
+  });
+  
+  btnCollapse.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (!animating) collapse();
+  });
+}

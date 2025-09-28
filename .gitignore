@@ -12,8 +12,9 @@ dist
 dist-ssr
 *.local
 
+.env
 scratch_1.txt
-
+notes.txt
 
 # Editor directories and files
 .vscode/*
@@ -25,3 +26,10 @@ scratch_1.txt
 *.njsproj
 *.sln
 *.sw?
+
+
+design_system/
+wordpress_form_submission_info.txt
+
+# Ignore headless API files (contains sensitive keys)
+docs/fn-stripe-payment.php
