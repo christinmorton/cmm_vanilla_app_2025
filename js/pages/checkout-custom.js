@@ -2,7 +2,7 @@ console.log('🧾 CHECKOUT-CUSTOM.JS LOADED - Custom payment page specific funct
 
 // Import page-specific functionality for checkout-custom.html
 import DesignGridWindow from '../modules/DesignGridTypes/index.js';
-import CheckoutPageCustom from '../modules/checkout-v1/CheckoutPageCustom.js';
+import CustomInvoiceRequest from '../modules/checkout-v2/CustomInvoiceRequest.js';
 
 // Wait for core components to be ready
 const waitForCore = () => {
@@ -29,9 +29,9 @@ const initCustomCheckoutPage = async () => {
   // Wait for core components
   const { preloader } = await waitForCore();
 
-  // Initialize custom checkout functionality
-  // CheckoutPageCustom module handles its own initialization
-  const customCheckout = new CheckoutPageCustom();
+  // Initialize custom invoice request functionality
+  // CustomInvoiceRequest module handles its own initialization
+  // Note: CustomInvoiceRequest.js is already imported and will initialize automatically
 
   // Get DOM elements for canvas integration
   const bgHost = document.getElementById('bgHost');
@@ -80,9 +80,9 @@ const initCustomCheckoutPage = async () => {
   // Register page transition handler (minimal for custom checkout page)
   window.pageTransitionHandlers = window.pageTransitionHandlers || [];
   window.pageTransitionHandlers.push(() => {
-    console.log('Custom checkout page transition handler');
-    // Custom checkout page has minimal transition requirements
-    // CheckoutPageCustom module handles its own state management
+    console.log('Custom invoice request page transition handler');
+    // Custom invoice request page has minimal transition requirements
+    // CustomInvoiceRequest module handles its own state management
   });
 
   console.log('✅ Custom checkout page functionality initialized');

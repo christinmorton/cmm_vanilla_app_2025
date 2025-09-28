@@ -2,7 +2,7 @@ console.log('💳 CHECKOUT.JS LOADED - Checkout page specific functionality');
 
 // Import page-specific functionality for checkout.html
 import DesignGridWindow from '../modules/DesignGridTypes/index.js';
-import CheckoutPage from '../modules/checkout-v1/CheckoutPage.js';
+import InvoiceRequestPage from '../modules/checkout-v2/InvoiceRequestPage.js';
 
 // Wait for core components to be ready
 const waitForCore = () => {
@@ -29,9 +29,9 @@ const initCheckoutPage = async () => {
   // Wait for core components
   const { preloader } = await waitForCore();
 
-  // Initialize checkout functionality (existing module)
-  // CheckoutPage module handles its own initialization
-  // Note: CheckoutPage.js is already imported and will initialize automatically
+  // Initialize invoice request functionality (V2 system)
+  // InvoiceRequestPage module handles its own initialization
+  // Note: InvoiceRequestPage.js is already imported and will initialize automatically
 
   // Get DOM elements for canvas integration
   const bgHost = document.getElementById('bgHost');
@@ -81,9 +81,9 @@ const initCheckoutPage = async () => {
   // Register page transition handler (minimal for checkout page)
   window.pageTransitionHandlers = window.pageTransitionHandlers || [];
   window.pageTransitionHandlers.push(() => {
-    console.log('Checkout page transition handler');
-    // Checkout page has minimal transition requirements
-    // CheckoutPage module handles its own state management
+    console.log('Invoice request page transition handler');
+    // Invoice request page has minimal transition requirements
+    // InvoiceRequestPage module handles its own state management
   });
 
   console.log('✅ Checkout page functionality initialized');
