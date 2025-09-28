@@ -2,7 +2,7 @@ console.log('🧾 CHECKOUT-CUSTOM.JS LOADED - Custom payment page specific funct
 
 // Import page-specific functionality for checkout-custom.html
 import DesignGridWindow from '../modules/DesignGridTypes/index.js';
-import CheckoutPageCustom from '../modules/CheckoutPageCustom.js';
+import CheckoutPageCustom from '../modules/checkout-v1/CheckoutPageCustom.js';
 
 // Wait for core components to be ready
 const waitForCore = () => {

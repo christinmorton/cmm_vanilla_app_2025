@@ -2,7 +2,7 @@ console.log('💳 PAYMENT-SUCCESS.JS LOADED - Payment success page specific func
 
 // Import page-specific functionality for payment-success.html
 import DesignGridWindow from '../modules/DesignGridTypes/index.js';
-import PaymentSuccess from '../modules/PaymentSuccess.js';
+import PaymentSuccess from '../modules/checkout-v1/PaymentSuccess.js';
 
 // Wait for core components to be ready
 const waitForCore = () => {

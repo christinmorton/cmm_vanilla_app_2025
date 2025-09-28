@@ -2,7 +2,7 @@ console.log('🆓 CHECKOUT-FREE.JS LOADED - Free consultation page specific func
 
 // Import page-specific functionality for checkout-free.html
 import DesignGridWindow from '../modules/DesignGridTypes/index.js';
-import CheckoutPageFree from '../modules/CheckoutPageFree.js';
+import CheckoutPageFree from '../modules/checkout-v1/CheckoutPageFree.js';
 
 // Wait for core components to be ready
 const waitForCore = () => {

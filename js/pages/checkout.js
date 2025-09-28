@@ -2,7 +2,7 @@ console.log('💳 CHECKOUT.JS LOADED - Checkout page specific functionality');
 
 // Import page-specific functionality for checkout.html
 import DesignGridWindow from '../modules/DesignGridTypes/index.js';
-import CheckoutPage from '../modules/CheckoutPage.js';
+import CheckoutPage from '../modules/checkout-v1/CheckoutPage.js';
 
 // Wait for core components to be ready
 const waitForCore = () => {

@@ -2,7 +2,7 @@ console.log('❌ PAYMENT-CANCEL.JS LOADED - Payment cancel page specific functio
 
 // Import page-specific functionality for payment-cancel.html
 import DesignGridWindow from '../modules/DesignGridTypes/index.js';
-import PaymentCancel from '../modules/PaymentCancel.js';
+import PaymentCancel from '../modules/checkout-v1/PaymentCancel.js';
 
 // Wait for core components to be ready
 const waitForCore = () => {
