@@ -116,9 +116,26 @@ class InvoiceRequestPage {
     }
 
     /**
-     * Display customer information (reuse from v1)
+     * Display customer information or show form for data collection
      */
     displayCustomerData() {
+        // Check if we have valid customer data from URL parameters
+        const hasValidCustomerData = this.customerData.messageId &&
+                                    this.customerData.email !== 'Please provide your email';
+
+        if (hasValidCustomerData) {
+            // Display existing customer data
+            this.displayExistingCustomerData();
+        } else {
+            // Show form to collect customer data
+            this.displayCustomerDataForm();
+        }
+    }
+
+    /**
+     * Display existing customer data (from URL parameters)
+     */
+    displayExistingCustomerData() {
         const nameElement = document.getElementById('customerName');
         const emailElement = document.getElementById('customerEmail');
         const projectElement = document.getElementById('customerProject');
@@ -134,6 +151,204 @@ class InvoiceRequestPage {
         }
         if (typeElement) typeElement.textContent = `Project Type: ${this.customerData.projectType}`;
         if (dateElement) dateElement.textContent = `Submitted: ${this.customerData.submissionDate}`;
+
+        // Hide customer data form if it exists
+        const customerForm = document.getElementById('customerDataForm');
+        if (customerForm) customerForm.style.display = 'none';
+    }
+
+    /**
+     * Display form to collect required customer data
+     */
+    displayCustomerDataForm() {
+        // Try to find existing customer data form container
+        let customerFormContainer = document.getElementById('customerDataForm');
+
+        if (!customerFormContainer) {
+            // Create customer data form if it doesn't exist
+            customerFormContainer = document.createElement('div');
+            customerFormContainer.id = 'customerDataForm';
+            customerFormContainer.className = 'customer-data-form';
+
+            // Insert after customer info section or at beginning of main content
+            const customerInfoSection = document.getElementById('customerInfo');
+            const mainContent = document.querySelector('.checkout-main, main, .container');
+
+            if (customerInfoSection && customerInfoSection.parentNode) {
+                customerInfoSection.parentNode.insertBefore(customerFormContainer, customerInfoSection.nextSibling);
+            } else if (mainContent) {
+                mainContent.insertBefore(customerFormContainer, mainContent.firstChild);
+            } else {
+                document.body.appendChild(customerFormContainer);
+            }
+        }
+
+        // Create the form HTML
+        customerFormContainer.innerHTML = `
+            <div class="customer-data-card">
+                <h3>Contact Information</h3>
+                <p class="form-description">Please provide your contact details to receive your invoice.</p>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="customerNameInput">Full Name *</label>
+                        <input type="text" id="customerNameInput" name="customerName" required
+                               placeholder="Enter your full name" class="form-control">
+                        <div class="form-error-message" id="nameError"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customerEmailInput">Email Address *</label>
+                        <input type="email" id="customerEmailInput" name="customerEmail" required
+                               placeholder="Enter your email address" class="form-control">
+                        <div class="form-error-message" id="emailError"></div>
+                        <small class="form-help">Your invoice will be sent to this email address</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customerPhone">Phone Number</label>
+                        <input type="tel" id="customerPhone" name="customerPhone"
+                               placeholder="(Optional) Your phone number" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customerCompany">Company/Organization</label>
+                        <input type="text" id="customerCompany" name="customerCompany"
+                               placeholder="(Optional) Company name" class="form-control">
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="projectDescriptionInput">Project Description</label>
+                        <textarea id="projectDescriptionInput" name="projectDescription" rows="3"
+                                  placeholder="(Optional) Brief description of your project needs"
+                                  class="form-control"></textarea>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Show the form
+        customerFormContainer.style.display = 'block';
+
+        // Add form validation
+        this.initializeCustomerDataFormValidation();
+
+        // Hide existing customer info display
+        const customerInfoElements = ['customerName', 'customerEmail', 'customerProject', 'projectDescription', 'projectType', 'submissionDate'];
+        customerInfoElements.forEach(id => {
+            const element = document.getElementById(id);
+            if (element) element.style.display = 'none';
+        });
+    }
+
+    /**
+     * Initialize validation for customer data form
+     */
+    initializeCustomerDataFormValidation() {
+        const nameInput = document.getElementById('customerNameInput');
+        const emailInput = document.getElementById('customerEmailInput');
+
+        // Real-time validation
+        if (nameInput) {
+            nameInput.addEventListener('input', () => this.validateCustomerName(nameInput));
+            nameInput.addEventListener('blur', () => this.validateCustomerName(nameInput));
+        }
+
+        if (emailInput) {
+            emailInput.addEventListener('input', () => this.validateCustomerEmail(emailInput));
+            emailInput.addEventListener('blur', () => this.validateCustomerEmail(emailInput));
+        }
+
+        // Update deposit selection validation
+        this.updateDepositButtonState();
+    }
+
+    /**
+     * Validate customer name
+     */
+    validateCustomerName(nameInput) {
+        const name = nameInput.value.trim();
+        const errorElement = document.getElementById('nameError');
+
+        let errorMessage = '';
+        if (name.length < 2) {
+            errorMessage = 'Please enter your full name';
+        }
+
+        if (errorElement) {
+            errorElement.textContent = errorMessage;
+            errorElement.style.display = errorMessage ? 'block' : 'none';
+        }
+
+        if (errorMessage) {
+            nameInput.classList.add('form-error');
+        } else {
+            nameInput.classList.remove('form-error');
+        }
+
+        this.updateDepositButtonState();
+        return !errorMessage;
+    }
+
+    /**
+     * Validate customer email
+     */
+    validateCustomerEmail(emailInput) {
+        const email = emailInput.value.trim();
+        const errorElement = document.getElementById('emailError');
+
+        let errorMessage = '';
+        if (!email) {
+            errorMessage = 'Email address is required';
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            errorMessage = 'Please enter a valid email address';
+        }
+
+        if (errorElement) {
+            errorElement.textContent = errorMessage;
+            errorElement.style.display = errorMessage ? 'block' : 'none';
+        }
+
+        if (errorMessage) {
+            emailInput.classList.add('form-error');
+        } else {
+            emailInput.classList.remove('form-error');
+        }
+
+        this.updateDepositButtonState();
+        return !errorMessage;
+    }
+
+    /**
+     * Update deposit button state based on form validation
+     */
+    updateDepositButtonState() {
+        const customerForm = document.getElementById('customerDataForm');
+        if (!customerForm || customerForm.style.display === 'none') {
+            return; // No form visible, no additional validation needed
+        }
+
+        const nameInput = document.getElementById('customerNameInput');
+        const emailInput = document.getElementById('customerEmailInput');
+        const requestBtn = document.getElementById('requestInvoice');
+
+        if (!nameInput || !emailInput || !requestBtn) return;
+
+        const isNameValid = this.validateCustomerName(nameInput);
+        const isEmailValid = this.validateCustomerEmail(emailInput);
+        const hasDepositSelected = this.selectedDeposit !== null;
+
+        const isFormValid = isNameValid && isEmailValid && hasDepositSelected;
+
+        // Only enable the button if form is valid AND deposit is selected
+        if (hasDepositSelected) {
+            requestBtn.disabled = !isFormValid;
+            if (isFormValid) {
+                requestBtn.querySelector('.btn-text').textContent = `Request $${this.selectedDeposit.amount} Invoice`;
+            } else {
+                requestBtn.querySelector('.btn-text').textContent = 'Complete Required Fields';
+            }
+        }
     }
 
     /**
@@ -176,7 +391,7 @@ class InvoiceRequestPage {
     }
 
     /**
-     * Select a deposit amount and update UI (similar to v1)
+     * Select a deposit amount and update UI (enhanced for form validation)
      */
     selectDeposit(amount) {
         const deposit = this.depositOptions[amount];
@@ -195,16 +410,24 @@ class InvoiceRequestPage {
         if (selectedTypeElement) {
             selectedTypeElement.textContent = `${deposit.type.charAt(0).toUpperCase() + deposit.type.slice(1)} Deposit`;
         }
-        if (requestBtn) {
-            requestBtn.disabled = false;
-            requestBtn.querySelector('.btn-text').textContent = `Request $${deposit.amount} Invoice`;
-        }
 
         // Update deposit card selection state
         document.querySelectorAll('.deposit-card').forEach(card => {
             card.classList.remove('selected');
         });
         document.querySelector(`[data-amount="${amount}"]`).classList.add('selected');
+
+        // Update button state based on form validation
+        this.updateDepositButtonState();
+
+        // If no customer form is visible, enable button immediately
+        const customerForm = document.getElementById('customerDataForm');
+        if (!customerForm || customerForm.style.display === 'none') {
+            if (requestBtn) {
+                requestBtn.disabled = false;
+                requestBtn.querySelector('.btn-text').textContent = `Request $${deposit.amount} Invoice`;
+            }
+        }
 
         // Track deposit selection
         this.trackDepositSelection(deposit);
@@ -264,16 +487,23 @@ class InvoiceRequestPage {
             // Track invoice request attempt
             this.trackInvoiceRequest(this.selectedDeposit);
 
+            // Get customer data from form or URL parameters
+            const customerSubmissionData = this.getCustomerDataForSubmission();
+
+            // Validate that we have required data
+            if (!customerSubmissionData.name || !customerSubmissionData.email) {
+                this.handleInvoiceRequestError('Please provide your name and email address.');
+                return;
+            }
+
             // Create invoice request message
             const invoiceRequestData = {
                 type: 'pending_invoice',
-                name: this.customerData.name,
-                email_address: this.customerData.email !== 'Please provide your email'
-                    ? this.customerData.email
-                    : this.getEmailFromForm(),
-                phone: this.getPhoneFromForm() || '',
+                name: customerSubmissionData.name,
+                email_address: customerSubmissionData.email,
+                phone: customerSubmissionData.phone || '',
                 subject: `Invoice Request - ${this.selectedDeposit.name}`,
-                simple_message: this.formatDepositMessage(),
+                simple_message: this.formatDepositMessageWithData(customerSubmissionData),
                 chain_id: this.salesFunnel.generateChainId('invoice'),
                 invoice_amount: this.selectedDeposit.amount.toString(),
                 invoice_currency: 'USD',
@@ -372,26 +602,67 @@ class InvoiceRequestPage {
     }
 
     /**
-     * Get form field values
+     * Format deposit message with specific customer data
      */
+    formatDepositMessageWithData(customerData) {
+        return `Deposit Type: ${this.selectedDeposit.type}, Amount: $${this.selectedDeposit.amount}, ` +
+               `Company: ${customerData.company || 'N/A'}, Project Description: ${customerData.projectDescription || 'Not specified'}`;
+    }
+
+    /**
+     * Get form field values (enhanced to handle customer data form)
+     */
+    getNameFromForm() {
+        const nameField = document.getElementById('customerNameInput');
+        return nameField ? nameField.value.trim() : '';
+    }
+
     getEmailFromForm() {
         const emailField = document.getElementById('customerEmailInput');
-        return emailField ? emailField.value : '';
+        return emailField ? emailField.value.trim() : '';
     }
 
     getPhoneFromForm() {
         const phoneField = document.getElementById('customerPhone');
-        return phoneField ? phoneField.value : '';
+        return phoneField ? phoneField.value.trim() : '';
     }
 
     getCompanyFromForm() {
         const companyField = document.getElementById('customerCompany');
-        return companyField ? companyField.value : '';
+        return companyField ? companyField.value.trim() : '';
     }
 
     getProjectDescriptionFromForm() {
         const descField = document.getElementById('projectDescriptionInput');
-        return descField ? descField.value : '';
+        return descField ? descField.value.trim() : '';
+    }
+
+    /**
+     * Get customer data for invoice submission (from form or URL params)
+     */
+    getCustomerDataForSubmission() {
+        const customerForm = document.getElementById('customerDataForm');
+        const isFormVisible = customerForm && customerForm.style.display !== 'none';
+
+        if (isFormVisible) {
+            // Use data from the customer form
+            return {
+                name: this.getNameFromForm() || this.customerData.name,
+                email: this.getEmailFromForm() || this.customerData.email,
+                phone: this.getPhoneFromForm(),
+                company: this.getCompanyFromForm(),
+                projectDescription: this.getProjectDescriptionFromForm()
+            };
+        } else {
+            // Use data from URL parameters
+            return {
+                name: this.customerData.name,
+                email: this.customerData.email,
+                phone: '',
+                company: '',
+                projectDescription: ''
+            };
+        }
     }
 
     /**
