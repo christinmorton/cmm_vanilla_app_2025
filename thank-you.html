@@ -224,9 +224,32 @@
         // Dynamic Thank You Page Handler
         document.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
-            const type = urlParams.get('type') || 'general';
-            const amount = urlParams.get('amount');
-            const source = urlParams.get('source') || 'unknown';
+
+            // Try to get data from URL parameters first, then from sessionStorage
+            let type = urlParams.get('type');
+            let amount = urlParams.get('amount');
+            let source = urlParams.get('source') || 'unknown';
+
+            // Fallback to sessionStorage for Stripe redirects (clean URLs)
+            if (!type || !amount) {
+                const stripeData = sessionStorage.getItem('stripePaymentData');
+                if (stripeData) {
+                    try {
+                        const paymentData = JSON.parse(stripeData);
+                        type = type || paymentData.type || 'general';
+                        amount = amount || paymentData.amount;
+                        source = source || 'stripe_redirect';
+
+                        // Clear the data after use
+                        sessionStorage.removeItem('stripePaymentData');
+                    } catch (e) {
+                        console.warn('Failed to parse stripe payment data:', e);
+                    }
+                }
+            }
+
+            // Default fallback
+            type = type || 'general';
 
             // Get elements to update
             const titleElement = document.getElementById('thankYouTitle');

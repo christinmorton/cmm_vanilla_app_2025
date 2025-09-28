@@ -389,13 +389,21 @@ class CheckoutPageCustom {
                 Object.assign(headers, authHeaders);
             }
 
-            // Prepare session data for custom checkout
+            // Store payment data for thank you page (without query params in Stripe URLs)
+            sessionStorage.setItem('stripePaymentData', JSON.stringify({
+                type: 'custom_service',
+                amount: paymentData.amount,
+                description: paymentData.description,
+                timestamp: Date.now()
+            }));
+
+            // Prepare session data for custom checkout (clean URLs for Stripe)
             const sessionData = {
                 amount: paymentData.amount,
                 description: paymentData.description,
                 type: paymentData.type,
                 message_id: paymentData.messageId || '',
-                success_url: `${window.location.origin}/thank-you.html?type=custom_service&amount=${paymentData.amount}`,
+                success_url: `${window.location.origin}/thank-you.html`,
                 cancel_url: `${window.location.origin}/payment-cancel.html`
             };
 
