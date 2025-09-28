@@ -98,17 +98,19 @@ Different environments use different table prefixes to avoid conflicts:
 **Fields**:
 ```javascript
 {
-  "name": "string",           // Contact name
-  "email": "string",          // Contact email
-  "phone": "string",          // Phone number (optional)
-  "subject": "string",        // Message subject
-  "message": "text",          // Message content
-  "form_type": "string",      // Type of form submitted
-  "source_page": "string",    // Page where form was submitted
-  "status": "string",         // Processing status
-  "created_date": "datetime", // Submission timestamp
-  "ip_address": "string",     // User IP for tracking
-  "user_agent": "string"      // Browser information
+  "type": "string",              // Message type: user_message, saraii_response, system_message (required)
+  "name": "string",              // Contact name
+  "email_address": "string",     // Contact email address
+  "phone": "string",             // Phone number (optional)
+  "subject": "string",           // Message subject
+  "simple_message": "textarea",   // Simple text message
+  "detailed_message": "wysiwyg", // Rich text detailed message
+  "reply_to": "string",          // Reply-to email address
+  "chain_id": "string",          // Message chain identifier
+  "media_content": "repeater",   // Array of media attachments (URLs)
+  "conversation_id": "string",   // Conversation thread identifier
+  "message_timestamp": "datetime", // Message timestamp
+  "message_status": "select"     // Status: pending, delivered, read, archived
 }
 ```
 
@@ -138,16 +140,18 @@ const response = await fetch(`${apiBaseUrl}/jet-cct/message`, {
 **Fields**:
 ```javascript
 {
-  "event_type": "string",     // Type of event (page_view, form_submit, etc.)
-  "event_name": "string",     // Specific event name
-  "page_url": "string",       // Current page URL
-  "referrer": "string",       // Referring page
-  "user_id": "string",        // Anonymous user identifier
-  "session_id": "string",     // Session identifier
-  "event_data": "json",       // Additional event data
-  "timestamp": "datetime",    // Event timestamp
-  "ip_address": "string",     // User IP
-  "user_agent": "string"      // Browser information
+  "event_type": "string",           // Type of event (page_view, form_submit, etc.)
+  "ts_loaded": "string",            // Timestamp when page/content loaded
+  "ts_submitted": "string",         // Timestamp when event was submitted
+  "user_agent_signature": "string", // Browser user agent signature
+  "page_path": "string",            // Current page path
+  "referrer": "string",             // Referring page URL
+  "session_id": "string",           // Session identifier
+  "user_id": "string",              // Anonymous user identifier
+  "ip_address": "string",           // User IP address
+  "message_id": "string",           // Related message ID (if applicable)
+  "chain_id": "string",             // Message chain identifier
+  "conversation_id": "string"       // Conversation thread identifier
 }
 ```
 
@@ -166,19 +170,31 @@ const response = await fetch(`${apiBaseUrl}/jet-cct/message`, {
 **Fields**:
 ```javascript
 {
-  "client_name": "string",        // Client name
-  "client_email": "string",       // Client email
-  "client_phone": "string",       // Client phone
-  "appointment_type": "string",   // Type of appointment
-  "preferred_date": "date",       // Requested date
-  "preferred_time": "time",       // Requested time
-  "timezone": "string",           // Client timezone
-  "project_description": "text", // Project details
-  "budget_range": "string",       // Expected budget
-  "status": "string",            // Booking status
-  "meeting_link": "string",      // Video call link
-  "notes": "text",               // Additional notes
-  "created_date": "datetime"     // Booking timestamp
+  "message_id": "string",             // Related message ID
+  "chain_id": "string",               // Message chain identifier
+  "appointment_status": "string",      // Status of appointment
+  "appointment_type": "string",        // Type of appointment
+  "scheduled_date": "date",            // Scheduled appointment date
+  "scheduled_time": "time",            // Scheduled appointment time
+  "meeting_duration": "string",        // Duration of meeting
+  "timezone": "string",               // Timezone for appointment
+  "meeting_platform": "string",        // Platform (Zoom, Google Meet, etc.)
+  "meeting_link": "string",            // Video call link
+  "meeting_passcode": "string",        // Meeting passcode/PIN
+  "location_address": "textarea",      // Physical meeting address
+  "location_details": "textarea",      // Additional location details
+  "agenda_topics": "wysiwyg",          // Meeting agenda topics
+  "project_type": "string",            // Type of project discussed
+  "preperation_notes": "wysiwyg",      // Preparation notes
+  "follow_up_actions": "wysiwyg",      // Follow-up action items
+  "internal_notes": "wysiwyg",         // Internal notes
+  "reminder_sent": "checkbox",         // Whether reminder was sent
+  "confirmation_sent": "checkbox",     // Whether confirmation was sent
+  "created_date": "datetime",          // Creation timestamp
+  "last_modified": "datetime",         // Last modification timestamp
+  "rescheduled_count": "string",       // Number of times rescheduled
+  "original_scheduled_date": "date",   // Original scheduled date
+  "original_scheduled_time": "time"    // Original scheduled time
 }
 ```
 
@@ -195,19 +211,22 @@ const response = await fetch(`${apiBaseUrl}/jet-cct/message`, {
 **Fields**:
 ```javascript
 {
-  "stripe_invoice_id": "string",   // Stripe invoice ID
-  "client_email": "string",        // Client email
-  "client_name": "string",         // Client name
-  "amount": "decimal",             // Invoice amount
-  "currency": "string",            // Currency code
-  "service_type": "string",        // Type of service
-  "project_description": "text",   // Project details
-  "status": "string",              // Payment status
-  "due_date": "date",              // Payment due date
-  "paid_date": "datetime",         // Payment completion date
-  "created_date": "datetime",      // Invoice creation date
-  "stripe_payment_intent": "string", // Stripe payment intent ID
-  "metadata": "json"               // Additional Stripe metadata
+  "stripe_payment_intent_id": "string", // Stripe payment intent ID
+  "message_id": "string",              // Related message ID
+  "chain_id": "string",                // Message chain identifier
+  "customer_name": "string",            // Customer name
+  "customer_email": "string",           // Customer email address
+  "deposit_amount": "string",           // Deposit amount
+  "currency": "string",                // Currency code (USD, EUR, etc.)
+  "payment_status": "string",           // Payment status
+  "stripe_customer_id": "string",       // Stripe customer ID
+  "project_type": "string",             // Type of project
+  "invoice_date": "datetime",           // Invoice creation date
+  "payment_date": "datetime",           // Payment completion date
+  "notes": "wysiwyg",                  // Additional notes
+  "_receipt_url": "string",             // Stripe receipt URL
+  "created_date": "datetime",           // Creation timestamp
+  "last_modified": "datetime"           // Last modification timestamp
 }
 ```
 
@@ -224,25 +243,113 @@ const response = await fetch(`${apiBaseUrl}/jet-cct/message`, {
 **Purpose**: Frequently asked questions content
 **Endpoint**: `/wp-json/wp/v2/faqs`
 
+**Meta Fields**:
+```javascript
+{
+  "question": "wysiwyg",            // FAQ question (required, show_in_rest: true)
+  "simple_answer": "textarea",      // Simple text answer (show_in_rest: true)
+  "detailed_answer": "wysiwyg",     // Detailed rich text answer (show_in_rest: true)
+  "select_answer": "select",        // Select-based answer options (show_in_rest: true)
+  "checkbox_answer": "checkbox",    // Checkbox answer options (show_in_rest: true)
+  "multiple_choice_answer": "repeater", // Multiple choice answers (show_in_rest: true)
+  "category": "text",              // FAQ category (show_in_rest: true)
+  "order": "text",                 // Display order (show_in_rest: true)
+  "related_faq": "repeater"         // Related FAQ IDs with nested faq_id field (show_in_rest: true)
+}
+```
+
 ### Dynamic Card Post Type
 **Purpose**: Reusable content cards for homepage sections
 **Endpoint**: `/wp-json/wp/v2/dynamic_card`
+
+**Meta Fields**:
+```javascript
+{
+  "title": "text",           // Card title (show_in_rest: true)
+  "card_heading": "text",    // Card heading (show_in_rest: true)
+  "card_media": "media",     // Card image/media (URL format, show_in_rest: true)
+  "card_body": "textarea",   // Card body text (show_in_rest: true)
+  "cta_label": "text",       // Call-to-action label (show_in_rest: true)
+  "cta_link": "text"         // Call-to-action link (show_in_rest: true)
+}
+```
 
 ### Dynamic Section Post Type
 **Purpose**: Flexible page sections with custom content
 **Endpoint**: `/wp-json/wp/v2/dynamic_section`
 
+**Meta Fields**:
+```javascript
+{
+  "layout_style": "select",        // Layout: Left/Right, Full Width, Centered (show_in_rest: true)
+  "title": "text",                // Optional display heading (show_in_rest: true)
+  "subtext": "text",              // Subheading text (show_in_rest: true)
+  "_description": "textarea",     // Description text (show_in_rest: false)
+  "featured_image": "media",      // Featured image (URL format, show_in_rest: true)
+  "simple_content": "textarea",   // Simple text description (show_in_rest: true)
+  "section_body": "wysiwyg",      // Styled content with paragraphs, links, etc. (show_in_rest: true)
+  "content_media": "repeater",    // Media items with nested content_item field (show_in_rest: true)
+  "is_featured": "switcher",      // Highlight on homepage/funnel entry points (show_in_rest: true)
+  "cta_primary_label": "text",    // Primary CTA label (show_in_rest: true)
+  "cta_primary_link": "text"      // Primary CTA link (show_in_rest: false)
+}
+```
+
 ### Social Proof Post Type
-**Purpose**: Client testimonials and reviews
+**Purpose**: Social media testimonials and shoutouts
 **Endpoint**: `/wp-json/wp/v2/social_proof`
+
+**Meta Fields**:
+```javascript
+{
+  "full_name": "text",             // Full name of person (required, show_in_rest: false)
+  "social_media_platform": "text", // Platform: Twitter/X, Instagram, Facebook, TikTok, Other (required, show_in_rest: false)
+  "username": "text",              // @handle or username (show_in_rest: false)
+  "profile_link": "text",          // Link to social profile (required, show_in_rest: false)
+  "share_link": "text",            // Direct URL to the share/tweet/post (show_in_rest: false)
+  "screenshot_upload": "repeater",  // Screenshot backup images with nested media field (show_in_rest: false)
+  "share_date": "datetime-local",   // When they posted about you (show_in_rest: false)
+  "is_featured": "switcher"         // Featured status (show_in_rest: false)
+}
+```
 
 ### Case Study Post Type
 **Purpose**: Detailed project case studies
 **Endpoint**: `/wp-json/wp/v2/case_study`
 
+**Meta Fields**:
+```javascript
+{
+  "project_title": "text",        // Project title (show_in_rest: true)
+  "client_name": "text",          // Name of client or business (show_in_rest: true)
+  "project_problem": "wysiwyg",   // What the client needed (show_in_rest: true)
+  "project_solution": "wysiwyg",  // What you did/built (show_in_rest: true)
+  "technologies_used": "textarea", // Technologies and tools used (show_in_rest: true)
+  "project_media": "media",       // Gallery of images or single upload (show_in_rest: true)
+  "project_outcome": "wysiwyg",   // The impact of your work (show_in_rest: true)
+  "project_date": "date",         // When project was completed/delivered (show_in_rest: true)
+  "is_featured": "switcher"       // Show prominently on homepage (show_in_rest: true)
+}
+```
+
 ### Testimonial Post Type
 **Purpose**: Client testimonials and feedback
 **Endpoint**: `/wp-json/wp/v2/testimonial`
+
+**Meta Fields**:
+```javascript
+{
+  "reviewer_name": "text",           // Name of person giving testimonial (required, show_in_rest: false)
+  "review_content": "text",          // Main body of testimonial (required, show_in_rest: false)
+  "review_content_wsywig": "wysiwyg", // Rich text version of testimonial (show_in_rest: false)
+  "star_rating": "select",           // 1-5 star rating (★ to ★★★★★) (show_in_rest: false)
+  "reviewer_photo": "media",         // Optional reviewer image (URL format, show_in_rest: false)
+  "service_type": "select",          // Type of service reviewed (show_in_rest: false)
+  "date_submitted": "datetime-local", // When testimonial was submitted (show_in_rest: false)
+  "is_featured": "switcher",         // Useful for front page testimonials (show_in_rest: false)
+  "is_guest": "switcher"             // Marks as "floating" or unauthenticated (show_in_rest: false)
+}
+```
 
 ## API Endpoints Reference
 
