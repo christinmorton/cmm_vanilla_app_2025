@@ -75,7 +75,7 @@ class CustomInvoiceRequest {
      */
     prefillFormData() {
         const nameField = document.getElementById('customerName');
-        const emailField = document.getElementById('customerEmail');
+        const emailField = document.getElementById('customerEmailInput');
 
         if (nameField && this.customerData.name) {
             nameField.value = this.customerData.name;
@@ -226,7 +226,7 @@ class CustomInvoiceRequest {
 
         if (isValid) {
             const amount = parseFloat(amountField?.value || 0);
-            submitBtn.querySelector('.btn-text').textContent = `Request $${amount} Invoice`;
+            submitBtn.querySelector('.btn-text').textContent = `Submit $${amount} Request`;
         } else {
             submitBtn.querySelector('.btn-text').textContent = 'Complete Required Fields';
         }
@@ -269,6 +269,7 @@ class CustomInvoiceRequest {
                 type: 'pending_invoice',
                 name: formData.customerName,
                 email_address: formData.customerEmail,
+                email: formData.customerEmail, // Also add 'email' field for WordPress compatibility
                 phone: formData.customerPhone || '',
                 subject: `Custom Invoice Request - ${formData.serviceDescription}`,
                 detailed_message: this.formatCustomInvoiceHTML(formData),
@@ -278,6 +279,13 @@ class CustomInvoiceRequest {
                 invoice_description: formData.serviceDescription,
                 invoice_status: 'pending'
             };
+
+            // Log the payload for debugging
+            console.log('Submitting custom invoice request with data:', customInvoiceData);
+            console.log('Email fields being sent:', {
+                email: customInvoiceData.email,
+                email_address: customInvoiceData.email_address
+            });
 
             // Submit through existing SalesFunnelForm system
             const messageResult = await this.salesFunnel.handleFormSubmission('pending_invoice', null, {
@@ -289,19 +297,14 @@ class CustomInvoiceRequest {
                 return;
             }
 
-            // Create Stripe invoice via API
+            // Success - customer data and invoice request saved
             const messageId = messageResult.data?.id || messageResult.id;
             if (!messageId) {
                 throw new Error('Message ID not found in API response');
             }
 
-            const stripeResult = await this.createStripeInvoice(messageId);
-
-            if (stripeResult.success) {
-                this.handleCustomInvoiceSuccess(stripeResult, messageId, formData);
-            } else {
-                this.handleCustomInvoiceError(stripeResult.error);
-            }
+            // Handle success without automatic Stripe invoice creation
+            this.handleCustomInvoiceSuccess(null, messageId, formData);
 
         } catch (error) {
             console.error('Custom invoice request failed:', error);
@@ -351,7 +354,7 @@ class CustomInvoiceRequest {
     extractFormData() {
         return {
             customerName: document.getElementById('customerName')?.value.trim() || '',
-            customerEmail: document.getElementById('customerEmail')?.value.trim() || '',
+            customerEmail: document.getElementById('customerEmailInput')?.value.trim() || '',
             customerPhone: document.getElementById('customerPhone')?.value.trim() || '',
             company: document.getElementById('customerCompany')?.value.trim() || '',
             amount: parseFloat(document.getElementById('invoiceAmount')?.value || 0),
@@ -390,52 +393,7 @@ class CustomInvoiceRequest {
         `;
     }
 
-    /**
-     * Create Stripe invoice via backend API (reuse from InvoiceRequestPage)
-     */
-    async createStripeInvoice(messageId) {
-        try {
-            const headers = {
-                'Content-Type': 'application/json'
-            };
-
-            // Add authentication if available
-            if (this.salesFunnel.authManager) {
-                const authHeaders = await this.salesFunnel.authManager.getAuthHeaders();
-                Object.assign(headers, authHeaders);
-            }
-
-            const endpointUrl = this.salesFunnel.authManager
-                ? `${this.salesFunnel.authManager.apiBaseUrl}/cmm/v1/create-stripe-invoice`
-                : '/wp-json/cmm/v1/create-stripe-invoice';
-
-            const response = await fetch(endpointUrl, {
-                method: 'POST',
-                headers: headers,
-                body: JSON.stringify({ message_id: messageId })
-            });
-
-            if (!response.ok) {
-                const errorText = await response.text();
-                throw new Error(`HTTP ${response.status}: ${errorText}`);
-            }
-
-            const result = await response.json();
-
-            if (!result.success) {
-                throw new Error(result.message || 'Failed to create Stripe invoice');
-            }
-
-            return result;
-
-        } catch (error) {
-            console.error('Failed to create Stripe invoice:', error);
-            return {
-                success: false,
-                error: error.message
-            };
-        }
-    }
+    // Stripe invoice creation removed - now using manual processing workflow
 
     /**
      * Set submit button loading state
@@ -461,18 +419,25 @@ class CustomInvoiceRequest {
     }
 
     /**
-     * Handle successful custom invoice request
+     * Handle successful custom invoice request (Simplified - Manual Processing)
      */
     handleCustomInvoiceSuccess(stripeResult, messageId, formData) {
         // Track successful request
         this.trackCustomInvoiceSuccess(formData);
 
         // Show success message
-        this.showSuccessMessage('Custom invoice request submitted successfully! Check your email for the invoice.');
+        this.showSuccessMessage('Custom invoice request submitted successfully! We will send your invoice within 1 business day.');
 
-        // Redirect to invoice status page
+        // Redirect to a simplified thank you page
         setTimeout(() => {
-            window.location.href = `/invoice-status.html?message_id=${messageId}&invoice_id=${stripeResult.invoice_id}&type=custom`;
+            const successUrl = new URL('/thank-you.html', window.location.origin);
+            successUrl.searchParams.set('type', 'custom_invoice_request');
+            successUrl.searchParams.set('message_id', messageId);
+            successUrl.searchParams.set('amount', formData.amount);
+            successUrl.searchParams.set('service_description', formData.serviceDescription);
+            successUrl.searchParams.set('customer_email', formData.customerEmail);
+
+            window.location.href = successUrl.toString();
         }, 2000);
     }
 

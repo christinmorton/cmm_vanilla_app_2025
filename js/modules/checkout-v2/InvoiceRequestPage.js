@@ -217,11 +217,13 @@ class InvoiceRequestPage {
                                placeholder="(Optional) Company name" class="form-control">
                     </div>
 
-                    <div class="form-group full-width">
-                        <label for="projectDescriptionInput">Project Description</label>
-                        <textarea id="projectDescriptionInput" name="projectDescription" rows="3"
-                                  placeholder="(Optional) Brief description of your project needs"
-                                  class="form-control"></textarea>
+                            <div class="col-12 mb-3">
+                                <label for="projectDescriptionInput" class="form-label">Project Description</label>
+                                <textarea id="projectDescriptionInput" name="projectDescription" rows="3"
+                                          placeholder="(Optional) Brief description of your project needs" class="form-control"></textarea>
+                                <small class="form-text text-muted">Help us prepare a more accurate invoice</small>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -232,6 +234,9 @@ class InvoiceRequestPage {
 
         // Add form validation
         this.initializeCustomerDataFormValidation();
+
+        // Update customer display when form data changes
+        this.attachFormChangeListeners();
 
         // Hide existing customer info display
         const customerInfoElements = ['customerName', 'customerEmail', 'customerProject', 'projectDescription', 'projectType', 'submissionDate'];
@@ -250,17 +255,60 @@ class InvoiceRequestPage {
 
         // Real-time validation
         if (nameInput) {
-            nameInput.addEventListener('input', () => this.validateCustomerName(nameInput));
+            nameInput.addEventListener('input', () => {
+                this.validateCustomerName(nameInput);
+                this.updateDepositButtonState();
+            });
             nameInput.addEventListener('blur', () => this.validateCustomerName(nameInput));
         }
 
         if (emailInput) {
-            emailInput.addEventListener('input', () => this.validateCustomerEmail(emailInput));
+            emailInput.addEventListener('input', () => {
+                this.validateCustomerEmail(emailInput);
+                this.updateDepositButtonState();
+            });
             emailInput.addEventListener('blur', () => this.validateCustomerEmail(emailInput));
         }
 
-        // Update deposit selection validation
-        this.updateDepositButtonState();
+        // Initial button state update
+        setTimeout(() => this.updateDepositButtonState(), 100);
+    }
+
+    /**
+     * Attach form change listeners to update customer display
+     */
+    attachFormChangeListeners() {
+        const nameInput = document.getElementById('customerNameInput');
+        const emailInput = document.getElementById('customerEmailInput');
+        const phoneInput = document.getElementById('customerPhone');
+        const companyInput = document.getElementById('customerCompany');
+
+        const updateCustomerDisplay = () => {
+            // Update internal customer data
+            if (nameInput && nameInput.value.trim()) {
+                this.customerData.name = nameInput.value.trim();
+            }
+            if (emailInput && emailInput.value.trim()) {
+                this.customerData.email = emailInput.value.trim();
+            }
+
+            // Update displayed customer information if elements exist
+            const customerNameEl = document.getElementById('customerName');
+            const customerEmailEl = document.getElementById('customerEmail');
+
+            if (customerNameEl) customerNameEl.textContent = this.customerData.name;
+            if (customerEmailEl) customerEmailEl.textContent = this.customerData.email;
+
+            console.log('Customer data updated:', this.customerData);
+        };
+
+        // Add change listeners
+        [nameInput, emailInput, phoneInput, companyInput].forEach(input => {
+            if (input) {
+                input.addEventListener('input', updateCustomerDisplay);
+                input.addEventListener('change', updateCustomerDisplay);
+            }
+        });
     }
 
     /**
@@ -281,12 +329,13 @@ class InvoiceRequestPage {
         }
 
         if (errorMessage) {
-            nameInput.classList.add('form-error');
+            nameInput.classList.add('is-invalid');
+            nameInput.classList.remove('is-valid');
         } else {
-            nameInput.classList.remove('form-error');
+            nameInput.classList.add('is-valid');
+            nameInput.classList.remove('is-invalid');
         }
 
-        this.updateDepositButtonState();
         return !errorMessage;
     }
 
@@ -310,12 +359,13 @@ class InvoiceRequestPage {
         }
 
         if (errorMessage) {
-            emailInput.classList.add('form-error');
+            emailInput.classList.add('is-invalid');
+            emailInput.classList.remove('is-valid');
         } else {
-            emailInput.classList.remove('form-error');
+            emailInput.classList.add('is-valid');
+            emailInput.classList.remove('is-invalid');
         }
 
-        this.updateDepositButtonState();
         return !errorMessage;
     }
 
@@ -330,12 +380,13 @@ class InvoiceRequestPage {
 
         const nameInput = document.getElementById('customerNameInput');
         const emailInput = document.getElementById('customerEmailInput');
-        const requestBtn = document.getElementById('requestInvoice');
+        const requestBtn = document.getElementById('proceedToPayment');
 
         if (!nameInput || !emailInput || !requestBtn) return;
 
-        const isNameValid = this.validateCustomerName(nameInput);
-        const isEmailValid = this.validateCustomerEmail(emailInput);
+        // Check validation without calling validation methods (to avoid recursion)
+        const isNameValid = nameInput.value.trim().length >= 2;
+        const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value.trim());
         const hasDepositSelected = this.selectedDeposit !== null;
 
         const isFormValid = isNameValid && isEmailValid && hasDepositSelected;
@@ -344,7 +395,7 @@ class InvoiceRequestPage {
         if (hasDepositSelected) {
             requestBtn.disabled = !isFormValid;
             if (isFormValid) {
-                requestBtn.querySelector('.btn-text').textContent = `Request $${this.selectedDeposit.amount} Invoice`;
+                requestBtn.querySelector('.btn-text').textContent = `Submit $${this.selectedDeposit.amount} Request`;
             } else {
                 requestBtn.querySelector('.btn-text').textContent = 'Complete Required Fields';
             }
@@ -356,13 +407,19 @@ class InvoiceRequestPage {
      */
     initializeDepositSelection() {
         const depositCards = document.querySelectorAll('.deposit-card');
-        const invoiceProcessing = document.getElementById('invoiceProcessing');
+        const invoiceProcessing = document.getElementById('paymentProcessing');
+
+        console.log('Found', depositCards.length, 'deposit cards');
 
         depositCards.forEach(card => {
             const selectBtn = card.querySelector('.deposit-select-btn');
+            console.log('Deposit card:', card.dataset.amount, 'has button:', !!selectBtn);
+
             if (selectBtn) {
-                selectBtn.addEventListener('click', () => {
+                selectBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
                     const amount = parseInt(card.dataset.amount);
+                    console.log('Deposit selected:', amount);
                     this.selectDeposit(amount);
 
                     // Show invoice processing section
@@ -379,8 +436,9 @@ class InvoiceRequestPage {
         if (changeDepositBtn) {
             changeDepositBtn.addEventListener('click', () => {
                 this.clearDepositSelection();
-                if (invoiceProcessing) {
-                    invoiceProcessing.style.display = 'none';
+                const paymentProcessing = document.getElementById('paymentProcessing');
+                if (paymentProcessing) {
+                    paymentProcessing.style.display = 'none';
                 }
                 const depositOptions = document.getElementById('depositOptions');
                 if (depositOptions) {
@@ -402,7 +460,7 @@ class InvoiceRequestPage {
         // Update UI elements
         const selectedAmountElement = document.getElementById('selectedAmount');
         const selectedTypeElement = document.getElementById('selectedType');
-        const requestBtn = document.getElementById('requestInvoice');
+        const requestBtn = document.getElementById('proceedToPayment');
 
         if (selectedAmountElement) {
             selectedAmountElement.textContent = `$${deposit.amount}`;
@@ -425,7 +483,7 @@ class InvoiceRequestPage {
         if (!customerForm || customerForm.style.display === 'none') {
             if (requestBtn) {
                 requestBtn.disabled = false;
-                requestBtn.querySelector('.btn-text').textContent = `Request $${deposit.amount} Invoice`;
+                requestBtn.querySelector('.btn-text').textContent = `Submit $${deposit.amount} Request`;
             }
         }
 
@@ -439,7 +497,7 @@ class InvoiceRequestPage {
     clearDepositSelection() {
         this.selectedDeposit = null;
 
-        const requestBtn = document.getElementById('requestInvoice');
+        const requestBtn = document.getElementById('proceedToPayment');
         const selectedAmountElement = document.getElementById('selectedAmount');
         const selectedTypeElement = document.getElementById('selectedType');
 
@@ -464,11 +522,16 @@ class InvoiceRequestPage {
      * Initialize invoice request handlers
      */
     initializeInvoiceRequestHandlers() {
-        const requestBtn = document.getElementById('requestInvoice');
+        const requestBtn = document.getElementById('proceedToPayment');
+        console.log('Request button found:', !!requestBtn);
         if (requestBtn) {
-            requestBtn.addEventListener('click', async () => {
+            requestBtn.addEventListener('click', async (e) => {
+                e.preventDefault();
+                console.log('Request button clicked, selected deposit:', this.selectedDeposit);
                 if (this.selectedDeposit) {
                     await this.processInvoiceRequest();
+                } else {
+                    console.log('No deposit selected');
                 }
             });
         }
@@ -501,6 +564,7 @@ class InvoiceRequestPage {
                 type: 'pending_invoice',
                 name: customerSubmissionData.name,
                 email_address: customerSubmissionData.email,
+                email: customerSubmissionData.email, // Also add 'email' field for WordPress compatibility
                 phone: customerSubmissionData.phone || '',
                 subject: `Invoice Request - ${this.selectedDeposit.name}`,
                 simple_message: this.formatDepositMessageWithData(customerSubmissionData),
@@ -510,6 +574,13 @@ class InvoiceRequestPage {
                 invoice_description: this.selectedDeposit.name,
                 invoice_status: 'pending'
             };
+
+            // Log the payload for debugging
+            console.log('Submitting invoice request with data:', invoiceRequestData);
+            console.log('Email fields being sent:', {
+                email: invoiceRequestData.email,
+                email_address: invoiceRequestData.email_address
+            });
 
             // Submit through existing SalesFunnelForm system
             const messageResult = await this.salesFunnel.handleFormSubmission('pending_invoice', null, {
@@ -521,19 +592,21 @@ class InvoiceRequestPage {
                 return;
             }
 
-            // Create Stripe invoice via API
+            // Success - customer data and invoice request saved
+            console.log('Message result:', messageResult);
             const messageId = messageResult.data?.id || messageResult.id;
+            console.log('Extracted message ID:', messageId, 'Type:', typeof messageId);
+
             if (!messageId) {
                 throw new Error('Message ID not found in API response');
             }
 
-            const stripeResult = await this.createStripeInvoice(messageId);
+            // Ensure message ID is a string
+            const messageIdString = String(messageId);
+            console.log('Message ID as string:', messageIdString);
 
-            if (stripeResult.success) {
-                this.handleInvoiceRequestSuccess(stripeResult, messageId);
-            } else {
-                this.handleInvoiceRequestError(stripeResult.error);
-            }
+            // Handle success without automatic Stripe invoice creation
+            this.handleInvoiceRequestSuccess(null, messageIdString);
 
         } catch (error) {
             console.error('Invoice request failed:', error);
@@ -543,52 +616,7 @@ class InvoiceRequestPage {
         }
     }
 
-    /**
-     * Create Stripe invoice via backend API
-     */
-    async createStripeInvoice(messageId) {
-        try {
-            const headers = {
-                'Content-Type': 'application/json'
-            };
-
-            // Add authentication if available
-            if (this.salesFunnel.authManager) {
-                const authHeaders = await this.salesFunnel.authManager.getAuthHeaders();
-                Object.assign(headers, authHeaders);
-            }
-
-            const endpointUrl = this.salesFunnel.authManager
-                ? `${this.salesFunnel.authManager.apiBaseUrl}/cmm/v1/create-stripe-invoice`
-                : '/wp-json/cmm/v1/create-stripe-invoice';
-
-            const response = await fetch(endpointUrl, {
-                method: 'POST',
-                headers: headers,
-                body: JSON.stringify({ message_id: messageId })
-            });
-
-            if (!response.ok) {
-                const errorText = await response.text();
-                throw new Error(`HTTP ${response.status}: ${errorText}`);
-            }
-
-            const result = await response.json();
-
-            if (!result.success) {
-                throw new Error(result.message || 'Failed to create Stripe invoice');
-            }
-
-            return result;
-
-        } catch (error) {
-            console.error('Failed to create Stripe invoice:', error);
-            return {
-                success: false,
-                error: error.message
-            };
-        }
-    }
+    // Stripe invoice creation removed - now using manual processing workflow
 
     /**
      * Format deposit message for simple_message field
@@ -669,7 +697,7 @@ class InvoiceRequestPage {
      * Set invoice request button loading state
      */
     setInvoiceLoadingState(isLoading) {
-        const requestBtn = document.getElementById('requestInvoice');
+        const requestBtn = document.getElementById('proceedToPayment');
         const btnText = requestBtn?.querySelector('.btn-text');
         const spinner = requestBtn?.querySelector('.btn-loading-spinner');
 
@@ -689,18 +717,26 @@ class InvoiceRequestPage {
     }
 
     /**
-     * Handle successful invoice request
+     * Handle successful invoice request (Simplified - Manual Processing)
      */
     handleInvoiceRequestSuccess(stripeResult, messageId) {
         // Track successful request
         this.trackInvoiceRequestSuccess();
 
         // Show success message
-        this.showSuccessMessage('Invoice request submitted successfully! Check your email for the invoice.');
+        this.showSuccessMessage('Deposit request submitted successfully! We will send your invoice within 1 business day.');
 
-        // Redirect to invoice status page
+        // Redirect to a simplified thank you page
         setTimeout(() => {
-            window.location.href = `/invoice-status.html?message_id=${messageId}&invoice_id=${stripeResult.invoice_id}`;
+            const successUrl = new URL('/thank-you.html', window.location.origin);
+            successUrl.searchParams.set('type', 'deposit_request');
+            successUrl.searchParams.set('message_id', messageId);
+            successUrl.searchParams.set('amount', this.selectedDeposit.amount);
+            successUrl.searchParams.set('deposit_type', this.selectedDeposit.type);
+            successUrl.searchParams.set('customer_email', this.getCustomerDataForSubmission().email);
+            successUrl.searchParams.set('service_name', this.selectedDeposit.name);
+
+            window.location.href = successUrl.toString();
         }, 2000);
     }
 
