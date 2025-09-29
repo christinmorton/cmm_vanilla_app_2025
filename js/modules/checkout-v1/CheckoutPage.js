@@ -5,7 +5,7 @@
  */
 
 import { loadStripe } from '@stripe/stripe-js';
-import SalesFunnelForm from './SalesFunnelForm.js';
+import SalesFunnelForm from '../SalesFunnelForm.js';
 
 class CheckoutPage {
     constructor() {

@@ -4,7 +4,7 @@
  * payment details display and invoice creation
  */
 
-import SalesFunnelForm from './SalesFunnelForm.js';
+import SalesFunnelForm from '../SalesFunnelForm.js';
 
 class PaymentSuccess {
     constructor() {

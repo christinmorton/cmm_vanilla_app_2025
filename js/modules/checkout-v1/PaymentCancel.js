@@ -3,7 +3,7 @@
  * Handles payment cancel page analytics and user guidance
  */
 
-import SalesFunnelForm from './SalesFunnelForm.js';
+import SalesFunnelForm from '../SalesFunnelForm.js';
 
 class PaymentCancel {
     constructor() {
