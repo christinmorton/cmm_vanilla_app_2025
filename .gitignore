@@ -31,5 +31,9 @@ notes.txt
 design_system/
 wordpress_form_submission_info.txt
 
+# Production deployment exclusions
+docs/
+# Keep specific essential docs in other branches, but exclude from production
+
 # Ignore headless API files (contains sensitive keys)
-docs/fn-stripe-payment.php
+headless_api/
