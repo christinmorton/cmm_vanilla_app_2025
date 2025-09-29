@@ -146,7 +146,7 @@ class SalesFunnelForm {
     }
 
     /**
-     * Universal message submission handler
+     * Universal message submission handler (Enhanced for V2 Invoice System)
      */
     async createMessageSubmission(formType, formData, userMessage = '') {
         const baseMessage = {
@@ -160,7 +160,7 @@ class SalesFunnelForm {
         if (formData.email && !baseMessage.email_address) {
             baseMessage.email_address = formData.email;
         }
-        
+
         // Also add email field for WordPress validation (if it expects 'email' instead of 'email_address')
         if (baseMessage.email_address) {
             baseMessage.email = baseMessage.email_address;
@@ -173,6 +173,23 @@ class SalesFunnelForm {
         }
         if (formData.chainId) baseMessage.chain_id = formData.chainId;
 
+        // Enhanced: Add invoice-specific fields for pending_invoice type
+        if (formType === 'pending_invoice') {
+            // Add invoice fields to the polymorphic message
+            if (formData.invoice_amount) baseMessage.invoice_amount = formData.invoice_amount;
+            if (formData.invoice_currency) baseMessage.invoice_currency = formData.invoice_currency;
+            if (formData.invoice_description) baseMessage.invoice_description = formData.invoice_description;
+            if (formData.invoice_status) baseMessage.invoice_status = formData.invoice_status;
+
+            // Additional fields for webhook integration
+            baseMessage.stripe_invoice_id = null; // Will be populated by webhook
+            baseMessage.invoice_pdf_url = null; // Will be populated by webhook
+            baseMessage.invoice_hosted_url = null; // Will be populated by webhook
+            baseMessage.payment_deadline = null; // Will be populated by webhook
+            baseMessage.paid_amount = null; // Will be populated by webhook
+            baseMessage.stripe_customer_id = null; // Will be populated by webhook
+        }
+
         // Determine storage strategy based on form complexity
         if (this.isSimpleForm(formType)) {
             baseMessage.simple_message = this.formatAsCSV(formData, userMessage);
@@ -184,14 +201,14 @@ class SalesFunnelForm {
     }
 
     /**
-     * Determine if form should use simple CSV or complex HTML storage
+     * Determine if form should use simple CSV or complex HTML storage (Enhanced for V2)
      */
     isSimpleForm(formType) {
-        return ['lead', 'appointment', 'payment', 'support'].includes(formType);
+        return ['lead', 'appointment', 'payment', 'support', 'pending_invoice'].includes(formType);
     }
 
     /**
-     * Generate appropriate subject line based on form type and data
+     * Generate appropriate subject line based on form type and data (Enhanced for V2)
      */
     generateSubject(formType, formData) {
         const subjects = {
@@ -200,7 +217,8 @@ class SalesFunnelForm {
             'quote': `Quote Request - ${formData.projectType || 'Project'}`,
             'appointment': `${formData.consultationType || 'Consultation'} - ${formData.selectedDate || 'TBD'}`,
             'payment': `Payment Received - ${formData.projectId || 'Project'}`,
-            'support': `Support Request - ${formData.requestType || 'General'}`
+            'support': `Support Request - ${formData.requestType || 'General'}`,
+            'pending_invoice': `Invoice Request - ${formData.invoice_description || 'Service Deposit'}`
         };
 
         return subjects[formType] || `${formType} Submission`;
@@ -291,20 +309,30 @@ class SalesFunnelForm {
     }
 
     /**
-     * Complete form submission workflow
+     * Complete form submission workflow (Enhanced for V2 Invoice System)
      */
     async handleFormSubmission(formType, formElement, options = {}) {
-        const formData = this.extractFormData(formElement);
-        const userMessage = options.userMessage || '';
+        let messageData;
 
-        // Validate required fields
-        if (!this.validateForm(formData, formType)) {
-            return { success: false, error: 'Please fill in all required fields' };
+        // Check if pre-built message data is provided (for invoice workflows)
+        if (options.messageData) {
+            // Use the provided message data (for pending_invoice type)
+            messageData = options.messageData;
+            console.log('Using pre-built message data for', formType, messageData);
+        } else {
+            // Extract and process form data normally
+            const formData = this.extractFormData(formElement);
+            const userMessage = options.userMessage || '';
+
+            // Validate required fields
+            if (!this.validateForm(formData, formType)) {
+                return { success: false, error: 'Please fill in all required fields' };
+            }
+
+            // Create message submission
+            messageData = await this.createMessageSubmission(formType, formData, userMessage);
         }
 
-        // Create message submission
-        const messageData = await this.createMessageSubmission(formType, formData, userMessage);
-        
         // Submit to API
         const result = await this.submitToAPI(messageData);
 
@@ -343,7 +371,7 @@ class SalesFunnelForm {
     }
 
     /**
-     * Basic form validation
+     * Basic form validation (Enhanced for V2 Invoice System)
      */
     validateForm(formData, formType) {
         // Required fields for all forms
@@ -355,11 +383,12 @@ class SalesFunnelForm {
             'quote': ['projectType', 'budgetRange', 'timeline'],
             'consultation': ['projectType'],
             'appointment': ['consultationType', 'selectedDate'],
-            'payment': ['projectId', 'totalCost']
+            'payment': ['projectId', 'totalCost'],
+            'pending_invoice': ['invoice_amount', 'invoice_description']
         };
 
         const required = typeRequirements[formType] || [];
-        return required.every(field => formData[field] && formData[field].trim());
+        return required.every(field => formData[field] && formData[field].toString().trim());
     }
 
     /**

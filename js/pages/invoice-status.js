@@ -1,8 +1,8 @@
-console.log('🧾 CHECKOUT-CUSTOM.JS LOADED - Custom payment page specific functionality');
+console.log('📊 INVOICE-STATUS.JS LOADED - Invoice status tracking page specific functionality');
 
-// Import page-specific functionality for checkout-custom.html
+// Import page-specific functionality for invoice-status.html
 import DesignGridWindow from '../modules/DesignGridTypes/index.js';
-import CustomInvoiceRequest from '../modules/checkout-v2/CustomInvoiceRequest.js';
+import InvoiceStatusPage from '../modules/checkout-v2/InvoiceStatusPage.js';
 
 // Wait for core components to be ready
 const waitForCore = () => {
@@ -22,16 +22,16 @@ const waitForCore = () => {
   });
 };
 
-// Initialize custom checkout page functionality
-const initCustomCheckoutPage = async () => {
-  console.log('Initializing custom checkout page functionality...');
+// Initialize invoice status page functionality
+const initInvoiceStatusPage = async () => {
+  console.log('Initializing invoice status page functionality...');
 
   // Wait for core components
   const { preloader } = await waitForCore();
 
-  // Initialize custom invoice request functionality
-  // CustomInvoiceRequest module handles its own initialization
-  // Note: CustomInvoiceRequest.js is already imported and will initialize automatically
+  // Initialize invoice status functionality
+  // InvoiceStatusPage module handles its own initialization
+  // Note: InvoiceStatusPage.js is already imported and will initialize automatically
 
   // Get DOM elements for canvas integration
   const bgHost = document.getElementById('bgHost');
@@ -57,10 +57,10 @@ const initCustomCheckoutPage = async () => {
   });
 
   // Get template configuration from HTML
-  const template = document.body.dataset.template; // "background"
+  const template = document.body.dataset.template; // "background" | "inline" | "hybrid"
   console.log('Template:', template, 'bgHost found:', !!bgHost);
 
-  // Configure canvas based on template (checkout-custom.html uses "background" template)
+  // Configure canvas based on template (invoice-status.html uses "background" template)
   if (template === 'background') {
     console.log('Mounting canvas to bgHost');
     cm.setMode('background');
@@ -77,16 +77,15 @@ const initCustomCheckoutPage = async () => {
     cm.mountTo(bgHost);
   }
 
-  // Register page transition handler (minimal for custom checkout page)
+  // Register page transition handler
   window.pageTransitionHandlers = window.pageTransitionHandlers || [];
   window.pageTransitionHandlers.push(() => {
-    console.log('Custom invoice request page transition handler');
-    // Custom invoice request page has minimal transition requirements
-    // CustomInvoiceRequest module handles its own state management
+    console.log('Invoice status page transition handler');
+    // InvoiceStatusPage module handles its own state management
   });
 
-  console.log('✅ Custom checkout page functionality initialized');
+  console.log('✅ Invoice status page functionality initialized');
 };
 
 // Initialize when script loads
-initCustomCheckoutPage().catch(console.error);
+initInvoiceStatusPage().catch(console.error);

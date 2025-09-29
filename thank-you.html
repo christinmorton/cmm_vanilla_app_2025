@@ -283,6 +283,18 @@
                     title: `Consultation Deposit Received! <span class="highlight">Thank You!</span>`,
                     message: `Your consultation deposit of $50 has been received. This will be fully credited toward your final project cost. I\'ll reach out within 24 hours to schedule our detailed consultation.`
                 },
+                deposit_request: {
+                    title: `Deposit Request Submitted! <span class="highlight">Thank You!</span>`,
+                    message: amount
+                        ? `Your $${amount} deposit request has been received. I will send you a professional invoice within 1 business day. Once paid, your project timeline will be secured.`
+                        : 'Your deposit request has been received. I will send you a professional invoice within 1 business day. Once paid, your project timeline will be secured.'
+                },
+                custom_invoice_request: {
+                    title: `Custom Invoice Request Submitted! <span class="highlight">Thank You!</span>`,
+                    message: amount
+                        ? `Your custom service request for $${amount} has been received. I will send you a detailed invoice within 1 business day and follow up with project planning.`
+                        : 'Your custom service request has been received. I will send you a detailed invoice within 1 business day and follow up with project planning.'
+                },
                 general: {
                     title: `Thank You for Your <span class="highlight">Interest!</span>`,
                     message: `Your message has been received successfully. I\'ll get back to you within 24 hours with a personalized response about your project.`

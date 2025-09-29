@@ -261,9 +261,13 @@
         // Payment Success Page Handler
         document.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
+
+            // Handle both V1 (session-based) and V2 (invoice-based) parameters
             const sessionId = urlParams.get('session_id');
+            const invoiceId = urlParams.get('invoice_id');
+            const messageId = urlParams.get('message_id');
             const amount = urlParams.get('amount');
-            const paymentId = urlParams.get('payment_intent_id');
+            const paymentId = urlParams.get('payment_intent_id') || invoiceId; // Use invoice_id if no payment_intent_id
 
             // Get elements to update
             const titleElement = document.getElementById('thankYouTitle');
@@ -291,22 +295,41 @@
                 paymentIdElement.textContent = paymentId.substring(0, 20) + '...';
             }
 
-            // Handle receipt link if session_id is available
+            // Handle receipt link
             if (sessionId && receiptLink) {
+                // V1 Checkout Session receipt
                 receiptLink.href = `https://checkout.stripe.com/pay/cs_${sessionId}#result`;
+            } else if (invoiceId && receiptLink) {
+                // V2 Invoice receipt - link to Stripe dashboard
+                const isDevelopment = window.location.hostname.includes('localhost') ||
+                                     window.location.hostname.includes('.local');
+                const dashboardBase = isDevelopment
+                    ? 'https://dashboard.stripe.com/test'
+                    : 'https://dashboard.stripe.com';
+                receiptLink.href = `${dashboardBase}/invoices/${invoiceId}`;
             }
 
             // Track the payment success page visit
             if (window.analyticsTracker) {
                 window.analyticsTracker.trackEvent('payment_success_page_visit', {
-                    session_id: sessionId,
+                    session_id: sessionId || null,
+                    invoice_id: invoiceId || null,
+                    message_id: messageId || null,
                     amount: amount || null,
                     payment_id: paymentId || null,
-                    page: 'payment-success'
+                    page: 'payment-success',
+                    version: invoiceId ? 'v2-invoice' : 'v1-session'
                 });
             }
 
-            console.log('Payment success page loaded with parameters:', { sessionId, amount, paymentId });
+            console.log('Payment success page loaded with parameters:', {
+                sessionId,
+                invoiceId,
+                messageId,
+                amount,
+                paymentId,
+                version: invoiceId ? 'v2-invoice' : 'v1-session'
+            });
         });
     </script>
 

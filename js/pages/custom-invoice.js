@@ -1,6 +1,6 @@
-console.log('🧾 CHECKOUT-CUSTOM.JS LOADED - Custom payment page specific functionality');
+console.log('🧾 CUSTOM-INVOICE.JS LOADED - Custom invoice request page specific functionality');
 
-// Import page-specific functionality for checkout-custom.html
+// Import page-specific functionality for custom-invoice.html
 import DesignGridWindow from '../modules/DesignGridTypes/index.js';
 import CustomInvoiceRequest from '../modules/checkout-v2/CustomInvoiceRequest.js';
 
@@ -22,9 +22,9 @@ const waitForCore = () => {
   });
 };
 
-// Initialize custom checkout page functionality
-const initCustomCheckoutPage = async () => {
-  console.log('Initializing custom checkout page functionality...');
+// Initialize custom invoice request page functionality
+const initCustomInvoicePage = async () => {
+  console.log('Initializing custom invoice request page functionality...');
 
   // Wait for core components
   const { preloader } = await waitForCore();
@@ -57,10 +57,10 @@ const initCustomCheckoutPage = async () => {
   });
 
   // Get template configuration from HTML
-  const template = document.body.dataset.template; // "background"
+  const template = document.body.dataset.template; // "background" | "inline" | "hybrid"
   console.log('Template:', template, 'bgHost found:', !!bgHost);
 
-  // Configure canvas based on template (checkout-custom.html uses "background" template)
+  // Configure canvas based on template (custom-invoice.html uses "background" template)
   if (template === 'background') {
     console.log('Mounting canvas to bgHost');
     cm.setMode('background');
@@ -77,16 +77,15 @@ const initCustomCheckoutPage = async () => {
     cm.mountTo(bgHost);
   }
 
-  // Register page transition handler (minimal for custom checkout page)
+  // Register page transition handler
   window.pageTransitionHandlers = window.pageTransitionHandlers || [];
   window.pageTransitionHandlers.push(() => {
     console.log('Custom invoice request page transition handler');
-    // Custom invoice request page has minimal transition requirements
     // CustomInvoiceRequest module handles its own state management
   });
 
-  console.log('✅ Custom checkout page functionality initialized');
+  console.log('✅ Custom invoice request page functionality initialized');
 };
 
 // Initialize when script loads
-initCustomCheckoutPage().catch(console.error);
+initCustomInvoicePage().catch(console.error);

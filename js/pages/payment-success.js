@@ -2,7 +2,7 @@ console.log('💳 PAYMENT-SUCCESS.JS LOADED - Payment success page specific func
 
 // Import page-specific functionality for payment-success.html
 import DesignGridWindow from '../modules/DesignGridTypes/index.js';
-import PaymentSuccess from '../modules/PaymentSuccess.js';
+import InvoiceSuccessPage from '../modules/checkout-v2/InvoiceSuccessPage.js';
 
 // Wait for core components to be ready
 const waitForCore = () => {
@@ -29,9 +29,9 @@ const initPaymentSuccessPage = async () => {
   // Wait for core components
   const { preloader } = await waitForCore();
 
-  // Initialize payment success functionality (existing module)
-  // PaymentSuccess module handles its own initialization
-  // Note: PaymentSuccess.js is already imported and will initialize automatically
+  // Initialize invoice success functionality (V2 system)
+  // InvoiceSuccessPage module handles its own initialization
+  // Note: InvoiceSuccessPage.js is already imported and will initialize automatically
 
   // Get DOM elements for canvas integration
   const bgHost = document.getElementById('bgHost');
@@ -80,8 +80,8 @@ const initPaymentSuccessPage = async () => {
   // Register page transition handler
   window.pageTransitionHandlers = window.pageTransitionHandlers || [];
   window.pageTransitionHandlers.push(() => {
-    console.log('Payment success page transition handler');
-    // PaymentSuccess module handles its own state management
+    console.log('Invoice success page transition handler');
+    // InvoiceSuccessPage module handles its own state management
   });
 
   console.log('✅ Payment success page functionality initialized');
