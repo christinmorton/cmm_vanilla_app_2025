@@ -3,8 +3,6 @@
  * Handles mobile menu toggle, scroll effects, and active states
  */
 
-import logoImage from '../../images/logo_2.png'
-
 class HeaderNavigation {
   constructor() {
     this.header = document.querySelector('.header-nav');
@@ -12,22 +10,15 @@ class HeaderNavigation {
     this.mobileMenu = document.querySelector('.mobile-menu');
     this.mobileClose = document.querySelector('.mobile-menu-close');
     this.navLinks = document.querySelectorAll('.nav-link');
-    this.logo = document.getElementById('logo-img');
-    this.siteMenu = document.getElementById('site-menu');
-    
+
     this.isMenuOpen = false;
     this.scrollThreshold = 50;
-    
+
     this.init();
   }
-  
+
   init() {
     if (!this.header) return;
-
-    // Set logo image if element exists
-    if (this.logo) {
-      this.logo.src = logoImage;
-    }
 
     this.bindEvents();
     this.updateActiveLink();
