@@ -5,7 +5,7 @@
  */
 
 import SalesFunnelForm from '../SalesFunnelForm.js';
-import { API_ENDPOINTS } from '../config/api-config.js';
+import { API_ENDPOINTS } from '../../config/api-config.js';
 
 class CheckoutPageFree {
     constructor() {
