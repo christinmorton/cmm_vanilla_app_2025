@@ -4,7 +4,7 @@
  * lead collection, form processing, and analytics tracking without payment
  */
 
-import SalesFunnelForm from './SalesFunnelForm.js';
+import SalesFunnelForm from '../SalesFunnelForm.js';
 import { API_ENDPOINTS } from '../config/api-config.js';
 
 class CheckoutPageFree {
