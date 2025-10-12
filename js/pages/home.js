@@ -5,6 +5,8 @@ import DesignGridWindow from '../modules/DesignGridTypes/index.js';
 import CarouselManager from '../modules/CarouselManager.js';
 import { gsap } from 'gsap';
 
+import heroImage from '../../images/my_profile_pic_2025_round-out-effect_transparent_2.png'
+
 // Wait for core components to be ready
 const waitForCore = () => {
   return new Promise((resolve) => {
@@ -29,6 +31,8 @@ const initHomePage = async () => {
 
   // Wait for core components
   const { preloader } = await waitForCore();
+
+  let heroEl =  document.getElementById('hero-image');
 
   // Initialize carousel manager (needed for hero carousel)
   const carouselManager = new CarouselManager();
@@ -109,6 +113,8 @@ const initHomePage = async () => {
     console.log('Home page transition handler');
     carouselManager.reinitializeAfterTransition();
   });
+
+  heroEl.src = heroImage;
 
   console.log('✅ Home page functionality initialized');
 };
