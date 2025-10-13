@@ -67,7 +67,7 @@ class DesignGridWindow {
         // Position the red cube out of the way so it doesn't interfere with text
         this.mesh.position.set(0, 0, -5);
 
-        this.scene.add(this.mesh);
+        // this.scene.add(this.mesh);
 
         // Position camera to look directly at the text position (Z = -3)
         this.camera.position.set(0, 0, 0);
