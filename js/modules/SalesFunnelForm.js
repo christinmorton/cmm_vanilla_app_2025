@@ -318,7 +318,6 @@ class SalesFunnelForm {
         }
 
         let attachmentIds = [];
-        let uploadWarning = null;
 
         // Step 1: Upload files FIRST (if provided)
         if (options.files && options.files.length > 0) {
@@ -346,14 +345,23 @@ class SalesFunnelForm {
                         this.showNotification(`File upload failed: ${uploadResult.message}`, 'error');
                     }
 
-                    uploadWarning = `Files could not be uploaded: ${uploadResult.errors ? uploadResult.errors.join(', ') : uploadResult.message}`;
-                    // Continue with form submission without attachments
+                    // BLOCK form submission - return error so user can fix validation issues
+                    return {
+                        success: false,
+                        error: 'File validation failed. Please review the errors and try again.',
+                        validationErrors: uploadResult.errors || [uploadResult.message]
+                    };
                 }
             } catch (error) {
                 console.error('File upload error:', error);
                 this.showNotification('Files could not be uploaded due to a network error.', 'error');
-                uploadWarning = 'Files could not be uploaded due to a network error.';
-                // Continue with form submission without attachments
+
+                // BLOCK form submission on network error
+                return {
+                    success: false,
+                    error: 'Network error during file upload. Please check your connection and try again.',
+                    networkError: true
+                };
             }
         }
 
@@ -371,11 +379,6 @@ class SalesFunnelForm {
         const result = await this.submitToAPI(messageData);
 
         if (result.success) {
-            // Show upload warning if files failed but message succeeded
-            if (uploadWarning) {
-                this.showNotification(uploadWarning, 'warning');
-            }
-
             // Handle success (redirect, show thank you, etc.)
             this.handleSubmissionSuccess(formType, result.data);
         } else {
