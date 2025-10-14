@@ -183,10 +183,10 @@ class SalesFunnelForm {
 
         // Add optional schema fields if present
         if (formData.phone) baseMessage.phone = formData.phone;
-        if (formData.files && formData.files.length > 0) {
-            baseMessage.media_content = formData.files;
-        }
         if (formData.chainId) baseMessage.chain_id = formData.chainId;
+
+        // NOTE: media_content is NOT set here - it's set after file upload
+        // in handleFormSubmission() with attachment IDs, not File objects
 
         // Determine storage strategy based on form complexity
         if (this.isSimpleForm(formType)) {
@@ -336,11 +336,22 @@ class SalesFunnelForm {
                     console.log(`File upload successful. Attachment IDs:`, attachmentIds);
                 } else {
                     console.warn('File upload failed:', uploadResult.message);
+
+                    // Show validation errors to user
+                    if (uploadResult.errors && uploadResult.errors.length > 0) {
+                        uploadResult.errors.forEach(error => {
+                            this.showNotification(error, 'error');
+                        });
+                    } else {
+                        this.showNotification(`File upload failed: ${uploadResult.message}`, 'error');
+                    }
+
                     uploadWarning = `Files could not be uploaded: ${uploadResult.errors ? uploadResult.errors.join(', ') : uploadResult.message}`;
                     // Continue with form submission without attachments
                 }
             } catch (error) {
                 console.error('File upload error:', error);
+                this.showNotification('Files could not be uploaded due to a network error.', 'error');
                 uploadWarning = 'Files could not be uploaded due to a network error.';
                 // Continue with form submission without attachments
             }
@@ -381,7 +392,15 @@ class SalesFunnelForm {
         const formData = {};
         const formDataObj = new FormData(formElement);
 
+        // File input names to exclude (handled separately via MediaUploadManager)
+        const fileInputNames = ['designFiles', 'brandFiles', 'documentFiles', 'projectDocuments', 'files'];
+
         for (let [key, value] of formDataObj.entries()) {
+            // Skip file inputs - they're handled separately via uploadedFiles
+            if (fileInputNames.includes(key)) {
+                continue;
+            }
+
             if (formData[key]) {
                 // Handle multiple values (checkboxes, etc.)
                 if (Array.isArray(formData[key])) {
