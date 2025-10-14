@@ -361,9 +361,10 @@ class SalesFunnelForm {
         const messageData = await this.createMessageSubmission(formType, formData, userMessage);
 
         // Add attachment IDs to message if upload was successful
+        // Format for JetEngine repeater field: [{ media: 501 }, { media: 502 }, ...]
         if (attachmentIds.length > 0) {
-            messageData.media_content = attachmentIds;
-            console.log('Added attachment IDs to message:', attachmentIds);
+            messageData.media_content = attachmentIds.map(id => ({ media: id }));
+            console.log('Added attachment IDs to message (repeater format):', messageData.media_content);
         }
 
         // Step 3: Submit message to API

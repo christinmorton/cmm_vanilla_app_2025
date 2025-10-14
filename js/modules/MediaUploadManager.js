@@ -35,6 +35,9 @@ class MediaUploadManager {
                 maxTotalSize: 100 * 1024 * 1024, // 100MB
                 maxFiles: 5,
                 allowedTypes: [
+                    // Images (for design mockups, logos, etc.)
+                    'image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp',
+                    'image/svg+xml', 'image/bmp', 'image/tiff',
                     // PDF
                     'application/pdf',
                     // Word
