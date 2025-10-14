@@ -51,6 +51,9 @@ export const API_ENDPOINTS = {
   // Custom message submission endpoint (custom PHP endpoint)
   SUBMIT_MESSAGE: `${config.apiBaseUrl}/cmm/v1/submit-message`,
 
+  // Media upload endpoint (custom PHP endpoint)
+  MEDIA_UPLOAD: `${config.apiBaseUrl}/cmm/v2/media/upload`,
+
   // JetEngine Custom Content Type endpoints
   ANALYTICS_EVENT: `${config.apiBaseUrl}/jet-cct/analytics_event`,
   APPOINTMENT: `${config.apiBaseUrl}/jet-cct/appointment`,

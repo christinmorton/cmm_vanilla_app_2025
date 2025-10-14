@@ -4,6 +4,7 @@
  */
 
 import AppPasswordManager from './AppPasswordManager.js';
+import MediaUploadManager from './MediaUploadManager.js';
 import { API_ENDPOINTS } from '../config/api-config.js';
 
 class SalesFunnelForm {
@@ -12,9 +13,23 @@ class SalesFunnelForm {
         this.apiEndpoint = options.apiEndpoint || API_ENDPOINTS.SUBMIT_MESSAGE;
         this.analyticsTracker = options.analyticsTracker || null;
         this.authManager = null;
+        this.mediaManager = null;
 
-        // Initialize authentication
+        // Initialize authentication and media upload
         this.initializeAuth();
+        this.initializeMediaUpload();
+    }
+
+    /**
+     * Initialize media upload manager
+     */
+    async initializeMediaUpload() {
+        try {
+            this.mediaManager = new MediaUploadManager();
+            console.log('MediaUploadManager initialized for SalesFunnelForm');
+        } catch (error) {
+            console.warn('MediaUploadManager initialization failed:', error.message);
+        }
     }
 
     /**
@@ -291,7 +306,7 @@ class SalesFunnelForm {
     }
 
     /**
-     * Complete form submission workflow
+     * Complete form submission workflow with file upload support
      */
     async handleFormSubmission(formType, formElement, options = {}) {
         const formData = this.extractFormData(formElement);
@@ -302,13 +317,53 @@ class SalesFunnelForm {
             return { success: false, error: 'Please fill in all required fields' };
         }
 
-        // Create message submission
+        let attachmentIds = [];
+        let uploadWarning = null;
+
+        // Step 1: Upload files FIRST (if provided)
+        if (options.files && options.files.length > 0) {
+            console.log(`Uploading ${options.files.length} file(s) for ${formType} message...`);
+
+            try {
+                const uploadResult = await this.mediaManager.uploadForMessage(
+                    options.files,
+                    formType,
+                    'document' // Use document validation rules for business forms
+                );
+
+                if (uploadResult.success) {
+                    attachmentIds = uploadResult.data.attachments || [];
+                    console.log(`File upload successful. Attachment IDs:`, attachmentIds);
+                } else {
+                    console.warn('File upload failed:', uploadResult.message);
+                    uploadWarning = `Files could not be uploaded: ${uploadResult.errors ? uploadResult.errors.join(', ') : uploadResult.message}`;
+                    // Continue with form submission without attachments
+                }
+            } catch (error) {
+                console.error('File upload error:', error);
+                uploadWarning = 'Files could not be uploaded due to a network error.';
+                // Continue with form submission without attachments
+            }
+        }
+
+        // Step 2: Create message submission with attachment IDs
         const messageData = await this.createMessageSubmission(formType, formData, userMessage);
-        
-        // Submit to API
+
+        // Add attachment IDs to message if upload was successful
+        if (attachmentIds.length > 0) {
+            messageData.media_content = attachmentIds;
+            console.log('Added attachment IDs to message:', attachmentIds);
+        }
+
+        // Step 3: Submit message to API
         const result = await this.submitToAPI(messageData);
 
         if (result.success) {
+            // Show upload warning if files failed but message succeeded
+            if (uploadWarning) {
+                this.showNotification(uploadWarning, 'warning');
+            }
+
             // Handle success (redirect, show thank you, etc.)
             this.handleSubmissionSuccess(formType, result.data);
         } else {
@@ -549,10 +604,11 @@ class SalesFunnelForm {
         // Add to page
         document.body.appendChild(notification);
 
-        // Auto remove after 5 seconds
+        // Auto remove after duration (longer for warnings)
+        const duration = type === 'warning' ? 8000 : 5000;
         setTimeout(() => {
             notification.remove();
-        }, 5000);
+        }, duration);
     }
 
     /**

@@ -359,16 +359,17 @@ class ProjectDiscovery {
 
             // Extract form data
             const formData = this.extractFormData(form);
-            
-            // Add uploaded files to form data (await async file processing)
-            formData.files = await this.getAllUploadedFiles();
 
             // Get rich text content
             const editorContent = document.getElementById('projectDescription').innerHTML;
-            
+
+            // Collect all uploaded File objects (no base64 conversion)
+            const allFiles = this.getAllFilesForUpload();
+
             // Submit using sales funnel with 'project_planning' type (HTML storage)
             const result = await this.salesFunnel.handleFormSubmission('project_planning', form, {
-                userMessage: editorContent
+                userMessage: editorContent,
+                files: allFiles  // Pass File objects directly
             });
 
             if (result.success) {
@@ -456,44 +457,18 @@ class ProjectDiscovery {
     }
 
     /**
-     * Get all uploaded files converted to base64
+     * Get all uploaded File objects for upload to WordPress media API
+     * Returns an array of raw File objects (no base64 conversion)
      */
-    async getAllUploadedFiles() {
+    getAllFilesForUpload() {
         const files = [];
-        
-        for (const [type, fileArray] of Object.entries(this.uploadedFiles)) {
-            for (const file of fileArray) {
-                try {
-                    // Convert file to base64 for JSON serialization
-                    const base64Data = await this.fileToBase64(file);
-                    
-                    files.push({
-                        name: file.name,
-                        size: file.size,
-                        type: file.type,
-                        category: type,
-                        lastModified: file.lastModified,
-                        data: base64Data
-                    });
-                } catch (error) {
-                    console.error('Error converting file to base64:', file.name, error);
-                }
-            }
-        }
+
+        // Collect all File objects from each category
+        Object.values(this.uploadedFiles).forEach(fileArray => {
+            files.push(...fileArray);
+        });
 
         return files;
-    }
-
-    /**
-     * Convert file to base64 string
-     */
-    fileToBase64(file) {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = error => reject(error);
-        });
     }
 
     /**
@@ -566,7 +541,7 @@ class ProjectDiscovery {
         if (window.analyticsTracker) {
             window.analyticsTracker.trackEvent('discovery_submission', {
                 status: status,
-                files_uploaded: this.getAllUploadedFiles().length,
+                files_uploaded: this.getAllFilesForUpload().length,
                 form_type: 'project_discovery'
             });
         }
