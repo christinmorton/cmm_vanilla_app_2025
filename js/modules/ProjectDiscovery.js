@@ -372,10 +372,15 @@ class ProjectDiscovery {
                 files: allFiles  // Pass File objects directly
             });
 
-            if (result.success) {
+            // Check for explicit success flag
+            if (result && result.success === true) {
+                console.log('✅ Form submission successful, redirecting...');
                 this.handleSubmissionSuccess(result);
             } else {
-                this.handleSubmissionError(result.error);
+                console.log('❌ Form submission failed:', result?.error || 'Unknown error');
+                this.handleSubmissionError(result?.error || 'Form submission failed');
+                // EXPLICITLY return to prevent any further execution
+                return;
             }
 
         } catch (error) {

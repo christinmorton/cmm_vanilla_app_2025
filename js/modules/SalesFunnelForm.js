@@ -335,6 +335,7 @@ class SalesFunnelForm {
                     console.log(`File upload successful. Attachment IDs:`, attachmentIds);
                 } else {
                     console.warn('File upload failed:', uploadResult.message);
+                    console.log('🚫 BLOCKING FORM SUBMISSION - Validation failed');
 
                     // Show validation errors to user
                     if (uploadResult.errors && uploadResult.errors.length > 0) {
@@ -346,6 +347,7 @@ class SalesFunnelForm {
                     }
 
                     // BLOCK form submission - return error so user can fix validation issues
+                    console.log('🚫 Returning error result, message will NOT be created');
                     return {
                         success: false,
                         error: 'File validation failed. Please review the errors and try again.',
