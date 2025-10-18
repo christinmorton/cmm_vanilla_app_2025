@@ -266,6 +266,9 @@ class ProjectDiscovery {
 
         // Update upload area appearance
         uploadArea.classList.add('has-files');
+
+        // Validate all files after adding
+        this.validateAllFiles();
     }
 
     /**
@@ -279,15 +282,20 @@ class ProjectDiscovery {
             fileArray.splice(index, 1);
         }
 
+        // Get upload area BEFORE removing element from DOM
+        const uploadArea = fileElement.closest('.file-upload-area');
+        const fileList = uploadArea ? uploadArea.querySelector('.file-list') : null;
+
         // Remove from display
         fileElement.remove();
 
         // Update upload area appearance
-        const uploadArea = fileElement.closest('.file-upload-area');
-        const fileList = uploadArea.querySelector('.file-list');
-        if (fileList && fileList.children.length === 0) {
+        if (fileList && fileList.children.length === 0 && uploadArea) {
             uploadArea.classList.remove('has-files');
         }
+
+        // Re-validate all files after removal
+        this.validateAllFiles();
     }
 
     /**
@@ -324,6 +332,155 @@ class ProjectDiscovery {
     }
 
     /**
+     * Validate all uploaded files using MediaUploadManager rules
+     * Shows persistent inline error messages
+     */
+    validateAllFiles() {
+        const allFiles = this.getAllFilesForUpload();
+
+        // Clear any existing validation errors first
+        this.clearValidationErrors();
+
+        // If no files, nothing to validate
+        if (allFiles.length === 0) {
+            return { valid: true, errors: [] };
+        }
+
+        // Use the same validation rules as MediaUploadManager (document type)
+        const rules = {
+            maxFileSize: 50 * 1024 * 1024, // 50MB
+            maxTotalSize: 100 * 1024 * 1024, // 100MB
+            maxFiles: 5,
+            allowedTypes: [
+                'image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp',
+                'image/svg+xml', 'image/bmp', 'image/tiff',
+                'application/pdf',
+                'application/msword',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                'application/vnd.ms-excel',
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                'application/vnd.ms-powerpoint',
+                'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+                'text/plain', 'text/rtf', 'application/rtf', 'text/csv',
+                'application/vnd.oasis.opendocument.text',
+                'application/vnd.oasis.opendocument.spreadsheet',
+                'application/vnd.oasis.opendocument.presentation'
+            ]
+        };
+
+        const errors = [];
+
+        // Check file count
+        if (allFiles.length > rules.maxFiles) {
+            errors.push({
+                type: 'count',
+                message: `Maximum ${rules.maxFiles} files allowed. You have ${allFiles.length} files.`,
+                fix: `Please remove ${allFiles.length - rules.maxFiles} file(s) to continue.`
+            });
+        }
+
+        // Check each file
+        let totalSize = 0;
+        allFiles.forEach((file) => {
+            // Check file type
+            if (!rules.allowedTypes.includes(file.type)) {
+                errors.push({
+                    type: 'type',
+                    message: `File "${file.name}": Invalid file type (${file.type || 'unknown'})`,
+                    fix: 'Allowed types: PDF, Word, Excel, PowerPoint, Images, and text files.'
+                });
+            }
+
+            // Check file size
+            if (file.size > rules.maxFileSize) {
+                const maxSizeMB = (rules.maxFileSize / (1024 * 1024)).toFixed(0);
+                const fileSizeMB = (file.size / (1024 * 1024)).toFixed(1);
+                errors.push({
+                    type: 'size',
+                    message: `File "${file.name}": Exceeds ${maxSizeMB}MB limit (${fileSizeMB}MB)`,
+                    fix: `Please compress or split this file, or remove it.`
+                });
+            }
+
+            totalSize += file.size;
+        });
+
+        // Check total size
+        if (totalSize > rules.maxTotalSize) {
+            const maxTotalMB = (rules.maxTotalSize / (1024 * 1024)).toFixed(0);
+            const totalSizeMB = (totalSize / (1024 * 1024)).toFixed(1);
+            errors.push({
+                type: 'total',
+                message: `Total upload size exceeds ${maxTotalMB}MB limit (${totalSizeMB}MB total)`,
+                fix: 'Please remove some files or compress them before uploading.'
+            });
+        }
+
+        // Show errors if any
+        if (errors.length > 0) {
+            this.showValidationErrors(errors);
+            return { valid: false, errors };
+        }
+
+        return { valid: true, errors: [] };
+    }
+
+    /**
+     * Show persistent validation errors in the form
+     */
+    showValidationErrors(errors) {
+        // Find the file upload section
+        const uploadSection = document.querySelector('.file-upload-section');
+        if (!uploadSection) return;
+
+        // Remove any existing validation error container
+        this.clearValidationErrors();
+
+        // Create validation error container
+        const errorContainer = document.createElement('div');
+        errorContainer.className = 'validation-errors';
+        errorContainer.innerHTML = `
+            <div class="validation-error-title">
+                <span class="error-icon">⚠️</span>
+                <span>File Validation Issues</span>
+            </div>
+            <ul class="validation-error-list">
+                ${errors.map(error => `
+                    <li class="validation-error-item">${error.message}</li>
+                `).join('')}
+            </ul>
+            <div class="validation-error-fix">
+                <strong>How to fix:</strong>
+                <p>${errors[0].fix}</p>
+            </div>
+        `;
+
+        // Insert at the top of the upload section
+        uploadSection.insertBefore(errorContainer, uploadSection.firstChild);
+
+        // Add error state to upload areas
+        document.querySelectorAll('.file-upload-area').forEach(area => {
+            area.classList.add('has-validation-errors');
+        });
+
+        // Scroll to errors
+        errorContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    /**
+     * Clear all validation errors
+     */
+    clearValidationErrors() {
+        // Remove validation error containers
+        document.querySelectorAll('.validation-errors').forEach(el => el.remove());
+
+        // Remove error state from upload areas
+        document.querySelectorAll('.file-upload-area').forEach(area => {
+            area.classList.remove('has-validation-errors');
+        });
+    }
+
+    /**
      * Initialize form submission handling
      */
     initializeFormSubmission() {
@@ -350,7 +507,7 @@ class ProjectDiscovery {
         try {
             // Validate form
             if (!this.validateDiscoveryForm(form)) {
-                this.showValidationErrors();
+                this.showFormFieldValidationErrors();
                 return;
             }
 
@@ -417,9 +574,9 @@ class ProjectDiscovery {
     }
 
     /**
-     * Show validation error messages
+     * Show form field validation error messages (for required fields)
      */
-    showValidationErrors() {
+    showFormFieldValidationErrors() {
         const firstError = document.querySelector('.form-error, .editor-error');
         if (firstError) {
             firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
