@@ -1124,7 +1124,66 @@ async function quickUploadAndSubmit(files, messageData) {
 
 ---
 
-**Document Version**: 1.0
-**Last Updated**: 2025-10-12
+## Future Enhancements
+
+### Automatic media_content Field Population
+
+**Current Status**: Quick fix implemented - attachment IDs stored in `simple_message` field
+**Implementation Date**: 2025-10-18
+**Priority**: Medium
+
+#### Current Workflow (Quick Fix)
+1. Files upload successfully to WordPress media library
+2. WordPress returns attachment IDs: `[501, 502, 503]`
+3. IDs are stored in `simple_message` as: `"Attachment IDs: 501, 502, 503"`
+4. Admin manually copies IDs to `media_content` field in WordPress admin panel
+
+#### Desired Future State
+1. Files upload successfully to WordPress media library
+2. WordPress returns attachment IDs: `[501, 502, 503]`
+3. IDs are **automatically** stored in `media_content` JetEngine repeater field
+4. No manual intervention required
+
+#### Technical Challenge
+The `media_content` field in the Message CCT is a JetEngine repeater field. The correct format for this field needs to be determined:
+
+**Option A**: Simple array format
+```javascript
+media_content: [501, 502, 503]
+```
+
+**Option B**: Repeater format with nested object
+```javascript
+media_content: [
+  { media: 501 },
+  { media: 502 },
+  { media: 503 }
+]
+```
+
+**Option C**: Other JetEngine-specific format (needs investigation)
+
+#### Investigation Required
+1. Verify the exact field configuration in JetEngine for `media_content`
+2. Determine the sub-field name within the repeater (might not be "media")
+3. Test which format WordPress accepts via the `/cmm/v1/submit-message` endpoint
+4. Consider if direct submission to `/jet-cct/message` endpoint works better
+
+#### Implementation Plan
+Once the correct format is determined:
+
+1. Update `SalesFunnelForm.js` line ~376 to use correct format
+2. Remove the `simple_message` workaround
+3. Test with actual message submissions
+4. Verify IDs appear correctly in WordPress admin
+
+#### Files to Modify
+- `js/modules/SalesFunnelForm.js` - Update attachment ID format logic
+- `docs/FRONTEND_MEDIA_UPLOAD_INTEGRATION.md` - Update with confirmed format
+
+---
+
+**Document Version**: 1.1
+**Last Updated**: 2025-10-18
 **WordPress Theme**: christin_morton_classic_2025
 **API Namespace**: `cmm/v2`
