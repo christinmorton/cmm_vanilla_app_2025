@@ -59,11 +59,12 @@ class AppPasswordManager {
 
     /**
      * Get authentication headers for requests
+     * Note: Does NOT include Content-Type - that should be set by the caller
+     * based on the request type (JSON, FormData, etc.)
      */
     getAuthHeaders() {
         return {
-            'Authorization': `Basic ${this.getEncodedCredentials()}`,
-            'Content-Type': 'application/json'
+            'Authorization': `Basic ${this.getEncodedCredentials()}`
         };
     }
 
@@ -76,20 +77,21 @@ class AppPasswordManager {
                 ...options,
                 headers: {
                     ...this.getAuthHeaders(),
+                    'Content-Type': 'application/json', // Add JSON content-type for makeRequest
                     ...(options.headers || {})
                 }
             };
 
             const response = await fetch(endpoint, authenticatedOptions);
-            
+
             // Handle authentication errors
             if (response.status === 401) {
                 console.error('Application Password authentication failed. Check credentials in .env file');
                 throw new Error('Application Password authentication failed');
             }
-            
+
             return response;
-            
+
         } catch (error) {
             console.error('Authenticated request failed:', error);
             throw error;
