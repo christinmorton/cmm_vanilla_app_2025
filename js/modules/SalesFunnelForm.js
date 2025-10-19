@@ -4,6 +4,7 @@
  */
 
 import AppPasswordManager from './AppPasswordManager.js';
+import MediaUploadManager from './MediaUploadManager.js';
 import { API_ENDPOINTS } from '../config/api-config.js';
 
 class SalesFunnelForm {
@@ -12,9 +13,23 @@ class SalesFunnelForm {
         this.apiEndpoint = options.apiEndpoint || API_ENDPOINTS.SUBMIT_MESSAGE;
         this.analyticsTracker = options.analyticsTracker || null;
         this.authManager = null;
+        this.mediaManager = null;
 
-        // Initialize authentication
+        // Initialize authentication and media upload
         this.initializeAuth();
+        this.initializeMediaUpload();
+    }
+
+    /**
+     * Initialize media upload manager
+     */
+    async initializeMediaUpload() {
+        try {
+            this.mediaManager = new MediaUploadManager();
+            console.log('MediaUploadManager initialized for SalesFunnelForm');
+        } catch (error) {
+            console.warn('MediaUploadManager initialization failed:', error.message);
+        }
     }
 
     /**
@@ -168,10 +183,10 @@ class SalesFunnelForm {
 
         // Add optional schema fields if present
         if (formData.phone) baseMessage.phone = formData.phone;
-        if (formData.files && formData.files.length > 0) {
-            baseMessage.media_content = formData.files;
-        }
         if (formData.chainId) baseMessage.chain_id = formData.chainId;
+
+        // NOTE: media_content is NOT set here - it's set after file upload
+        // in handleFormSubmission() with attachment IDs, not File objects
 
         // Determine storage strategy based on form complexity
         if (this.isSimpleForm(formType)) {
@@ -291,7 +306,7 @@ class SalesFunnelForm {
     }
 
     /**
-     * Complete form submission workflow
+     * Complete form submission workflow with file upload support
      */
     async handleFormSubmission(formType, formElement, options = {}) {
         const formData = this.extractFormData(formElement);
@@ -302,10 +317,67 @@ class SalesFunnelForm {
             return { success: false, error: 'Please fill in all required fields' };
         }
 
-        // Create message submission
+        let attachmentIds = [];
+
+        // Step 1: Upload files FIRST (if provided)
+        if (options.files && options.files.length > 0) {
+            console.log(`Uploading ${options.files.length} file(s) for ${formType} message...`);
+
+            try {
+                const uploadResult = await this.mediaManager.uploadForMessage(
+                    options.files,
+                    formType,
+                    'document' // Use document validation rules for business forms
+                );
+
+                if (uploadResult.success) {
+                    attachmentIds = uploadResult.data.attachments || [];
+                    console.log(`File upload successful. Attachment IDs:`, attachmentIds);
+                } else {
+                    console.warn('File upload failed:', uploadResult.message);
+                    console.log('🚫 BLOCKING FORM SUBMISSION - Validation failed');
+
+                    // Show validation errors to user
+                    if (uploadResult.errors && uploadResult.errors.length > 0) {
+                        uploadResult.errors.forEach(error => {
+                            this.showNotification(error, 'error');
+                        });
+                    } else {
+                        this.showNotification(`File upload failed: ${uploadResult.message}`, 'error');
+                    }
+
+                    // BLOCK form submission - return error so user can fix validation issues
+                    console.log('🚫 Returning error result, message will NOT be created');
+                    return {
+                        success: false,
+                        error: 'File validation failed. Please review the errors and try again.',
+                        validationErrors: uploadResult.errors || [uploadResult.message]
+                    };
+                }
+            } catch (error) {
+                console.error('File upload error:', error);
+                this.showNotification('Files could not be uploaded due to a network error.', 'error');
+
+                // BLOCK form submission on network error
+                return {
+                    success: false,
+                    error: 'Network error during file upload. Please check your connection and try again.',
+                    networkError: true
+                };
+            }
+        }
+
+        // Step 2: Create message submission with attachment IDs
         const messageData = await this.createMessageSubmission(formType, formData, userMessage);
-        
-        // Submit to API
+
+        // Add attachment IDs to simple_message field for easy manual copying
+        if (attachmentIds.length > 0) {
+            const idsString = attachmentIds.join(', ');
+            messageData.simple_message = `Attachment IDs: ${idsString}`;
+            console.log('Added attachment IDs to simple_message:', idsString);
+        }
+
+        // Step 3: Submit message to API
         const result = await this.submitToAPI(messageData);
 
         if (result.success) {
@@ -326,7 +398,15 @@ class SalesFunnelForm {
         const formData = {};
         const formDataObj = new FormData(formElement);
 
+        // File input names to exclude (handled separately via MediaUploadManager)
+        const fileInputNames = ['designFiles', 'brandFiles', 'documentFiles', 'projectDocuments', 'files'];
+
         for (let [key, value] of formDataObj.entries()) {
+            // Skip file inputs - they're handled separately via uploadedFiles
+            if (fileInputNames.includes(key)) {
+                continue;
+            }
+
             if (formData[key]) {
                 // Handle multiple values (checkboxes, etc.)
                 if (Array.isArray(formData[key])) {
@@ -549,10 +629,11 @@ class SalesFunnelForm {
         // Add to page
         document.body.appendChild(notification);
 
-        // Auto remove after 5 seconds
+        // Auto remove after duration (longer for warnings)
+        const duration = type === 'warning' ? 8000 : 5000;
         setTimeout(() => {
             notification.remove();
-        }, 5000);
+        }, duration);
     }
 
     /**

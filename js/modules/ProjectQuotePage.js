@@ -270,6 +270,9 @@ class ProjectQuotePage {
 
         // Update upload area appearance
         uploadArea.classList.add('has-files');
+
+        // Validate all files after adding
+        this.validateAllFiles();
     }
 
     /**
@@ -283,15 +286,20 @@ class ProjectQuotePage {
             fileArray.splice(index, 1);
         }
 
+        // Get upload area BEFORE removing element from DOM
+        const uploadArea = fileElement.closest('.file-upload-area');
+        const fileList = uploadArea ? uploadArea.querySelector('.file-list') : null;
+
         // Remove from display
         fileElement.remove();
 
         // Update upload area appearance
-        const uploadArea = fileElement.closest('.file-upload-area');
-        const fileList = uploadArea.querySelector('.file-list');
-        if (fileList && fileList.children.length === 0) {
+        if (fileList && fileList.children.length === 0 && uploadArea) {
             uploadArea.classList.remove('has-files');
         }
+
+        // Re-validate all files after removal
+        this.validateAllFiles();
     }
 
     /**
@@ -328,6 +336,190 @@ class ProjectQuotePage {
     }
 
     /**
+     * Validate all uploaded files using MediaUploadManager rules
+     * Shows persistent inline error messages
+     */
+    validateAllFiles() {
+        const allFiles = this.getAllFilesForUpload();
+        console.log(`🔍 validateAllFiles called with ${allFiles.length} files`);
+
+        // Clear any existing validation errors first
+        this.clearValidationErrors();
+
+        // If no files, nothing to validate
+        if (allFiles.length === 0) {
+            console.log('✅ No files to validate');
+            return { valid: true, errors: [] };
+        }
+
+        // Use the same validation rules as MediaUploadManager (document type)
+        const rules = {
+            maxFileSize: 50 * 1024 * 1024, // 50MB
+            maxTotalSize: 100 * 1024 * 1024, // 100MB
+            maxFiles: 5,
+            allowedTypes: [
+                'image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp',
+                'image/svg+xml', 'image/bmp', 'image/tiff',
+                'application/pdf',
+                'application/msword',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                'application/vnd.ms-excel',
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                'application/vnd.ms-powerpoint',
+                'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+                'text/plain', 'text/rtf', 'application/rtf', 'text/csv',
+                'application/vnd.oasis.opendocument.text',
+                'application/vnd.oasis.opendocument.spreadsheet',
+                'application/vnd.oasis.opendocument.presentation'
+            ]
+        };
+
+        const errors = [];
+
+        // Check file count
+        if (allFiles.length > rules.maxFiles) {
+            errors.push({
+                type: 'count',
+                message: `Maximum ${rules.maxFiles} files allowed. You have ${allFiles.length} files.`,
+                fix: `Please remove ${allFiles.length - rules.maxFiles} file(s) to continue.`
+            });
+        }
+
+        // Check each file
+        let totalSize = 0;
+        allFiles.forEach((file) => {
+            // Check file type
+            if (!rules.allowedTypes.includes(file.type)) {
+                errors.push({
+                    type: 'type',
+                    message: `File "${file.name}": Invalid file type (${file.type || 'unknown'})`,
+                    fix: 'Allowed types: PDF, Word, Excel, PowerPoint, Images, and text files.'
+                });
+            }
+
+            // Check file size
+            if (file.size > rules.maxFileSize) {
+                const maxSizeMB = (rules.maxFileSize / (1024 * 1024)).toFixed(0);
+                const fileSizeMB = (file.size / (1024 * 1024)).toFixed(1);
+                errors.push({
+                    type: 'size',
+                    message: `File "${file.name}": Exceeds ${maxSizeMB}MB limit (${fileSizeMB}MB)`,
+                    fix: `Please compress or split this file, or remove it.`
+                });
+            }
+
+            totalSize += file.size;
+        });
+
+        // Check total size
+        if (totalSize > rules.maxTotalSize) {
+            const maxTotalMB = (rules.maxTotalSize / (1024 * 1024)).toFixed(0);
+            const totalSizeMB = (totalSize / (1024 * 1024)).toFixed(1);
+            errors.push({
+                type: 'total',
+                message: `Total upload size exceeds ${maxTotalMB}MB limit (${totalSizeMB}MB total)`,
+                fix: 'Please remove some files or compress them before uploading.'
+            });
+        }
+
+        console.log(`📊 Validation complete. Errors found: ${errors.length}`, errors);
+
+        // Show errors if any
+        if (errors.length > 0) {
+            console.log('⚠️ About to call showValidationErrors...');
+            try {
+                this.showValidationErrors(errors);
+                console.log('✅ showValidationErrors completed');
+            } catch (error) {
+                console.error('❌ Error in showValidationErrors:', error);
+            }
+            return { valid: false, errors };
+        }
+
+        console.log('✅ All files valid!');
+        return { valid: true, errors: [] };
+    }
+
+    /**
+     * Show persistent validation errors in the form
+     */
+    showValidationErrors(errors) {
+        console.log('📝 showValidationErrors called with:', errors);
+        console.trace('Stack trace for showValidationErrors');
+
+        // Find the file upload section
+        const uploadSection = document.querySelector('.file-upload-section');
+        console.log('🔍 uploadSection query result:', uploadSection);
+
+        if (!uploadSection) {
+            console.error('❌ Could not find .file-upload-section element');
+            alert('ERROR: Could not find .file-upload-section element in the DOM');
+            return;
+        }
+
+        console.log('✅ Found upload section:', uploadSection);
+
+        // Remove any existing validation error container
+        console.log('🧹 Calling clearValidationErrors...');
+        this.clearValidationErrors();
+        console.log('🧹 clearValidationErrors completed');
+
+        // Create validation error container
+        const errorContainer = document.createElement('div');
+        errorContainer.className = 'validation-errors';
+        errorContainer.style.cssText = 'display: block !important; visibility: visible !important; opacity: 1 !important;';
+        errorContainer.innerHTML = `
+            <div class="validation-error-title">
+                <span class="error-icon">⚠️</span>
+                <span>File Validation Issues</span>
+            </div>
+            <ul class="validation-error-list">
+                ${errors.map(error => `
+                    <li class="validation-error-item">${error.message}</li>
+                `).join('')}
+            </ul>
+            <div class="validation-error-fix">
+                <strong>How to fix:</strong>
+                <p>${errors[0].fix}</p>
+            </div>
+        `;
+
+        console.log('📦 Error container created:', errorContainer);
+        console.log('📦 Error container HTML:', errorContainer.outerHTML.substring(0, 200));
+
+        // Insert at the top of the upload section
+        uploadSection.insertBefore(errorContainer, uploadSection.firstChild);
+        console.log('✅ Validation error container inserted into DOM');
+        console.log('✅ Error container parent:', errorContainer.parentElement);
+        console.log('✅ Error container in document:', document.contains(errorContainer));
+
+        // Add error state to upload areas
+        const uploadAreas = document.querySelectorAll('.file-upload-area');
+        console.log('🎨 Adding error state to', uploadAreas.length, 'upload areas');
+        uploadAreas.forEach(area => {
+            area.classList.add('has-validation-errors');
+        });
+
+        // Scroll to errors
+        console.log('📜 Scrolling to error container...');
+        errorContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        console.log('✅ showValidationErrors COMPLETE');
+    }
+
+    /**
+     * Clear all validation errors
+     */
+    clearValidationErrors() {
+        // Remove validation error containers
+        document.querySelectorAll('.validation-errors').forEach(el => el.remove());
+
+        // Remove error state from upload areas
+        document.querySelectorAll('.file-upload-area').forEach(area => {
+            area.classList.remove('has-validation-errors');
+        });
+    }
+
+    /**
      * Initialize form submission handling
      */
     initializeFormSubmission() {
@@ -354,7 +546,7 @@ class ProjectQuotePage {
         try {
             // Validate form
             if (!this.validateForm(form)) {
-                this.showValidationErrors();
+                this.showFormFieldValidationErrors();
                 return;
             }
 
@@ -363,22 +555,28 @@ class ProjectQuotePage {
 
             // Extract form data
             const formData = this.extractFormData(form);
-            
-            // Add uploaded files to form data (await async file processing)
-            formData.files = await this.getAllUploadedFiles();
 
             // Get rich text content
             const editorContent = document.getElementById('projectDescription').innerHTML;
-            
-            // Submit using sales funnel
+
+            // Collect all uploaded File objects (no base64 conversion)
+            const allFiles = this.getAllFilesForUpload();
+
+            // Submit using sales funnel with files option
             const result = await this.salesFunnel.handleFormSubmission('quote', form, {
-                userMessage: editorContent
+                userMessage: editorContent,
+                files: allFiles  // Pass File objects directly
             });
 
-            if (result.success) {
+            // Check for explicit success flag
+            if (result && result.success === true) {
+                console.log('✅ Form submission successful, redirecting...');
                 this.handleSubmissionSuccess(result);
             } else {
-                this.handleSubmissionError(result.error);
+                console.log('❌ Form submission failed:', result?.error || 'Unknown error');
+                this.handleSubmissionError(result?.error || 'Form submission failed');
+                // EXPLICITLY return to prevent any further execution
+                return;
             }
 
         } catch (error) {
@@ -415,9 +613,9 @@ class ProjectQuotePage {
     }
 
     /**
-     * Show validation error messages
+     * Show form field validation error messages (for required fields)
      */
-    showValidationErrors() {
+    showFormFieldValidationErrors() {
         const firstError = document.querySelector('.form-error, .editor-error');
         if (firstError) {
             firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -460,44 +658,18 @@ class ProjectQuotePage {
     }
 
     /**
-     * Get all uploaded files in a structured format
+     * Get all uploaded File objects for upload to WordPress media API
+     * Returns an array of raw File objects (no base64 conversion)
      */
-    async getAllUploadedFiles() {
+    getAllFilesForUpload() {
         const files = [];
-        
-        for (const [type, fileArray] of Object.entries(this.uploadedFiles)) {
-            for (const file of fileArray) {
-                try {
-                    // Convert file to base64 for JSON serialization
-                    const base64Data = await this.fileToBase64(file);
-                    
-                    files.push({
-                        name: file.name,
-                        size: file.size,
-                        type: file.type,
-                        category: type,
-                        lastModified: file.lastModified,
-                        data: base64Data
-                    });
-                } catch (error) {
-                    console.error('Error converting file to base64:', file.name, error);
-                }
-            }
-        }
+
+        // Collect all File objects from each category
+        Object.values(this.uploadedFiles).forEach(fileArray => {
+            files.push(...fileArray);
+        });
 
         return files;
-    }
-
-    /**
-     * Convert file to base64 string
-     */
-    fileToBase64(file) {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = error => reject(error);
-        });
     }
 
     /**
@@ -591,7 +763,7 @@ class ProjectQuotePage {
         if (window.analyticsTracker) {
             window.analyticsTracker.trackEvent('quote_submission', {
                 status: status,
-                files_uploaded: this.getAllUploadedFiles().length,
+                files_uploaded: this.getAllFilesForUpload().length,
                 form_type: 'project_quote'
             });
         }
