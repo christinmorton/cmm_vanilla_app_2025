@@ -18,9 +18,28 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet" />
+
+            <!-- Google tag (gtag.js) -->
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WQ2PVPGW');</script>
+    <!-- End Google Tag Manager -->
 </head>
 
-<body data-template="hybrid" class="preloader-active">
+<body data-template="background" class="preloader-active">
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WQ2PVPGW"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WQ2PVPGW"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
         <symbol id="arrow-right" viewBox="0 0 24 24">
@@ -54,7 +73,7 @@
                 <!-- Logo - Left -->
                 <div class="header-left">
                     <a class="logo" href="index.html">
-                        <img src="images/logo_2.png" alt="Christin Morton Logo">
+                        <img src="/images/logo_2.png" alt="Christin Morton Logo" id="logo-img">
                     </a>
                 </div>
 
@@ -62,20 +81,96 @@
                 <div class="header-right desktop-only">
                     <nav class="main-nav">
                         <ul class="nav-menu">
-                            <li><a href="index.html" class="nav-link">Home</a></li>
+                            <li><a href="index.html" class="nav-link active">Home</a></li>
                             <li><a href="about.html" class="nav-link">About</a></li>
                             <li><a href="service.html" class="nav-link">Services</a></li>
-                            <li><a href="portfolio.html" class="nav-link">Portfolio</a></li>
-                            <li><a href="blog.html" class="nav-link">Blog</a></li>
                             <li><a href="contact.html" class="nav-link">Contact</a></li>
                         </ul>
                     </nav>
                 </div>
 
                 <!-- Mobile Menu Toggle -->
-                <button class="mobile-menu-toggle mobile-only" type="button" aria-label="Toggle navigation">
+                <button class="mobile-menu-toggle mobile-only" type="button" aria-label="Toggle navigation" aria-controls="mobile-menu" aria-expanded="false">
                     <span class="menu-icon"></span>
                 </button>
+                
+                <!-- Mobile Menu -->
+                <div class="mobile-menu" id="mobile-menu">
+                    <div class="mobile-menu-header">
+                        <button type="button" class="mobile-menu-close" aria-label="Close menu">
+                            <svg width="16" height="16">
+                                <use xlink:href="#close"></use>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div class="mobile-menu-content">
+                        <!-- Mobile Navigation -->
+                        <nav class="mobile-nav">
+                            <ul class="mobile-nav-menu">
+                                <li><a href="index.html" class="nav-link active">Home</a></li>
+                                <li><a href="about.html" class="nav-link">About</a></li>
+                                <li><a href="service.html" class="nav-link">Services</a></li>
+                                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                            </ul>
+                        </nav>
+
+                        <div class="mobile-only">
+                            <div class="cta-section">
+                                <a href="project-quote.html" class="action-button">
+                                    <span>Get Quote</span>
+                                    <div class="button-icon">
+                                        <svg class="arrow-right" width="28" height="28">
+                                            <use xlink:href="#arrow-right"></use>
+                                        </svg>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Mobile Social Links -->
+                        <ul class="social-links mobile-social">
+                            <li>
+                                <a href="https://www.facebook.com/morton41Christin" aria-label="Facebook">
+                                    <svg class="social-icon" width="24" height="24">
+                                        <use xlink:href="#facebook"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/christinmorton41" aria-label="Instagram">
+                                    <svg class="social-icon" width="24" height="24">
+                                        <use xlink:href="#instagram"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.linkedin.com/in/christin-morton-b24512209" aria-label="LinkedIn">
+                                    <svg class="social-icon" width="24" height="24">
+                                        <use xlink:href="#linkedin"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/christinmorton" aria-label="GitHub">
+                                    <i class="icofont-github"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://dribbble.com/ChristinMorton" aria-label="Dribbble">
+                                    <svg class="social-icon" width="24" height="24">
+                                        <use xlink:href="#dribbble"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.behance.net/chrismorton11" aria-label="Behance">
+                                    <i class="icofont-behance"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </header>
 
@@ -217,6 +312,31 @@
                                 <a href="free-consultation.html" class="funnel-cta funnel-cta--secondary">Schedule Consultation</a>
                             </div>
                         </div>
+
+                        <div class="ready-to-start">
+                            <div class="start-card">
+                                <h2>Ready to Get Started?</h2>
+                                <p>If you're excited about your project and want to secure your development timeline, you can reserve your spot with a project deposit while we finalize the proposal details.</p>
+                                <div class="start-benefits">
+                                    <div class="benefit-item">
+                                        <span class="benefit-icon">🎯</span>
+                                        <span>Lock in your preferred timeline</span>
+                                    </div>
+                                    <div class="benefit-item">
+                                        <span class="benefit-icon">💎</span>
+                                        <span>Priority project scheduling</span>
+                                    </div>
+                                    <div class="benefit-item">
+                                        <span class="benefit-icon">🚀</span>
+                                        <span>Fast-track project kickoff</span>
+                                    </div>
+                                </div>
+                                <a href="checkout.html?source=quote_form&recommended=250" class="checkout-cta">
+                                    Reserve Your Spot with Project Deposit →
+                                </a>
+                                <p class="deposit-note">Deposits are fully credited toward your final project cost</p>
+                            </div>
+                        </div>
                         
                         <div class="contact-options">
                             <h3>Questions About Your Quote?</h3>
@@ -243,8 +363,7 @@
     </main>
 
     <!-- Custom Scripts -->
-    <script type="module" src="js/main.js"></script>
-    <script type="module">
+    <script>
         // Track quote thank you page visit
         document.addEventListener('DOMContentLoaded', () => {
             if (window.analyticsTracker) {
@@ -459,13 +578,13 @@
         .next-actions {
             margin-bottom: 3rem;
         }
-        
+
         .next-actions h2 {
             font-size: 2rem;
             margin-bottom: 1rem;
             color: var(--white-color);
         }
-        
+
         .next-actions p {
             font-size: 1.1rem;
             margin-bottom: 2rem;
@@ -474,28 +593,105 @@
             margin-left: auto;
             margin-right: auto;
         }
-        
+
         .action-buttons {
             display: flex;
             gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
         }
-        
+
         .action-buttons .funnel-cta {
             background: var(--white-color);
             color: var(--primary-color);
         }
-        
+
         .action-buttons .funnel-cta--secondary {
             background: transparent;
             color: var(--white-color);
             border: 2px solid var(--white-color);
         }
-        
+
         .action-buttons .funnel-cta--secondary:hover {
             background: var(--white-color);
             color: var(--primary-color);
+        }
+
+        /* Ready to Start Section */
+        .ready-to-start {
+            margin-bottom: 3rem;
+        }
+
+        .start-card {
+            background: linear-gradient(135deg, rgba(2, 154, 45, 0.2) 0%, rgba(2, 154, 45, 0.1) 100%);
+            border: 2px solid rgba(2, 154, 45, 0.4);
+            border-radius: 12px;
+            padding: 2.5rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .start-card h2 {
+            font-size: 1.75rem;
+            color: #90EE90;
+            margin-bottom: 1rem;
+        }
+
+        .start-card > p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .start-benefits {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+            color: var(--white-color);
+        }
+
+        .benefit-icon {
+            font-size: 1.25rem;
+        }
+
+        .checkout-cta {
+            display: inline-block;
+            background: linear-gradient(135deg, #90EE90 0%, var(--primary-color) 100%);
+            color: #1a1a1a;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .checkout-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(144, 238, 144, 0.3);
+            color: #1a1a1a;
+            text-decoration: none;
+        }
+
+        .deposit-note {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            font-style: italic;
+            margin-bottom: 0;
         }
         
         /* Contact Options */
@@ -627,8 +823,26 @@
                 flex-direction: column;
                 gap: 1rem;
             }
+
+            .start-benefits {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: center;
+            }
+
+            .checkout-cta {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
         }
     </style>
+
+    <!-- Scripts -->
+    <!-- Core functionality (needed on all pages) -->
+    <script type="module" src="js/core.js"></script>
+    <!-- Simple page functionality -->
+    <script type="module" src="js/pages/simple.js"></script>
 </body>
 
 </html>

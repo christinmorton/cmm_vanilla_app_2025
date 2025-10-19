@@ -1,17 +1,16 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>404 - Lost in Space</title>
-     <!-- Icomoon fonts -->
-    <link rel="stylesheet" type="text/css" href="css/icofont.min.css" />
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Lost in Space | Christin Morton</title>
+
+    <!-- Icomoon fonts -->
+    <link rel="stylesheet" type="text/css" href="css/icofont.min.css" />
 
     <!--Styles css ================================================== -->
     <link rel="stylesheet" href="/scss/main.scss" />
-
 
     <!--Google Font css ================================================== -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -19,54 +18,194 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet" />
+
     <style>
-      /* Critical CSS - inline to prevent white flash */
-      html, body {
-        margin: 0;
-        padding: 0;
-        background: #1a1a2e;
-        color: #ffffff;
-      }
-      
-      /* Template-specific backgrounds */
-      [data-template="background"] {
-        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-      }
-      
-      /* Hide content immediately */
-      body.preloader-active #app {
-        opacity: 0;
-      }
-      
-      #app {
-        background: inherit;
-        color: inherit;
-        min-height: 100vh;
-      }
-      
-      /* For background template, make #app transparent so canvas shows through */
-      [data-template="background"] #app {
-        background: transparent !important;
-      }
+        /* Page-specific styles */
+        .error-hero {
+            padding: 6rem 0 4rem;
+            background: transparent;
+            color: var(--white-color);
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .error-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .error-number {
+            font-size: 8rem;
+            font-weight: 900;
+            font-family: 'Roboto Mono', monospace;
+            color: var(--primary-color);
+            text-shadow: 0 0 20px rgba(2, 154, 45, 0.3);
+            margin-bottom: 2rem;
+            line-height: 1;
+        }
+
+        .error-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--white-color);
+            margin-bottom: 1rem;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .error-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+
+        .error-actions {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .error-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .error-button.primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .error-button.primary:hover {
+            background: #027a24;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(2, 154, 45, 0.3);
+        }
+
+        .error-button.secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white-color);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .error-button.secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .error-details {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        .error-link {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .error-link:hover {
+            text-decoration: underline;
+        }
+
+        .error-codes {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.8rem;
+            opacity: 0.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .error-hero {
+                padding: 4rem 0 2rem;
+                min-height: 70vh;
+            }
+
+            .error-number {
+                font-size: 6rem;
+            }
+
+            .error-title {
+                font-size: 2rem;
+            }
+
+            .error-subtitle {
+                font-size: 1rem;
+            }
+
+            .error-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .error-button {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+        }
     </style>
-  </head>
-  <body data-template="background" class="preloader-active">
-    <div id="app">
 
-      <!-- Background host (exists on pages that need background or hybrid start) -->
-      <div id="bgHost" class="bg-canvas-host"></div>
+        <!-- Google tag (gtag.js) -->
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WQ2PVPGW');</script>
+    <!-- End Google Tag Manager -->
+</head>
 
-      <!-- Content -->
-      <header id="hybridHost" class="hybrid-banner" hidden></header>
+<body data-template="background" class="preloader-active">
 
-      <main>
-        <!-- Fixed Site Header -->
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WQ2PVPGW"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="arrow-right" viewBox="0 0 24 24">
+            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+        </symbol>
+        <symbol id="close" viewBox="0 0 16 16">
+            <path
+                d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+        </symbol>
+        <symbol id="home" viewBox="0 0 24 24">
+            <path fill="currentColor"
+                d="M4 19v-9q0-.475.213-.9t.587-.7l6-4.5q.525-.4 1.2-.4t1.2.4l6 4.5q.375.275.588.7T20 10v9q0 .825-.588 1.413T18 21h-3q-.425 0-.712-.288T14 20v-5q0-.425-.288-.712T13 14h-2q-.425 0-.712.288T10 15v5q0 .425-.288.713T9 21H6q-.825 0-1.412-.587T4 19" />
+        </symbol>
+    </svg>
+
+    <!-- Background host -->
+    <div id="bgHost" class="bg-canvas-host"></div>
+
+    <!-- Content -->
+    <header id="hybridHost" class="hybrid-banner" hidden></header>
+
+    <main>
         <header id="header-nav" class="header-nav">
             <div class="site-container">
                 <!-- Logo - Left -->
                 <div class="header-left">
                     <a class="logo" href="index.html">
-                        <img src="images/logo_2.png" alt="Christin Morton Logo">
+                        <img src="/images/logo_2.png" alt="Christin Morton Logo" id="logo-img">
                     </a>
                 </div>
 
@@ -77,8 +216,6 @@
                             <li><a href="index.html" class="nav-link">Home</a></li>
                             <li><a href="about.html" class="nav-link">About</a></li>
                             <li><a href="service.html" class="nav-link">Services</a></li>
-                            <li><a href="portfolio.html" class="nav-link">Portfolio</a></li>
-                            <li><a href="blog.html" class="nav-link">Blog</a></li>
                             <li><a href="contact.html" class="nav-link">Contact</a></li>
                         </ul>
                     </nav>
@@ -88,7 +225,7 @@
                 <button class="mobile-menu-toggle mobile-only" type="button" aria-label="Toggle navigation" aria-controls="mobile-menu" aria-expanded="false">
                     <span class="menu-icon"></span>
                 </button>
-                
+
                 <!-- Mobile Menu -->
                 <div class="mobile-menu" id="mobile-menu">
                     <div class="mobile-menu-header">
@@ -98,7 +235,7 @@
                             </svg>
                         </button>
                     </div>
-                    
+
                     <div class="mobile-menu-content">
                         <!-- Mobile Navigation -->
                         <nav class="mobile-nav">
@@ -106,16 +243,14 @@
                                 <li><a href="index.html" class="nav-link">Home</a></li>
                                 <li><a href="about.html" class="nav-link">About</a></li>
                                 <li><a href="service.html" class="nav-link">Services</a></li>
-                                <li><a href="portfolio.html" class="nav-link">Portfolio</a></li>
-                                <li><a href="blog.html" class="nav-link">Blog</a></li>
                                 <li><a href="contact.html" class="nav-link">Contact</a></li>
                             </ul>
                         </nav>
 
                         <div class="mobile-only">
                             <div class="cta-section">
-                                <a href="contact.html" class="action-button">
-                                    <span>Hire Me</span>
+                                <a href="project-quote.html" class="action-button">
+                                    <span>Get Quote</span>
                                     <div class="button-icon">
                                         <svg class="arrow-right" width="28" height="28">
                                             <use xlink:href="#arrow-right"></use>
@@ -124,7 +259,7 @@
                                 </a>
                             </div>
                         </div>
-                        
+
                         <!-- Mobile Social Links -->
                         <ul class="social-links mobile-social">
                             <li>
@@ -171,53 +306,55 @@
             </div>
         </header>
 
-        <!-- 404 Error Section -->
-        <section class="error-section">
-          <div class="error-content">
-            <div class="error-main">
-              <!-- Large 404 Display -->
-              <div class="error-number">
-                <span class="error-digit">4</span>
-                <span class="error-digit error-zero">0</span>
-                <span class="error-digit">4</span>
-              </div>
-              
-              <div class="error-message">
-                <h1 class="error-title">Lost in Space</h1>
-                <p class="error-subtitle">
-                  The page you're looking for has drifted into the digital void. 
-                  Don't worry, even astronauts get lost sometimes.
-                </p>
-              </div>
+        <!-- Error Hero Section -->
+        <section class="error-hero">
+            <div class="site-container">
+                <div class="error-content">
+                    <!-- Large 404 Display -->
+                    <div class="error-number">404</div>
 
-              <!-- Navigation Options -->
-              <div class="error-actions">
-                <a href="/index.html" class="error-button primary">
-                  <span>🏠</span>
-                  Take Me Home
-                </a>
-                <a href="/two-column.html" class="error-button secondary">
-                  <span>🚀</span>
-                  Explore Templates
-                </a>
-              </div>
+                    <h1 class="error-title">Lost in Space</h1>
+                    <p class="error-subtitle">
+                        The page you're looking for has drifted into the digital void.
+                        Don't worry, even the best explorers get lost sometimes.
+                    </p>
 
-              <!-- Fun Elements -->
-              <div class="error-details">
-                <p class="error-help">
-                  If you think this page should exist, please 
-                  <a href="mailto:support@example.com" class="error-link">let us know</a>
-                </p>
-                <div class="error-codes">
-                  <span class="error-code">ERROR_CODE: COSMIC_DRIFT</span>
-                  <span class="error-code">STATUS: WANDERING_IN_SPACE</span>
+                    <!-- Navigation Options -->
+                    <div class="error-actions">
+                        <a href="index.html" class="error-button primary">
+                            <span>🏠</span>
+                            Take Me Home
+                        </a>
+                        <a href="service.html" class="error-button secondary">
+                            <span>🚀</span>
+                            Explore Services
+                        </a>
+                    </div>
+
+                    <!-- Additional Info -->
+                    <div class="error-details">
+                        <p>
+                            If you think this page should exist, please
+                            <a href="contact.html" class="error-link">let us know</a>
+                        </p>
+                        <div class="error-codes">
+                            <span>ERROR_CODE: COSMIC_DRIFT</span>
+                            <span>STATUS: WANDERING_IN_SPACE</span>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
         </section>
-      </main>
-    </div>
+    </main>
+
+    <!-- Custom Scripts -->
     <script type="module" src="js/main.js"></script>
-  </body>
+
+    <!-- Scripts -->
+    <!-- Core functionality (needed on all pages) -->
+    <script type="module" src="js/core.js"></script>
+    <!-- 404 page specific functionality -->
+    <script type="module" src="js/pages/404.js"></script>
+</body>
+
 </html>

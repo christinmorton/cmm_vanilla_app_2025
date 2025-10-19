@@ -18,9 +18,177 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet" />
+        
+    <style>
+        /* Page-specific styles */
+        .consultation-hero {
+            padding: 6rem 0 4rem;
+            background: transparent;
+            color: var(--white-color);
+        }
+        
+        .consultation-hero .value-proposition__headline,
+        .consultation-hero .value-proposition__subheadline {
+            color: var(--white-color);
+        }
+
+        .consultation-hero .benefit__title,
+        .consultation-hero .benefit__description {
+            color: var(--white-color);
+        }
+
+        .consultation-hero .value-proposition__benefits {
+            padding-top: 2rem;
+        }
+        
+        .consultation-form-section {
+            padding: 4rem 0;
+            background: #f8f9fa;
+        }
+        
+        .consultation-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .consultation-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .sidebar-section {
+            background: var(--white-color);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .sidebar-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .benefits-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .benefits-list li {
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+        }
+        
+        .discussion-topics {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .topic {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .topic-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .topic-content h4 {
+            margin: 0 0 0.5rem;
+            color: var(--dark-color);
+        }
+        
+        .topic-content p {
+            margin: 0;
+            color: var(--grey-color);
+            font-size: 0.9rem;
+        }
+        
+        .testimonial-card {
+            text-align: center;
+            font-style: italic;
+        }
+        
+        .testimonial-card blockquote {
+            margin: 0 0 1rem;
+            color: var(--grey-color);
+        }
+        
+        .testimonial-card cite {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .form-disclaimer {
+            font-size: 0.9rem;
+            color: var(--grey-color);
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        /* Button success state */
+        .funnel-submit.success {
+            background-color: #28a745 !important;
+            border-color: #28a745 !important;
+            color: white !important;
+        }
+        
+        /* Rich text editor styles */
+        #project-details {
+            color: var(--dark-color) !important;
+            background-color: white !important;
+        }
+
+        #project-details.empty::before {
+            content: attr(data-placeholder);
+            color: #999;
+            font-style: italic;
+        }
+
+        #project-details:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(2, 154, 45, 0.1);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .consultation-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .consultation-hero {
+                padding: 4rem 0 2rem;
+            }
+            
+            .sidebar-section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+
+        <!-- Google tag (gtag.js) -->
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WQ2PVPGW');</script>
+    <!-- End Google Tag Manager -->
 </head>
 
-<body data-template="hybrid" class="preloader-active">
+<body data-template="background" class="preloader-active">
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WQ2PVPGW"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
         <symbol id="arrow-right" viewBox="0 0 24 24">
@@ -49,7 +217,7 @@
                 <!-- Logo - Left -->
                 <div class="header-left">
                     <a class="logo" href="index.html">
-                        <img src="images/logo_2.png" alt="Christin Morton Logo">
+                        <img src="/images/logo_2.png" alt="Christin Morton Logo" id="logo-img">
                     </a>
                 </div>
 
@@ -57,7 +225,7 @@
                 <div class="header-right desktop-only">
                     <nav class="main-nav">
                         <ul class="nav-menu">
-                            <li><a href="index.html" class="nav-link">Home</a></li>
+                            <li><a href="index.html" class="nav-link active">Home</a></li>
                             <li><a href="about.html" class="nav-link">About</a></li>
                             <li><a href="service.html" class="nav-link">Services</a></li>
                             <li><a href="contact.html" class="nav-link">Contact</a></li>
@@ -66,9 +234,87 @@
                 </div>
 
                 <!-- Mobile Menu Toggle -->
-                <button class="mobile-menu-toggle mobile-only" type="button" aria-label="Toggle navigation">
+                <button class="mobile-menu-toggle mobile-only" type="button" aria-label="Toggle navigation" aria-controls="mobile-menu" aria-expanded="false">
                     <span class="menu-icon"></span>
                 </button>
+                
+                <!-- Mobile Menu -->
+                <div class="mobile-menu" id="mobile-menu">
+                    <div class="mobile-menu-header">
+                        <button type="button" class="mobile-menu-close" aria-label="Close menu">
+                            <svg width="16" height="16">
+                                <use xlink:href="#close"></use>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div class="mobile-menu-content">
+                        <!-- Mobile Navigation -->
+                        <nav class="mobile-nav">
+                            <ul class="mobile-nav-menu">
+                                <li><a href="index.html" class="nav-link active">Home</a></li>
+                                <li><a href="about.html" class="nav-link">About</a></li>
+                                <li><a href="service.html" class="nav-link">Services</a></li>
+                                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                            </ul>
+                        </nav>
+
+                        <div class="mobile-only">
+                            <div class="cta-section">
+                                <a href="project-quote.html" class="action-button">
+                                    <span>Get Quote</span>
+                                    <div class="button-icon">
+                                        <svg class="arrow-right" width="28" height="28">
+                                            <use xlink:href="#arrow-right"></use>
+                                        </svg>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Mobile Social Links -->
+                        <ul class="social-links mobile-social">
+                            <li>
+                                <a href="https://www.facebook.com/morton41Christin" aria-label="Facebook">
+                                    <svg class="social-icon" width="24" height="24">
+                                        <use xlink:href="#facebook"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/christinmorton41" aria-label="Instagram">
+                                    <svg class="social-icon" width="24" height="24">
+                                        <use xlink:href="#instagram"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.linkedin.com/in/christin-morton-b24512209" aria-label="LinkedIn">
+                                    <svg class="social-icon" width="24" height="24">
+                                        <use xlink:href="#linkedin"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/christinmorton" aria-label="GitHub">
+                                    <i class="icofont-github"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://dribbble.com/ChristinMorton" aria-label="Dribbble">
+                                    <svg class="social-icon" width="24" height="24">
+                                        <use xlink:href="#dribbble"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.behance.net/chrismorton11" aria-label="Behance">
+                                    <i class="icofont-behance"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </header>
 
@@ -95,23 +341,23 @@
                         <div class="value-proposition__benefits">
                             <div class="benefit">
                                 <div class="benefit__icon">🎯</div>
-                                <div class="benefit__title">Project Strategy</div>
-                                <div class="benefit__description">Discuss your goals and requirements</div>
+                                <h3 class="benefit__title">Project Strategy</h3>
+                                <p class="benefit__description">Discuss your goals and requirements</p>
                             </div>
                             <div class="benefit">
                                 <div class="benefit__icon">💡</div>
-                                <div class="benefit__title">Expert Advice</div>
-                                <div class="benefit__description">Technology recommendations</div>
+                                <h3 class="benefit__title">Expert Advice</h3>
+                                <p class="benefit__description">Technology recommendations</p>
                             </div>
                             <div class="benefit">
                                 <div class="benefit__icon">📋</div>
-                                <div class="benefit__title">Custom Proposal</div>
-                                <div class="benefit__description">Detailed plan with timeline & pricing</div>
+                                <h3 class="benefit__title">Custom Proposal</h3>
+                                <p class="benefit__description">Detailed plan with timeline & pricing</p>
                             </div>
                             <div class="benefit">
                                 <div class="benefit__icon">🚀</div>
-                                <div class="benefit__title">No Obligation</div>
-                                <div class="benefit__description">Completely free with no pressure</div>
+                                <h3 class="benefit__title">No Obligation</h3>
+                                <p class="benefit__description">Completely free with no pressure</p>
                             </div>
                         </div>
                     </div>
@@ -125,7 +371,7 @@
                 <div class="consultation-content">
                     
                     <!-- Main Consultation Form -->
-                    <form class="funnel-form consultation-form" id="consultationForm">
+                    <form class="funnel-form consultation-form" id="consultationForm" method="post" action="javascript:void(0)">
                         <div class="funnel-form__header">
                             <h2>Request Your Free Consultation</h2>
                             <p>Tell us about your project and we'll schedule a personalized consultation session.</p>
@@ -323,149 +569,12 @@
 
     <!-- Custom Scripts -->
     <script type="module" src="js/main.js"></script>
-    <script type="module">
-        // Initialize consultation page functionality
-        import ConsultationPage from './js/modules/ConsultationPage.js';
-        
-        // Initialize the consultation page with configuration
-        const consultationPage = new ConsultationPage({
-            apiEndpoint: '/wp-json/jet-cct/message',
-            analyticsTracker: window.analyticsTracker
-        });
-    </script>
 
-    <style>
-        /* Page-specific styles */
-        .consultation-hero {
-            padding: 6rem 0 4rem;
-            background: linear-gradient(135deg, var(--primary-color) 0%, #027d25 100%);
-            color: var(--white-color);
-        }
-        
-        .consultation-hero .value-proposition__headline,
-        .consultation-hero .value-proposition__subheadline {
-            color: var(--white-color);
-        }
-        
-        .consultation-form-section {
-            padding: 4rem 0;
-            background: #f8f9fa;
-        }
-        
-        .consultation-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 3rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .consultation-sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-        
-        .sidebar-section {
-            background: var(--white-color);
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .sidebar-section h3 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-        
-        .benefits-list {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .benefits-list li {
-            margin-bottom: 0.75rem;
-            font-size: 0.95rem;
-        }
-        
-        .discussion-topics {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-        
-        .topic {
-            display: flex;
-            gap: 1rem;
-        }
-        
-        .topic-icon {
-            font-size: 1.5rem;
-            flex-shrink: 0;
-        }
-        
-        .topic-content h4 {
-            margin: 0 0 0.5rem;
-            color: var(--dark-color);
-        }
-        
-        .topic-content p {
-            margin: 0;
-            color: var(--grey-color);
-            font-size: 0.9rem;
-        }
-        
-        .testimonial-card {
-            text-align: center;
-            font-style: italic;
-        }
-        
-        .testimonial-card blockquote {
-            margin: 0 0 1rem;
-            color: var(--grey-color);
-        }
-        
-        .testimonial-card cite {
-            color: var(--primary-color);
-            font-weight: 600;
-        }
-        
-        .form-disclaimer {
-            font-size: 0.9rem;
-            color: var(--grey-color);
-            text-align: center;
-            margin-top: 1rem;
-        }
-        
-        /* Rich text editor styles */
-        #project-details.empty::before {
-            content: attr(data-placeholder);
-            color: #999;
-            font-style: italic;
-        }
-        
-        #project-details:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(2, 154, 45, 0.1);
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .consultation-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            
-            .consultation-hero {
-                padding: 4rem 0 2rem;
-            }
-            
-            .sidebar-section {
-                padding: 1.5rem;
-            }
-        }
-    </style>
+    <!-- Scripts -->
+    <!-- Core functionality (needed on all pages) -->
+    <script type="module" src="js/core.js"></script>
+    <!-- Free consultation page specific functionality -->
+    <script type="module" src="js/pages/free-consultation.js"></script>
 </body>
 
 </html>

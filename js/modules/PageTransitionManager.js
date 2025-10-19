@@ -19,14 +19,15 @@ export default class PageTransitionManager {
    * Initialize global navigation interception
    */
   initializeNavigation() {
+    // TEMPORARILY DISABLED: Page transitions causing form loading issues
     // Intercept clicks on HTML page links
-    document.addEventListener('click', (e) => {
-      const link = e.target.closest('a[href$=".html"]');
-      if (link && !link.hasAttribute('data-no-transition')) {
-        e.preventDefault();
-        this.navigateTo(link.href);
-      }
-    });
+    // document.addEventListener('click', (e) => {
+    //   const link = e.target.closest('a[href$=".html"]');
+    //   if (link && !link.hasAttribute('data-no-transition')) {
+    //     e.preventDefault();
+    //     this.navigateTo(link.href);
+    //   }
+    // });
 
     // Handle browser back/forward buttons
     window.addEventListener('popstate', (e) => {
@@ -439,6 +440,29 @@ export default class PageTransitionManager {
     // Preserve animation states
     if (currentStyles.opacity) mainElement.style.opacity = currentStyles.opacity;
     if (currentStyles.transform) mainElement.style.transform = currentStyles.transform;
+    
+    // Reinitialize components after content swap
+    setTimeout(() => {
+      if (window.carouselManager) {
+        console.log('PageTransitionManager: Reinitializing carousels after content swap');
+        window.carouselManager.reinitializeAfterTransition();
+      }
+      
+      if (window.tabSwitcher) {
+        console.log('PageTransitionManager: Reinitializing tab switcher after content swap');
+        window.tabSwitcher.reinitialize();
+      }
+      
+      if (window.initAnimatedCounters) {
+        console.log('PageTransitionManager: Reinitializing animated counters after content swap');
+        window.initAnimatedCounters();
+      }
+      
+      // Dispatch custom event for other components
+      document.dispatchEvent(new CustomEvent('page-transition-complete', {
+        detail: { url: window.location.href }
+      }));
+    }, 50);
     
     if (this.debug) {
       console.log('✅ Content swapped, styles restored:', {

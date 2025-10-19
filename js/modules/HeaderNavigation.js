@@ -10,16 +10,16 @@ class HeaderNavigation {
     this.mobileMenu = document.querySelector('.mobile-menu');
     this.mobileClose = document.querySelector('.mobile-menu-close');
     this.navLinks = document.querySelectorAll('.nav-link');
-    
+
     this.isMenuOpen = false;
     this.scrollThreshold = 50;
-    
+
     this.init();
   }
-  
+
   init() {
     if (!this.header) return;
-    
+
     this.bindEvents();
     this.updateActiveLink();
     this.handleScroll();

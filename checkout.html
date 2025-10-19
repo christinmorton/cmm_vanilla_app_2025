@@ -76,8 +76,22 @@
         background: transparent !important;
       }
     </style>
+
+        <!-- Google tag (gtag.js) -->
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WQ2PVPGW');</script>
+    <!-- End Google Tag Manager -->
 </head>
 <body data-template="background" class="preloader-active checkout-page" >
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WQ2PVPGW"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
     <!-- Background Canvas -->
     <div id="bgHost" class="bg-canvas-host"></div>
@@ -87,7 +101,7 @@
         <nav class="navbar">
             <div class="nav-container">
                 <a href="/" class="navbar-brand">
-                    <img src="/images/cmm-logo.png" alt="Christine Morton" class="logo">
+                    <img src="/images/logo_2.png" alt="Christin Morton Logo" class="logo">
                 </a>
                 
                 <div class="nav-items">
@@ -220,6 +234,23 @@
                                 <button type="button" class="deposit-select-btn">Select $500 Deposit</button>
                             </div>
 
+                            <div class="deposit-card consultation" data-amount="50">
+                                <div class="deposit-header">
+                                    <h3>Consultation Deposit</h3>
+                                    <div class="price">$50</div>
+                                </div>
+                                <div class="deposit-description">
+                                    <p>Perfect for:</p>
+                                    <ul>
+                                        <li>Project planning sessions</li>
+                                        <li>Technical consultations</li>
+                                        <li>Strategy discussions</li>
+                                        <li>Refundable towards project cost</li>
+                                    </ul>
+                                </div>
+                                <button type="button" class="deposit-select-btn">Select $50 Consultation</button>
+                            </div>
+
                         </div>
 
                         <!-- Payment Processing -->
@@ -303,8 +334,10 @@
     <div class="notification-container" id="notificationContainer"></div>
 
     <!-- Scripts -->
-    <script type="module" src="/js/main.js"></script>
-    <script type="module" src="/js/modules/CheckoutPage.js"></script>
+    <!-- Core functionality (needed on all pages) -->
+    <script type="module" src="js/core.js"></script>
+    <!-- Checkout page specific functionality -->
+    <script type="module" src="js/pages/checkout.js"></script>
 
 </body>
 </html>

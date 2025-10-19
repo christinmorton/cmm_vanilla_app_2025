@@ -1,26 +1,67 @@
 class TabSwitcher {
     constructor(containerSelector) {
-        this.container = document.querySelector(containerSelector);
-        if (!this.container) {
-            console.warn(`TabSwitcher: Container "${containerSelector}" not found`);
-            return;
-        }
-        
-        this.tabTriggers = this.container.querySelectorAll('.tab-trigger');
-        this.tabContents = this.container.querySelectorAll('.tab-content');
+        this.containerSelector = containerSelector;
+        this.container = null;
+        this.tabTriggers = null;
+        this.tabContents = null;
+        this.eventListeners = [];
         
         this.init();
     }
     
     init() {
+        this.findElements();
+        if (!this.container) {
+            console.warn(`TabSwitcher: Container "${this.containerSelector}" not found`);
+            return;
+        }
+        
+        this.attachEventListeners();
+        this.setActiveTab(this.getActiveTab());
+    }
+    
+    findElements() {
+        this.container = document.querySelector(this.containerSelector);
+        if (this.container) {
+            this.tabTriggers = this.container.querySelectorAll('.tab-trigger');
+            this.tabContents = this.container.querySelectorAll('.tab-content');
+        }
+    }
+    
+    attachEventListeners() {
+        // Clean up existing listeners first
+        this.cleanup();
+        
         this.tabTriggers.forEach(trigger => {
-            trigger.addEventListener('click', (e) => {
+            const clickHandler = (e) => {
                 e.preventDefault();
                 this.switchTab(trigger.dataset.tab);
+            };
+            
+            trigger.addEventListener('click', clickHandler);
+            
+            // Store reference for cleanup
+            this.eventListeners.push({
+                element: trigger,
+                event: 'click',
+                handler: clickHandler
             });
         });
-        
-        this.setActiveTab(this.getActiveTab());
+    }
+    
+    cleanup() {
+        // Remove all event listeners
+        this.eventListeners.forEach(({ element, event, handler }) => {
+            element.removeEventListener(event, handler);
+        });
+        this.eventListeners = [];
+    }
+    
+    reinitialize() {
+        console.log('TabSwitcher: Reinitializing...');
+        this.cleanup();
+        this.init();
+        console.log('TabSwitcher: Reinitialized successfully');
     }
     
     getActiveTab() {

@@ -18,9 +18,23 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet" />
+
+            <!-- Google tag (gtag.js) -->
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WQ2PVPGW');</script>
+    <!-- End Google Tag Manager -->
 </head>
 
-<body data-template="hybrid" class="preloader-active">
+<body data-template="background" class="preloader-active">
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WQ2PVPGW"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
         <symbol id="arrow-right" viewBox="0 0 24 24">
@@ -50,7 +64,7 @@
                 <!-- Logo - Left -->
                 <div class="header-left">
                     <a class="logo" href="index.html">
-                        <img src="images/logo_2.png" alt="Christin Morton Logo">
+                        <img src="/images/logo_2.png" alt="Christin Morton Logo" id="logo-img">
                     </a>
                 </div>
 
@@ -58,20 +72,96 @@
                 <div class="header-right desktop-only">
                     <nav class="main-nav">
                         <ul class="nav-menu">
-                            <li><a href="index.html" class="nav-link">Home</a></li>
+                            <li><a href="index.html" class="nav-link active">Home</a></li>
                             <li><a href="about.html" class="nav-link">About</a></li>
                             <li><a href="service.html" class="nav-link">Services</a></li>
-                            <li><a href="portfolio.html" class="nav-link">Portfolio</a></li>
-                            <li><a href="blog.html" class="nav-link">Blog</a></li>
                             <li><a href="contact.html" class="nav-link">Contact</a></li>
                         </ul>
                     </nav>
                 </div>
 
                 <!-- Mobile Menu Toggle -->
-                <button class="mobile-menu-toggle mobile-only" type="button" aria-label="Toggle navigation">
+                <button class="mobile-menu-toggle mobile-only" type="button" aria-label="Toggle navigation" aria-controls="mobile-menu" aria-expanded="false">
                     <span class="menu-icon"></span>
                 </button>
+                
+                <!-- Mobile Menu -->
+                <div class="mobile-menu" id="mobile-menu">
+                    <div class="mobile-menu-header">
+                        <button type="button" class="mobile-menu-close" aria-label="Close menu">
+                            <svg width="16" height="16">
+                                <use xlink:href="#close"></use>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div class="mobile-menu-content">
+                        <!-- Mobile Navigation -->
+                        <nav class="mobile-nav">
+                            <ul class="mobile-nav-menu">
+                                <li><a href="index.html" class="nav-link active">Home</a></li>
+                                <li><a href="about.html" class="nav-link">About</a></li>
+                                <li><a href="service.html" class="nav-link">Services</a></li>
+                                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                            </ul>
+                        </nav>
+
+                        <div class="mobile-only">
+                            <div class="cta-section">
+                                <a href="project-quote.html" class="action-button">
+                                    <span>Get Quote</span>
+                                    <div class="button-icon">
+                                        <svg class="arrow-right" width="28" height="28">
+                                            <use xlink:href="#arrow-right"></use>
+                                        </svg>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Mobile Social Links -->
+                        <ul class="social-links mobile-social">
+                            <li>
+                                <a href="https://www.facebook.com/morton41Christin" aria-label="Facebook">
+                                    <svg class="social-icon" width="24" height="24">
+                                        <use xlink:href="#facebook"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/christinmorton41" aria-label="Instagram">
+                                    <svg class="social-icon" width="24" height="24">
+                                        <use xlink:href="#instagram"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.linkedin.com/in/christin-morton-b24512209" aria-label="LinkedIn">
+                                    <svg class="social-icon" width="24" height="24">
+                                        <use xlink:href="#linkedin"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/christinmorton" aria-label="GitHub">
+                                    <i class="icofont-github"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://dribbble.com/ChristinMorton" aria-label="Dribbble">
+                                    <svg class="social-icon" width="24" height="24">
+                                        <use xlink:href="#dribbble"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.behance.net/chrismorton11" aria-label="Behance">
+                                    <i class="icofont-behance"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </header>
 
@@ -87,11 +177,11 @@
                             </svg>
                         </div>
                         
-                        <h1 class="thank-you-title">
+                        <h1 class="thank-you-title" id="thankYouTitle">
                             Thank You for Your <span class="highlight">Interest!</span>
                         </h1>
-                        
-                        <p class="thank-you-message">
+
+                        <p class="thank-you-message" id="thankYouMessage">
                             Your message has been received successfully. I'll get back to you within 24 hours with a personalized response about your project.
                         </p>
                         
@@ -143,16 +233,91 @@
     </main>
 
     <!-- Custom Scripts -->
-    <script type="module" src="js/main.js"></script>
-    <script type="module">
-        // Track thank you page visit
+    <script>
+        // Dynamic Thank You Page Handler
         document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+
+            // Try to get data from URL parameters first, then from sessionStorage
+            let type = urlParams.get('type');
+            let amount = urlParams.get('amount');
+            let source = urlParams.get('source') || 'unknown';
+
+            // Fallback to sessionStorage for Stripe redirects (clean URLs)
+            if (!type || !amount) {
+                const stripeData = sessionStorage.getItem('stripePaymentData');
+                if (stripeData) {
+                    try {
+                        const paymentData = JSON.parse(stripeData);
+                        type = type || paymentData.type || 'general';
+                        amount = amount || paymentData.amount;
+                        source = source || 'stripe_redirect';
+
+                        // Clear the data after use
+                        sessionStorage.removeItem('stripePaymentData');
+                    } catch (e) {
+                        console.warn('Failed to parse stripe payment data:', e);
+                    }
+                }
+            }
+
+            // Default fallback
+            type = type || 'general';
+
+            // Get elements to update
+            const titleElement = document.getElementById('thankYouTitle');
+            const messageElement = document.getElementById('thankYouMessage');
+
+            // Define content variations based on type
+            const contentVariations = {
+                payment_success: {
+                    title: `Payment Successful! <span class="highlight">Thank You!</span>`,
+                    message: amount
+                        ? `Your payment of $${amount} has been processed successfully. You'll receive a confirmation email shortly with your receipt and next steps.`
+                        : 'Your payment has been processed successfully. You\'ll receive a confirmation email shortly with your receipt and next steps.'
+                },
+                custom_service: {
+                    title: `Payment Received! <span class="highlight">Thank You!</span>`,
+                    message: amount
+                        ? `Your custom service payment of $${amount} has been processed. I'll be in touch within 24 hours to discuss the next steps for your project.`
+                        : 'Your custom service payment has been processed. I\'ll be in touch within 24 hours to discuss the next steps for your project.'
+                },
+                free_consultation: {
+                    title: `Consultation Scheduled! <span class="highlight">Thank You!</span>`,
+                    message: 'Your free consultation request has been received. I\'ll reach out within 24 hours to schedule our call and discuss your project needs.'
+                },
+                deposit: {
+                    title: `Deposit Received! <span class="highlight">Thank You!</span>`,
+                    message: amount
+                        ? `Your project deposit of $${amount} has been received and your development timeline is now secured. I'll be in touch shortly with detailed project planning.`
+                        : 'Your project deposit has been received and your development timeline is now secured. I\'ll be in touch shortly with detailed project planning.'
+                },
+                consultation_deposit: {
+                    title: `Consultation Deposit Received! <span class="highlight">Thank You!</span>`,
+                    message: `Your consultation deposit of $50 has been received. This will be fully credited toward your final project cost. I\'ll reach out within 24 hours to schedule our detailed consultation.`
+                },
+                general: {
+                    title: `Thank You for Your <span class="highlight">Interest!</span>`,
+                    message: `Your message has been received successfully. I\'ll get back to you within 24 hours with a personalized response about your project.`
+                }
+            };
+
+            // Update content based on type
+            const content = contentVariations[type] || contentVariations.general;
+            titleElement.innerHTML = content.title;
+            messageElement.textContent = content.message;
+
+            // Track the thank you page visit with appropriate context
             if (window.analyticsTracker) {
                 window.analyticsTracker.trackEvent('thank_you_page_visit', {
-                    source: 'lead_form',
+                    type: type,
+                    source: source,
+                    amount: amount || null,
                     page: 'thank-you'
                 });
             }
+
+            console.log('Thank you page loaded with parameters:', { type, amount, source });
         });
     </script>
 
@@ -338,6 +503,12 @@
             }
         }
     </style>
+
+    <!-- Scripts -->
+    <!-- Core functionality (needed on all pages) -->
+    <script type="module" src="js/core.js"></script>
+    <!-- Simple page functionality -->
+    <script type="module" src="js/pages/simple.js"></script>
 </body>
 
 </html>

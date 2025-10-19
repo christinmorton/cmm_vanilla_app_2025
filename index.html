@@ -67,9 +67,23 @@
         background: transparent !important;
       }
     </style>
+
+    <!-- Google tag (gtag.js) -->
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WQ2PVPGW');</script>
+    <!-- End Google Tag Manager -->
 </head>
 
 <body data-template="background" class="preloader-active">
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WQ2PVPGW"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
         <symbol id="page-add" viewBox="0 0 20 20">
@@ -169,14 +183,14 @@
                 <!-- Logo - Left -->
                 <div class="header-left">
                     <a class="logo" href="index.html">
-                        <img src="images/logo_2.png" alt="Christin Morton Logo">
+                        <img src="/images/logo_2.png" alt="Christin Morton Logo" id="logo-img">
                     </a>
                 </div>
 
                 <!-- Navigation - Right (Desktop only) -->
                 <div class="header-right desktop-only">
                     <nav class="main-nav">
-                        <ul class="nav-menu">
+                        <ul class="nav-menu" id="site-menu">
                             <li><a href="index.html" class="nav-link active">Home</a></li>
                             <li><a href="about.html" class="nav-link">About</a></li>
                             <li><a href="service.html" class="nav-link">Services</a></li>
@@ -186,7 +200,7 @@
                 </div>
 
                 <!-- Mobile Menu Toggle -->
-                <button class="mobile-menu-toggle mobile-only" type="button" aria-label="Toggle navigation" aria-controls="mobile-menu" aria-expanded="false">
+                <button id="mobileBtn" class="mobile-menu-toggle mobile-only" type="button" aria-label="Toggle navigation" aria-controls="mobile-menu" aria-expanded="false">
                     <span class="menu-icon"></span>
                 </button>
                 
@@ -213,8 +227,8 @@
 
                         <div class="mobile-only">
                             <div class="cta-section">
-                                <a href="contact.html" class="action-button">
-                                    <span>Hire Me</span>
+                                <a href="project-quote.html" class="action-button">
+                                    <span>Get Quote</span>
                                     <div class="button-icon">
                                         <svg class="arrow-right" width="28" height="28">
                                             <use xlink:href="#arrow-right"></use>
@@ -273,28 +287,96 @@
         <section class="hero-section">
             <div class="site-container">
                 <div class="hero-content">
-                <div class="hero-column">
-                    <h1 class="hero-title">
-                                Need a Website <span class="text-highlight">that Works?</span>
-                            </h1>
-                            <p class="hero-description">
-                                I'm Christin, I specialize in WordPress and modern web apps, offering fast, affordable, and mobile-friendly solutions.
-                            </p>
-                            <a href="contact.html" class="action-button">
-                                <span>work with me</span>
-                                <div class="button-icon">
-                                    <svg class="arrow-right" width="28" height="28">
-                                        <use xlink:href="#arrow-right"></use>
-                                    </svg>
+                    <div class="hero-column">
+                        <!-- Carousel Container -->
+                        <div class="hero-carousel-container">
+                            <div class="swiper hero-carousel">
+                                <div class="swiper-wrapper">
+                                    <!-- Slide 1: Original CTA -->
+                                    <div class="swiper-slide">
+                                        <div class="slide-content">
+                                            <h1 class="hero-title">
+                                                Need a Website <span class="text-highlight">that Works?</span>
+                                            </h1>
+                                            <p class="hero-description">
+                                                I'm Christin, I specialize in WordPress and modern web apps, offering fast, affordable, and mobile-friendly solutions.
+                                            </p>
+                                            <a href="free-consultation.html" class="action-button">
+                                                <span>Get Free Consultation</span>
+                                                <div class="button-icon">
+                                                    <svg class="arrow-right" width="28" height="28">
+                                                        <use xlink:href="#arrow-right"></use>
+                                                    </svg>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Slide 2: Launch a New Project -->
+                                    <div class="swiper-slide">
+                                        <div class="slide-content service-slide">
+                                            <!-- <div class="slide-icon">🚀</div> -->
+                                            <h1 class="hero-title">Launch a New Project</h1>
+                                            <p class="hero-description">Ready to build something amazing? Get a custom quote tailored to your vision.</p>
+                                            <a href="project-quote.html" class="action-button">
+                                                <span>Get Project Quote</span>
+                                                <div class="button-icon">
+                                                    <svg class="arrow-right" width="28" height="28">
+                                                        <use xlink:href="#arrow-right"></use>
+                                                    </svg>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Slide 3: Explore Your Ideas -->
+                                    <div class="swiper-slide">
+                                        <div class="slide-content service-slide">
+                                            <!-- <div class="slide-icon">💡</div> -->
+                                            <h1 class="hero-title">Explore Your Ideas</h1>
+                                            <p class="hero-description">Not sure where to start? Let's discover the possibilities together.</p>
+                                            <a href="project-discovery.html" class="action-button">
+                                                <span>Start Discovery</span>
+                                                <div class="button-icon">
+                                                    <svg class="arrow-right" width="28" height="28">
+                                                        <use xlink:href="#arrow-right"></use>
+                                                    </svg>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Slide 4: Get Expert Advice -->
+                                    <div class="swiper-slide">
+                                        <div class="slide-content service-slide">
+                                            <!-- <div class="slide-icon">🎯</div> -->
+                                            <h1 class="hero-title">Get Expert Advice</h1>
+                                            <p class="hero-description">Need guidance on your next move? Book a free consultation call.</p>
+                                            <a href="free-consultation.html" class="action-button">
+                                                <span>Free Consultation</span>
+                                                <div class="button-icon">
+                                                    <svg class="arrow-right" width="28" height="28">
+                                                        <use xlink:href="#arrow-right"></use>
+                                                    </svg>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
-                            </a>
-              </div>
-
-              <div class="hero-column">
-                    <div class="hero-image">
-                            <img src="images/my_profile_pic_2025_round-out-effect_transparent_2.png" alt="Christin Morton - Web Developer" width="600">
+                                
+                                <!-- Navigation -->
+                                <div class="swiper-pagination hero-pagination"></div>
+                                <div class="swiper-button-next hero-next"></div>
+                                <div class="swiper-button-prev hero-prev"></div>
+                            </div>
                         </div>
-                </div>
+                    </div>
+
+                    <div class="hero-column">
+                        <div class="hero-image">
+                                <img id="hero-image" src="/images/my_profile_pic_2025_round-out-effect_transparent_2.png" alt="Christin Morton - Web Developer" width="600">
+                            </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -349,7 +431,10 @@
     </main>
 
     <!-- Custom Scripts ================================================== -->
-    <script type="module" src="js/main.js"></script>
+    <!-- Core functionality (needed on all pages) -->
+    <script type="module" src="js/core.js"></script>
+    <!-- Home page specific functionality -->
+    <script type="module" src="js/pages/home.js"></script>
 </body>
 
 </html>
