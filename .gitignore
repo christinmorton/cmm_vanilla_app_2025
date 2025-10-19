@@ -16,6 +16,11 @@ dist-ssr
 scratch_1.txt
 notes.txt
 
+# Development documentation (excluded from deployment branch only)
+docs/
+CLAUDE.md
+STRIPE_SECURITY_HARDENING_GUIDE.md
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
